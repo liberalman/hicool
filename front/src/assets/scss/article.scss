@@ -1,0 +1,48 @@
+.a-header {
+    height: 65vh;
+    min-height: 180px;
+    @media screen and (max-width: 900px) {
+        height: 45vh;
+    }
+    @media screen and (max-width: 500px) {
+        height: 30vh;
+    }
+    .main-nav {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        height: inherit;
+        background: linear-gradient(to bottom, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0) 100%);
+    }
+}
+
+.article-wrapper {
+    // width: 95%;
+    max-width: 710px;
+    margin: 4rem auto;
+    padding: 0 1rem;
+    .title {
+        text-align: left;
+        color: #2E2E2E;
+        font-size: 2.8rem;
+        font-weight: bold;
+    }
+    .create {
+        color: #9EABB3;
+        line-height: 2.2rem;
+        font-size: 1.3rem;
+        text-transform: uppercase;
+    }
+    .content {
+        margin: .5rem 0;
+        font-size: 1.2rem;
+        @media screen and (max-width: 500px) {
+            font-size: 1.6rem;
+        }
+        img {
+            /* 设置图片水平居中 */
+            display: block;
+            margin: 0 auto;
+        }
+    }
+}

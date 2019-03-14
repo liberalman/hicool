@@ -1,0 +1,21 @@
+{
+  "presets": [["env", {"loose": true, "modules": false}], "stage-2"],
+  "plugins":[
+    [
+      "transform-runtime",
+      {
+        "helpers": false,
+        "polyfill": false,
+        "regenerator": true,
+        "moduleName": "babel-runtime"
+      }
+    ]
+  ],
+  "comments": false,
+  "env": {
+    "test": {
+      "presets": ["latest", "stage-2"],
+      "plugins": [ "istanbul" ]
+    }
+  }
+}
