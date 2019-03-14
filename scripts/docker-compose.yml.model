@@ -1,0 +1,80 @@
+#libertyblog-web:
+#  ports:
+#  - 8900:8900/tcp
+#  image: liberalman/libertyblog-web
+#  links:
+#  - 'libertyblog-api-koa'
+#libertyblog-api-koa:
+#  ports:
+#  - 9000:9000/tcp
+#  environment:
+#    GITHUB_CALLBACK_URL: '${GITHUB_CALLBACK_URL}'
+#    GITHUB_CLIENT_ID: '${GITHUB_CLIENT_ID}'
+#    GITHUB_CLIENT_SECRET: '${GITHUB_CLIENT_SECRET}'
+#    MONGO_PASSWORD: ''
+#    MONGO_USERNAME: ''
+#    QINIU_APP_BUCKET: QINIU_APP_BUCKET
+#    QINIU_APP_DOMAIN: QINIU_APP_DOMAIN
+#    QINIU_APP_KEY: QINIU_APP_KEY
+#    QINIU_APP_SECRET: QINIU_APP_SECRET
+#    QQ_CALLBACK_URL: QQ_CALLBACK_URL
+#    QQ_CLIENT_ID: QQ_CLIENT_ID
+#    QQ_CLIENT_SECRET: QQ_CLIENT_SECRET
+#    REDIS_PASSWORD: ''
+#    WEIBO_CALLBACK_URL: WEIBO_CALLBACK_URL
+#    WEIBO_CLIENT_ID: WEIBO_CLIENT_ID
+#    WEIBO_CLIENT_SECRET: WEIBO_CLIENT_SECRET
+#    INITDATA: 'true'
+#  links:
+#  - mongo:mongo
+#  - redis:redis
+#  image: liberalman/libertyblog-api-koa
+#libertyblog-admin:
+#  ports:
+#  - 8700:8700/tcp
+#  image: liberalman/libertyblog-admin
+redis:
+  image: redis
+  volumes:
+    - ~/data/redis/data:/data
+    - ${BASE_DIR}/redis.conf:/etc/redis/redis.conf
+  ports:
+    - "${redis_port}:6379"
+mongo:
+  image: mongo
+  volumes:
+    - ~/data/mongo/db:/data/db
+  ports:
+    - "${mongodb_port}:27017"
+  command: -master --auth
+nginx:
+  ports:
+    - 443:443/tcp
+    - 6012:6012/tcp
+    - 6011:6011/tcp
+    - 80:80/tcp
+  image: nginx
+  volumes:
+    - ${BASE_DIR}/nginx:/etc/nginx/conf.d
+    - /var/cache/nginx:/var/cache/nginx
+xunsearch:
+  image: docker.io/hightman/xunsearch
+  volumes:
+    - /usr/local/xunsearch/data:/usr/local/xunsearch/data
+    - /data/www/libertyblog-search/libertyblog.ini:/usr/local/xunsearch/sdk/php/app/libertyblog.ini
+  ports:
+    - ${xun_search_port1}:8383
+    - ${xun_search_port2}:8384
+apache-php:
+  image: php-mongodb:7.2-apache
+  volumes:
+    - /data/www:/var/www/html
+  ports:
+    - ${apache_port}:80
+#    - 8443:443
+hicool:
+  image: hicool
+  volumes:
+    - ${ROOT_DIR}/hicool:/data/hicool
+  ports:
+    - "${hicool_port}:5000"

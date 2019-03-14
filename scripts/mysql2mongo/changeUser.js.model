@@ -1,0 +1,48 @@
+// cnpm install mongodb
+// cnpm install mysql
+// node app.js >> run.log
+
+var ObjectID = require('mongodb').ObjectID;
+var MongoClient = require("mongodb").MongoClient;
+var DB_URL = "mongodb://${mongodb_username}:${mongodb_password}@${mongodb_host}:${mongodb_port}/${mongodb_dbname}";
+
+function update(devices, num, whereData, updateData)
+{
+    devices.update(whereData, updateData, function(error, result){
+        if(error)
+        {
+            console.log('Error:' + error + '\n');
+        }else{
+            console.log(num + ' has been handle success. ' + result.result.n + '\n');
+        }
+    });
+}
+
+MongoClient.connect(DB_URL, function(error, db){
+    var collect = db.db('${mongodb_dbname}');
+    var devices = collect.collection('articles');
+    let page = 1;
+    let pageSize = 1;
+    let startRow = 0;
+    let end = 920;
+    for(page = 1; startRow < end ; page++){
+        startRow = (page - 1) * pageSize;
+        devices.find()
+        .skip(startRow)
+        .limit(pageSize)
+        .toArray(function(err,docs){
+            if(docs[0]){
+                console.log(docs[0]._id);
+                var whereData = {"_id": docs[0]._id};
+                //var updateData = {$set: {meta: {updateAt:docs[0].updated, createdAt: docs[0].created}, author_id: ObjectID("5a5624e4ba18d80e4dd3162b")} }; //如果不用$set，替换整条数据
+                var updateData = {$set: {type: 1} }; //如果不用$set，替换整条数据
+                //var updateData = {$unset: { meta: 1 } }; //delete a feild 如果不用$unset，替换整条数据
+                update(devices, startRow, whereData, updateData);
+            }
+        });
+        /*var i = setInterval(function () {  
+          console.log('ping');  
+        }, 1000);*/
+    }
+    //db.close();
+});

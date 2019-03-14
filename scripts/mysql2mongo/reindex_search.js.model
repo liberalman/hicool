@@ -1,0 +1,45 @@
+// cnpm install mongodb
+// cnpm install mysql
+// node app.js >> run.log
+const sleep = require('sleep');
+const axios = require('axios');
+const util = require('util')
+const querystring = require('querystring')
+const ObjectID = require('mongodb').ObjectID;
+const MongoClient = require("mongodb").MongoClient;
+const DB_URL = "mongodb://${mongodb_username}:${mongodb_password}@${mongodb_host}:${mongodb_port}/${mongodb_dbname}";
+
+MongoClient.connect(DB_URL, async function(error, db){
+    var collect = db.db('${mongodb_dbname}');
+    var devices = collect.collection('articles');
+    let page = 1;
+    let pageSize = 1;
+    let startRow = 0;
+    let end = 0;
+    let total = await devices.find().count();
+    console.log("total:" + total)
+    end = total;
+    for(page = 1; startRow < end ; page++){
+        startRow = (page - 1) * pageSize;
+        
+        console.log('offset:'+startRow);
+
+        let docs = await devices.find()
+        .skip(startRow)
+        .limit(pageSize)
+        .toArray()
+        if(docs[0]){
+            //console.log(docs[0]._id, docs[0].title);
+            var params = querystring.stringify({cmd:'add', '_id': util.format('%s', docs[0]._id), 'title': docs[0].title, 'content': docs[0].content, 'description': docs[0].description});
+            axios.post('${xun_search_host}/api.php', params) // add index to xunsearch
+            .then(function (res) {
+                console.log(res.data);
+            })
+            .catch(function (error) {
+                console.log(error.code);
+            });
+        }
+        sleep.sleep(1);
+    }
+    db.close();
+});
