@@ -1,0 +1,5 @@
+type Article {
+  _id: ID!
+  content: String!
+  description: String
+}

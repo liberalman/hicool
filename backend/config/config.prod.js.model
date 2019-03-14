@@ -1,0 +1,48 @@
+/* eslint valid-jsdoc: "off" */
+
+'use strict';
+
+/**
+ * @param {Egg.EggAppInfo} appInfo app info
+ */
+module.exports = appInfo => {
+  /**
+   * built-in config
+   * @type {Egg.EggAppConfig}
+   **/
+  const config = {
+    jsonp: {
+      csrf: false,
+    },
+    security: {
+      csrf: {
+        ignoreJSON: true, // 默认为 false，当设置为 true 时，将会放过所有 content-type 为 application/json 的请求
+      }
+    }
+  };
+  
+  // use for cookie sign key, should change to your own and keep security
+  config.keys = appInfo.name + '${hicool_cookie_secure_key}'; // 此处改为你自己的 Cookie 安全字符串
+  
+  // add your user config here
+  const userConfig = {
+    // myAppName: 'egg',
+    mongoose: {
+      client: {
+        url: 'mongodb://${mongodb_username}:${mongodb_password}@${mongodb_host}:${mongodb_port}/${mongodb_dbname}',
+        options: {},
+      }
+    },
+    qiniu: {
+      app_key: process.env.QINIU_APP_KEY || '${qiniu_app_key}',
+      app_secret: process.env.QINIU_APP_SECRET || '${qiniu_app_secret}',
+      domain: process.env.QINIU_APP_DOMAIN || '${qiniu_domain}', //七牛配置域名
+      bucket: process.env.QINIU_APP_BUCKET || '${qiniu_bucket}' //七牛空间名称
+    }
+  };
+  
+  return {
+    ...config,
+    ...userConfig,
+  };
+};

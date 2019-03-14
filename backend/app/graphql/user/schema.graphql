@@ -1,0 +1,9 @@
+type User {
+  _id: ID!
+  name: String!
+  nickname: String!
+  avatar: String!
+  email: String!
+  description: String!
+  items: [Item!]
+}
