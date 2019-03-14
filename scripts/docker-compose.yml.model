@@ -72,9 +72,9 @@ apache-php:
   ports:
     - ${apache_port}:80
 #    - 8443:443
-hicool:
+front:
   image: hicool
   volumes:
-    - ${ROOT_DIR}/hicool:/data/hicool
+    - ${ROOT_DIR}/front:/data/hicool
   ports:
     - "${hicool_port}:5000"
