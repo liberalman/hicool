@@ -56,6 +56,10 @@ module.exports = appInfo => {
       domain: process.env.QINIU_APP_DOMAIN || '', //七牛配置域名
       bucket: process.env.QINIU_APP_BUCKET || '', //七牛空间名称
       expire: 604800 // 七牛token过期时间，单位s。这里我默认7天过期。
+    },
+    cors: {
+      //origin: ['http://www.hicool.top'],
+      domainWhiteList: ['www.hicool.top','admin.hicool.top'],
     }
   };
 
