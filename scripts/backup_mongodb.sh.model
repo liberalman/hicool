@@ -4,7 +4,7 @@
 #3，删除超过7天的备份数据，保留3个月里的 10号 20号 30号的备份数据；
 
 # add crontab 创建定时任
-exist=`crontab -l|grep backup_mongodb`
+exist=\`crontab -l|grep backup_mongodb\`
 if [ -z "\${exist}" ];then
   crontab -l > /tmp/crontab_backup_mongodb.bak
   echo '0 5 * * *  sh ${BASE_DIR}/backup_mongodb.sh > /var/log/backup_mongodb.log 2>&1 &' >> /tmp/crontab_backup_mongodb.bak
@@ -19,7 +19,7 @@ packname="mongodb-${mongodb_dbname}.tar.gz"
 #    exit;
 #fi
 
-pushd /data/libertyblog-web/scripts
+pushd ${BASE_DIR}
     /usr/local/bin/mongodump -h ${mongodb_host}:${mongodb_port} -u ${mongodb_username} -p ${mongodb_password} -d ${mongodb_dbname} -o /tmp
     tar cvzfP ./\${packname} /tmp/${mongodb_dbname}
 
