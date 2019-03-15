@@ -70,7 +70,7 @@ search:
   volumes:
     - ${ROOT_DIR}/search/store:/store
   ports:
-    - ${search_port}:8080
+    - ${search_port}:${search_port}
 apache-php:
   image: php-mongodb:7.2-apache
   volumes:

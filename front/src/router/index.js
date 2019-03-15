@@ -75,6 +75,12 @@ export default new VueRouter({
             require(['@/views/Search1'], resolve)
         }
     }, {
+        path: '/search2',
+        name: 'Search',
+        component: function(resolve) {
+            require(['@/views/Search2'], resolve)
+        }
+    }, {
         path: '/post/add',
         name: 'addarticle',
         component: function(resolve) {

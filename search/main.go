@@ -172,18 +172,29 @@ func (criteria WeiboScoringCriteria) Score(
 
 // JsonResponse json response
 type JsonResponse struct {
-	Docs []*Weibo `json:"docs"`
+	Docs  []*Weibo `json:"docs"`
+    Total int      `json:"total"`
 }
 
 // JsonRpcServer json rpc server
 func JsonRpcServer(w http.ResponseWriter, req *http.Request) {
 	query := req.URL.Query().Get("query")
+    page, _ := strconv.Atoi(req.URL.Query().Get("page"))
+    if page < 1 {
+        page = 1
+    }
+    size, _ := strconv.Atoi(req.URL.Query().Get("size"))
+    if size < 1 || size > 100 {
+        size = 10
+    }
+    offset := (page - 1) * size
+    // fmt.Println(offset, page, size)
 	output := searcher.SearchDoc(types.SearchReq{
 		Text: query,
 		RankOpts: &types.RankOpts{
 			ScoringCriteria: &WeiboScoringCriteria{},
-			OutputOffset:    0,
-			MaxOutputs:      100,
+			OutputOffset:    offset,
+			MaxOutputs:      size,
 		},
 	})
 
@@ -202,12 +213,27 @@ func JsonRpcServer(w http.ResponseWriter, req *http.Request) {
 		wb.Description = fields.Description
 		wb.Labels = fields.Labels
 		// wb.Text = doc.Content
+        max := 500
 		for _, t := range output.Tokens {
+            length := len(wb.Text)
+            if length > max {
+                pos := strings.Index(wb.Text, t)
+                if pos < 1 {
+                    pos = 1
+                }
+                if pos > 50 {
+                    pos = pos - 50
+                }
+                if pos+max < length {
+                    length = pos + max
+                }
+                wb.Text = wb.Text[pos:length]
+            }
 			wb.Text = strings.Replace(wb.Text, t, "<font color=red>"+t+"</font>", -1)
 		}
 		docs = append(docs, &wb)
 	}
-	response, _ := json.Marshal(&JsonResponse{Docs: docs})
+	response, _ := json.Marshal(&JsonResponse{Docs: docs, Total: output.NumDocs})
 
 	// fmt.Println("response...", response)
 
@@ -226,7 +252,7 @@ func rpcAddIndex(w http.ResponseWriter, req *http.Request) {
 	if err := json.Unmarshal(body, &weibo); err != nil {
 		io.WriteString(w, err.Error())
 	} else {
-		fmt.Println(weibo)
+		// fmt.Println(weibo)
 		addIndex(weibo)
 		response, _ := json.Marshal(weibo)
 		w.Header().Set("Content-Type", "application/json")

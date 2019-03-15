@@ -1,6 +1,6 @@
 FROM busybox
 
-EXPOSE 8080
+EXPOSE 8900
 
 ADD search search
 ADD static static
