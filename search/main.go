@@ -218,7 +218,7 @@ func JsonRpcServer(w http.ResponseWriter, req *http.Request) {
 /*
 curl -X POST -H 'Content-Type: application/json' \
  -d '{ "id": "3607871495567320", "timestamp": 1375667058, "user_name": "Hicool网", "labels": ["golang","c++"], "reposts_count": 240, "title": "Title", "text": "socho is a good boy.", "description": "This is a..." }' \
- http://localhost:8080/index/add
+ http://localhost:8900/index/add
 */
 func rpcAddIndex(w http.ResponseWriter, req *http.Request) {
 	var weibo Weibo
@@ -234,6 +234,9 @@ func rpcAddIndex(w http.ResponseWriter, req *http.Request) {
 	}
 }
 
+/*
+curl http://localhost:8900/index/remove?id=3607871495567320
+*/
 func rpcRemoveIndex(w http.ResponseWriter, req *http.Request) {
 	id := req.URL.Query().Get("id")
 	removeIndex(id)
@@ -288,5 +291,5 @@ func main() {
 	http.HandleFunc("/index/remove", rpcRemoveIndex)
 	http.Handle("/", http.FileServer(http.Dir(*staticFolder)))
 	log.Println("服务器启动")
-	log.Fatal(http.ListenAndServe(":8080", nil))
+	log.Fatal(http.ListenAndServe(":8900", nil))
 }

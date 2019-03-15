@@ -16,6 +16,7 @@ class ArticleService extends Service {
   constructor(ctx) {
     super(ctx);
     this.root = 'http://www.hicool.top/libertyblog-search/api.php';
+    this.search = 'http://www.hicool.top:8900';
   }
 
   async create(uid) {
@@ -57,6 +58,19 @@ class ArticleService extends Service {
       /*.then(function (response) {
         console.log(response)
       })*/
+      
+      // add search
+      var params1 = querystring.stringify({
+        "id": util.format('%s', id),
+        "timestamp": 1375667058,
+        "user_name": util.format('%s', uid),
+        "labels": ["golang", "c++"],
+        "reposts_count": 2400,
+        "title": title,
+        "text": content,
+        "description": description
+      })
+      axios({url: `${this.search}/index/add`, method:'post', data:JSON.stringify(params1)})
     } catch(err) {
       // ctx.throw(err)
       ctx.status = 500
@@ -92,10 +106,11 @@ class ArticleService extends Service {
         ctx.status = 200
   
         // 删除XunSearch索引
-        axios.delete(`${this.root}/id`)
+        axios.delete(`${this.root}/${id}`)
         /*.then(function (response) {
           console.log(response)
         })*/
+        axios.get(`${this.search}/index/remove?id=${id}`)
       } catch(err) {
         // ctx.throw(err)
         ctx.status = 500
@@ -161,6 +176,18 @@ class ArticleService extends Service {
         /*.then(function (response) {
           console.log(response)
         })*/
+        // add search
+        var params1 = {
+          'id': id,
+          'timestamp': 1375667058, 
+          'user_name': article.author_id.toString(),
+          'labels': ['golang', 'c++'],
+          'reposts_count': 2400,
+          'title': article.title,
+          'text': article.content,
+          'description': article.description
+        } 
+        axios({url: `${this.search}/index/add`, method:'post', data:JSON.stringify(params1)})
       } catch(err) {
         // ctx.throw(err)
         ctx.status = 500
