@@ -2,3 +2,6 @@ scripts/.leancloud/
 scripts/docker-compose.yml
 scripts/redis.conf
 scripts/backup_mongodb.sh
+search/go.sum
+search/search
+search/store/

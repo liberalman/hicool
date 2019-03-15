@@ -65,6 +65,12 @@ xunsearch:
   ports:
     - ${xun_search_port1}:8383
     - ${xun_search_port2}:8384
+search:
+  image: liberalman/search
+  volumes:
+    - ${ROOT_DIR}/search/store:/store
+  ports:
+    - ${search_port}:8080
 apache-php:
   image: php-mongodb:7.2-apache
   volumes:

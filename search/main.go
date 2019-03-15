@@ -261,7 +261,7 @@ func main() {
 		// 默认使用leveldb持久化，如果你希望修改数据库类型
 		// 请用 StoreEngine: " " 或者修改 Riot_Store_Engine 环境变量
 		UseStore:    true,
-		StoreFolder: "weibo_search",
+		StoreFolder: "store",
 		// StoreEngine: "bg",
 	})
 	searcher.Flush()
