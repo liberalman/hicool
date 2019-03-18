@@ -69,6 +69,7 @@ search:
   image: liberalman/search
   volumes:
     - ${ROOT_DIR}/search/store:/store
+    - ${ROOT_DIR}/search/conf.ini:/conf.ini
   ports:
     - ${search_port}:${search_port}
 apache-php:
