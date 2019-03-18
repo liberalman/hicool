@@ -40,7 +40,10 @@ var (
 
 	staticFolder = flag.String("static_folder", "static", "静态文件目录")
 
-    using = flag.Int("using", 4, "关键词类型")
+	configFile = flag.String("conf",
+		"./conf.ini", "配置文件")
+
+	using = flag.Int("using", 4, "关键词类型")
 )
 
 // Weibo weibo json struct
@@ -174,21 +177,21 @@ func (criteria WeiboScoringCriteria) Score(
 // JsonResponse json response
 type JsonResponse struct {
 	Docs  []*Weibo `json:"docs"`
-    Total int      `json:"total"`
+	Total int      `json:"total"`
 }
 
 // JsonRpcServer json rpc server
 func JsonRpcServer(w http.ResponseWriter, req *http.Request) {
 	query := req.URL.Query().Get("query")
-    page, _ := strconv.Atoi(req.URL.Query().Get("page"))
-    if page < 1 {
-        page = 1
-    }
-    size, _ := strconv.Atoi(req.URL.Query().Get("size"))
-    if size < 1 || size > 100 {
-        size = 10
-    }
-    offset := (page - 1) * size
+	page, _ := strconv.Atoi(req.URL.Query().Get("page"))
+	if page < 1 {
+		page = 1
+	}
+	size, _ := strconv.Atoi(req.URL.Query().Get("size"))
+	if size < 1 || size > 100 {
+		size = 10
+	}
+	offset := (page - 1) * size
 	output := searcher.SearchDoc(types.SearchReq{
 		Text: query,
 		RankOpts: &types.RankOpts{
@@ -213,22 +216,22 @@ func JsonRpcServer(w http.ResponseWriter, req *http.Request) {
 		wb.Description = fields.Description
 		wb.Labels = fields.Labels
 		// wb.Text = doc.Content
-        max := 500
+		max := 500
 		for _, t := range output.Tokens {
-            length := len(wb.Text)
-            if length > max {
-                pos := strings.Index(wb.Text, t)
-                if pos < 1 {
-                    pos = 1
-                }
-                if pos > 50 {
-                    pos = pos - 50
-                }
-                if pos+max < length {
-                    length = pos + max
-                }
-                wb.Text = wb.Text[pos:length]
-            }
+			length := len(wb.Text)
+			if length > max {
+				pos := strings.Index(wb.Text, t)
+				if pos < 1 {
+					pos = 1
+				}
+				if pos > 50 {
+					pos = pos - 50
+				}
+				if pos+max < length {
+					length = pos + max
+				}
+				wb.Text = wb.Text[pos:length]
+			}
 			wb.Text = strings.Replace(wb.Text, t, "<font color=red>"+t+"</font>", -1)
 		}
 		docs = append(docs, &wb)
@@ -263,6 +266,15 @@ curl http://localhost:8900/index/remove?id=3607871495567320
 func rpcRemoveIndex(w http.ResponseWriter, req *http.Request) {
 	id := req.URL.Query().Get("id")
 	removeIndex(id)
+	io.WriteString(w, "")
+}
+
+/*
+curl http://localhost:8900/index/reindex
+*/
+func rpcReindex(w http.ResponseWriter, req *http.Request) {
+	go reindexSearch()
+	io.WriteString(w, "异步任务已发出，等待会查询。")
 }
 
 /*******************************************************************************
@@ -312,6 +324,7 @@ func main() {
 	http.HandleFunc("/json", JsonRpcServer)
 	http.HandleFunc("/index/add", rpcAddIndex)
 	http.HandleFunc("/index/remove", rpcRemoveIndex)
+	http.HandleFunc("/index/reindex", rpcReindex)
 	http.Handle("/", http.FileServer(http.Dir(*staticFolder)))
 	log.Println("服务器启动")
 	log.Fatal(http.ListenAndServe(":8900", nil))

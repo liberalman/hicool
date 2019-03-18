@@ -1,0 +1,12 @@
+[default]
+Using=4
+DictFile="ditc/dictionary.txt"
+StopTokenFile="dict/stop_tokens.txt"
+StaticFolder=static
+
+[mongodb]
+Username=${mongodb_username}
+Password=${mongodb_passport}
+Host=${mongodb_host}
+Port=${mongodb_port}
+Dbname=${mongodb_dbname}
