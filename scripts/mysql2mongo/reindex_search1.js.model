@@ -40,15 +40,18 @@ MongoClient.connect(DB_URL, async function(error, db){
               'description': docs[0].description
             }
             // add index to search
-            axios({url:'${search_host}/index/add', method:'post', data:JSON.stringify(params)})
-            .then(function (res) {
+            let res = await axios({url:'${search_host}/index/add', method:'post', data:JSON.stringify(params)})
+            /*.then(function (res) {
                 // console.log(res.data);
             })
             .catch(function (error) {
                 console.log(error.code);
-            });
+            });*/
+            if (!res.data) {
+              console.log(res.code)
+            }
         }
-        sleep.sleep(1);
+        sleep.msleep(1000);
     }
     db.close();
 });

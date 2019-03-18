@@ -4,7 +4,6 @@ package main
 import (
 	"bufio"
 	"flag"
-	"fmt"
 	"io"
 	"io/ioutil"
 	"log"
@@ -40,6 +39,8 @@ var (
 		"./dict/stop_tokens.txt", "停用词文件")
 
 	staticFolder = flag.String("static_folder", "static", "静态文件目录")
+
+    using = flag.Int("using", 4, "关键词类型")
 )
 
 // Weibo weibo json struct
@@ -188,7 +189,6 @@ func JsonRpcServer(w http.ResponseWriter, req *http.Request) {
         size = 10
     }
     offset := (page - 1) * size
-    // fmt.Println(offset, page, size)
 	output := searcher.SearchDoc(types.SearchReq{
 		Text: query,
 		RankOpts: &types.RankOpts{
@@ -235,8 +235,6 @@ func JsonRpcServer(w http.ResponseWriter, req *http.Request) {
 	}
 	response, _ := json.Marshal(&JsonResponse{Docs: docs, Total: output.NumDocs})
 
-	// fmt.Println("response...", response)
-
 	w.Header().Set("Content-Type", "application/json")
 	io.WriteString(w, string(response))
 }
@@ -252,7 +250,6 @@ func rpcAddIndex(w http.ResponseWriter, req *http.Request) {
 	if err := json.Unmarshal(body, &weibo); err != nil {
 		io.WriteString(w, err.Error())
 	} else {
-		// fmt.Println(weibo)
 		addIndex(weibo)
 		response, _ := json.Marshal(weibo)
 		w.Header().Set("Content-Type", "application/json")
@@ -279,7 +276,7 @@ func main() {
 	gob.Register(WeiboScoringFields{})
 	log.Print("引擎开始初始化")
 	searcher.Init(types.EngineOpts{
-		Using:   0,
+		Using:   *using,
 		GseDict: *dictFile,
 		// GseDict:       "zh",
 		StopTokenFile: *stopTokenFile,

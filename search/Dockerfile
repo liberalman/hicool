@@ -9,6 +9,7 @@ ADD dict/dictionary.txt dict/dictionary.txt
 ADD dict/stop_tokens.txt dict/stop_tokens.txt
 
 CMD ./search \
+ --using=4 \
  --dict_file=ditc/dictionary.txt \
  --stop_token_file=dict/stop_tokens.txt \
  --static_folder=static
