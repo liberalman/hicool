@@ -17,6 +17,8 @@ import (
 	"net/http"
 	"os/signal"
 
+	_ "net/http/pprof"
+
 	"github.com/go-ego/riot"
 	"github.com/go-ego/riot/types"
 )
@@ -277,10 +279,16 @@ func rpcReindex(w http.ResponseWriter, req *http.Request) {
 	io.WriteString(w, "异步任务已发出，等待会查询。")
 }
 
+func pprof() {
+	log.Println(http.ListenAndServe(":6060", nil))
+}
+
 /*******************************************************************************
 	主函数
 *******************************************************************************/
 func main() {
+	go pprof()
+
 	// 解析命令行参数
 	flag.Parse()
 

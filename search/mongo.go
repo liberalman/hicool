@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"log"
 	"os"
-	"time"
 
 	"gopkg.in/gcfg.v1"
 	"gopkg.in/mgo.v2"
@@ -91,7 +90,7 @@ func reindexSearch() {
 	var size int = 1
 	var offset int = 0
 	var total int = 0
-	var articles []Article = make([]Article, size)
+	var articles []Article
 	condition := bson.M{"type": bson.M{"$eq": 1}, "status": bson.M{"$gt": 0}}
 	// type为1所有可见文章，type为2时候是仅仅私有文章
 
@@ -121,7 +120,6 @@ func reindexSearch() {
 			}
 			addIndex(weibo)
 		}
-		time.Sleep(1 * time.Second)
 	}
 
 }
