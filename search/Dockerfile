@@ -4,6 +4,7 @@ EXPOSE 8900
 
 ADD search search
 ADD static static
+ADD conf.ini conf.ini
 #ADD weibo_data.txt weibo_data.txt
 ADD dict/dictionary.txt dict/dictionary.txt
 ADD dict/stop_tokens.txt dict/stop_tokens.txt

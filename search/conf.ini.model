@@ -6,7 +6,7 @@ StaticFolder=static
 
 [mongodb]
 Username=${mongodb_username}
-Password=${mongodb_passport}
+Password=${mongodb_password}
 Host=${mongodb_host}
 Port=${mongodb_port}
 Dbname=${mongodb_dbname}
