@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"time"
 
 	"gopkg.in/gcfg.v1"
 	"gopkg.in/mgo.v2"
@@ -120,6 +121,7 @@ func reindexSearch() {
 			}
 			addIndex(weibo)
 		}
+		time.Sleep(1 * time.Second)
 	}
 
 }
