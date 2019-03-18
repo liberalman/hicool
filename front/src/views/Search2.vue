@@ -1,41 +1,33 @@
 <template lang="html">
   <div>
     <header>
-      <vNav style="background:#000; color:#FFF"></vNav>
-      <div class="text-wrap">
-        <el-form style="margin-top: 50em;">
-          <el-form-item>
-            <el-input placeholder="请输入内容" v-model="key" class="input-with-select">
-              <el-select v-model="scope" slot="prepend" placeholder="请选择">
-                <el-option v-for="item in scope_options" :key="item.value" :value="item.value" :label="item.label"></el-option>
-              </el-select>
-              <el-button slot="append" icon="el-icon-search" @click="onSubmit"></el-button>
-            </el-input>
-          </el-form-item>
-          <el-form-item>
-            <el-col :span="12">
-            <el-checkbox-group v-model="checkList">
-              <el-checkbox label="模糊搜索"></el-checkbox>
-              <el-checkbox label="同义"></el-checkbox>
-            </el-checkbox-group>
-            </el-col>
-            <el-col :span="12">
-            按
-            <el-select v-model="sort" size="mini">
-              <el-option v-for="item in sort_options" :key="item.value" :value="item.value" :label="item.label"></el-option>
-            </el-select>
-            排序
-            </el-col>
-          </el-form-item>
-          <el-form-item>
-          <p>
-            大约有 {{count}} 项符合查询结果。（搜索耗时：{{search_cost}} 秒）
-          </p>
-          <p>(C)opyright 2016 - Hicool search - 页面处理总时间：{{total_cost}} 秒<br>
-            Powered by <a href="http://www.hicool.top/" target="_blank" title="Hicool 博客">hicool</a></p>
-          </el-form-item>
-        </el-form>
-      </div>
+      <vNav></vNav>
+      <el-carousel :interval="5000" arrow="always">
+        <el-carousel-item v-for="item in mylist" :key="item">
+          <div style="text-align: center">
+            <img v-bind:src="item.cover" class="img-responsive" alt="响应式图像" />
+          </div>
+          <div class="text-wrap">
+            <el-form style="margin-top: 10em;">
+              <el-form-item>
+                <el-input placeholder="请输入内容" v-model="key" class="input-with-select">
+                  <el-select v-model="scope" slot="prepend" placeholder="请选择">
+                    <el-option v-for="item in scope_options" :key="item.value" :value="item.value" :label="item.label"></el-option>
+                  </el-select>
+                  <el-button slot="append" icon="el-icon-search" @click="onSubmit"></el-button>
+                </el-input>
+              </el-form-item>
+              <el-form-item>
+              <p>
+                大约有 {{count}} 项符合查询结果。（搜索耗时：{{search_cost}} 秒） 
+              </p>
+              <p>(C)opyright 2016 - Hicool search - 页面处理总时间：{{total_cost}} 秒
+                </p>
+              </el-form-item>
+            </el-form>
+          </div>
+        </el-carousel-item>
+      </el-carousel>
     </header>
     <ul class="main-wrapper" style="background-color:white;">
       <li v-for="item in list" class="main-item">
@@ -58,9 +50,9 @@
     <el-pagination style="text-align: center;"
       @size-change="handleSizeChange"
       @current-change="handleCurrentChange"
-      :current-page="current_page"
+      :current-page="page"
       :page-sizes="[10, 20, 30, 40]"
-      :page-size="page_size"
+      :page-size="size"
       layout="total, sizes, prev, pager, next, jumper"
       :total="count">
     </el-pagination>
@@ -81,6 +73,7 @@
         headline: 'Hicool Search', // 用户名
         subline: 'The thought of independence and freedom.', // 副标题
         imgSrc: 'https://offical.b0.upaiyun.com/static/album/5ac0a4bac0979028323030f3/1503759063328965200.jpg', // 头图 http://of30nsqpd.bkt.clouddn.com/2015061101335924.jpeg
+        mylist: [{cover: 'https://offical.b0.upaiyun.com/static/album/5ac0a4bac0979028323030f3/1503759063328965200.jpg'}],
         
         value: '',
         suggestionAttribute: 'original_title',
@@ -106,8 +99,8 @@
         list: [],
         count: 0,
         total_cost: 0.0000,
-        current_page: 1,
-        page_size: 10,
+        page: 1,
+        size: 10,
       }
     },
     computed: Vuex.mapState({
@@ -119,11 +112,12 @@
     methods: {
       handleSizeChange(val) {
         //console.log(`每页 ${val} 条`);
-        this.page_size = val
+        this.size = val
+        this.onSubmit()
       },
       handleCurrentChange(val) {
         //console.log(`当前页: ${val}`);
-        this.current_page = val
+        this.page = val
         this.onSubmit()
       },
       onSubmit() {
@@ -138,7 +132,12 @@
             alert(error);
           })
       },
-    }
+    },
+    watch: {
+      key () {
+        this.onSubmit()
+      }
+    },
   }
 </script>
 
