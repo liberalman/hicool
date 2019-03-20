@@ -6,7 +6,7 @@ const createRule = {
   title: { type: 'string', required: true },
   content: { type: 'string', required: true },
   tab: { type: 'enum', values: [ 'ask', 'share', 'job' ], required: false },
-  description: 'string',
+  description: { type: 'string', required: false}
 };
 
 class ArticleController extends Controller {

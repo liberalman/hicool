@@ -23,7 +23,6 @@ class ArticleService extends Service {
     let { ctx } = this
     const content = ctx.request.body.content
     const title = ctx.request.body.title
-    const description = ctx.request.body.description
     let message
     if(!title) {
       message = '标题不能为空.'
@@ -32,9 +31,10 @@ class ArticleService extends Service {
     }
     if(message) {
       ctx.status = 422
-      return ctx.body = {
+      ctx.body = {
         message: message
       }
+      return
     }
     //将图片提取存入images,缩略图调用
     ctx.request.body.images = tools.extractImage(content)
@@ -45,8 +45,9 @@ class ArticleService extends Service {
       ctx.body = {
         article_id: article._id
       }
-      let id = article._id
       // 添加XunSearch索引
+      let id = article._id
+      const description = ctx.request.body.description
       var params = querystring.stringify({
         cmd: 'add',
         '_id': util.format('%s', id),
@@ -60,7 +61,7 @@ class ArticleService extends Service {
       })*/
       
       // add search
-      var params1 = querystring.stringify({
+      /*var params1 = querystring.stringify({
         "id": util.format('%s', id),
         "timestamp": 1375667058,
         "user_name": util.format('%s', uid),
@@ -70,7 +71,7 @@ class ArticleService extends Service {
         "text": content,
         "description": description
       })
-      axios({url: `${this.search}/index/add`, method:'post', data:JSON.stringify(params1)})
+      axios({url: `${this.search}/index/add`, method:'post', data:JSON.stringify(params1)})*/
     } catch(err) {
       // ctx.throw(err)
       ctx.status = 500
