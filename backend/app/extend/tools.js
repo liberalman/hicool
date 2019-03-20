@@ -1,6 +1,7 @@
 "use strict"
 
 const _ = require('lodash')
+const fs = require('fs')
 
 //从markdown中提取图片
 exports.extractImage = function(content) {
@@ -19,4 +20,19 @@ exports.extractImage = function(content) {
     }
   }
   return results
+}
+
+exports.DEBUG = function(str) {
+  let options = {
+    flags: 'w',     // a append模式
+    encoding: 'utf8',  // utf8编码
+    autoClose: true,
+  };
+
+  let stdout = fs.createWriteStream('./stdout.log', options);
+  let stderr = fs.createWriteStream('./stderr.log', options);
+
+  // 创建logger
+  let logger = new console.Console(stdout, stderr);
+  logger.log(str)
 }

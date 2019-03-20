@@ -1,6 +1,7 @@
 'use strict';
 
 const crypto = require('crypto')
+const tools = require('./tools')
 
 //生成密码
 function encryptPassword(password, salt) {
@@ -30,6 +31,7 @@ module.exports = app => {
     async getClient(clientId, clientSecret) {
       try {
         console.log(`getClient (${clientId}, ${clientSecret}) invoked.......`)
+        tools.DEBUG(`getClient (${clientId}, ${clientSecret}) invoked.......`)
         const client = await this.ctx.model.Client.findOne({clientId: clientId, secret: clientSecret});
         if (!client)
           return false

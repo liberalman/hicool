@@ -22,7 +22,7 @@ var accessLogStream = FileStreamRotator.getStream({
 app.use(morgan('combined', {stream: accessLogStream}));
 app.use(express.static('./dist/'));
 
-let port = 9080;
+let port = 8700;
 module.exports = app.listen(port, (err) => {
   if (err) {
     console.error(err);

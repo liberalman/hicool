@@ -2,8 +2,13 @@ scripts/.leancloud/
 scripts/docker-compose.yml
 scripts/redis.conf
 scripts/backup_mongodb.sh
+scripts/mysql2mongo/yarn.lock
 scripts/mysql2mongo/node_modules/
 scripts/fill_secret.sh
 search/go.sum
 search/search
 search/store/
+admin/yarn.lock
+admin/log
+backend/stderr.log
+backend/stdout.log

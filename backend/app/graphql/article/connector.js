@@ -1,18 +1,7 @@
 'use strict';
 
 const DataLoader = require('dataloader');
-let fs = require('fs');
-let options = {
-  flags: 'w',     // a append模式
-  encoding: 'utf8',  // utf8编码
-};
- 
-let stdout = fs.createWriteStream('./stdout.log', options);
-let stderr = fs.createWriteStream('./stderr.log', options);
- 
-// 创建logger
-let logger = new console.Console(stdout, stderr);
-
+const tools = require('../../../extend/tools');
 
 const mapDataToHash = data => (
   data.reduce((acc, item) => {
@@ -54,7 +43,7 @@ class ArticleConnector {
       });
     } catch(err) {
       // ctx.throw(err)
-      logger.log(err)
+      tools.DEBUG(err)
       let arr = new Array()
       let obj = { message: err.message }
       arr.push(obj)
