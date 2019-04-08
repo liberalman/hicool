@@ -31,6 +31,7 @@ pushd ${BASE_DIR}
     #lean login
     #lean switch seaofheart
     /usr/local/bin/lean upload \${packname} > \${logfile} 2>&1
+    cat \${logfile}
     is_success=\`cat \${logfile} | grep "Upload succeeded"\`
     if [ -n "\${is_success}" ];then
         echo "upload \${packname} to leancloud success."
