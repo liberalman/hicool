@@ -13,6 +13,7 @@ if [ -z "\${exist}" ];then
 fi
 
 packname="mongodb-${mongodb_dbname}.tar.gz"
+logfile="/tmp/\${packname}.log"
 
 #if [ "$1" == "restore" ]; then
 #    mongorestore -h ${mongodb_host}:${mongodb_port} -d ${mongodb_dbname} /tmp/${mongodb_dbname}
@@ -29,14 +30,16 @@ pushd ${BASE_DIR}
     #seaofheart是我在leancloud上建立的工程，下载到本地来，要进入这个工程目录，然后执行上传
     #lean login
     #lean switch seaofheart
-    /usr/local/bin/lean upload \${packname}
-
-    if [ $? -eq 0 ];then
+    /usr/local/bin/lean upload \${packname} > \${logfile} 2>&1
+    is_success=\`cat \${logfile} | grep "Upload succeeded"\`
+    if [ -n "\${is_success}" ];then
         echo "upload \${packname} to leancloud success."
     else
-        echo "upload \${packname} to leancloud failed." | mail -s "www.hicool.top Warning" "zscchina@163.com"
+        err=\`cat \${logfile}\`
+        echo "upload \${packname} to leancloud failed. \${err}" | mail -s "www.hicool.top Warning" "zscchina@163.com"
     fi
 
     rm -f \${packname}
+    rm -f \${logfile}
 popd
 
