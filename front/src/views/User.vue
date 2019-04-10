@@ -47,14 +47,6 @@
 </template>
 
 <script>
-  import marked from 'marked'
-  import Prism from 'prismjs'
-  import 'prismjs/themes/prism.css'
-  
-  marked.setOptions({
-    highlight: (code) => Prism.highlight(code, Prism.languages.javascript)
-  })
-  
   export default {
     components: {
       'CopyRight': () => import('./components/CopyRight.vue'),

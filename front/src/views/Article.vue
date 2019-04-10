@@ -35,15 +35,20 @@
 </template>
 
 <script>
-  import marked from 'marked'
-  import Prism from 'prismjs'
   import router from '../router'
-  import 'prismjs/themes/prism.css'
   import Avatar from 'vue-avatar'
+  import markdownItTocAndAnchor from 'markdown-it-toc-and-anchor'
+  import mhl from 'markdown-it-prism'
+  import MarkdownIt from 'markdown-it'
 
-  marked.setOptions({
-    highlight: (code) => Prism.highlight(code, Prism.languages.javascript)
-  })
+  const md = new MarkdownIt({
+    html: true,
+    linkify: true,
+    typographer: true,
+  });
+
+  md.use(mhl);
+  md.use(markdownItTocAndAnchor);
 
   export default {
     props: ['headline', 'subline', 'mySrc'],
@@ -62,11 +67,7 @@
       content() {
         let _content = this.$store.state.article.content
         if (this.article.editor == 1) { // 只有markdown才需要渲染
-          marked(_content, (err, content) => {
-            if(!err) {
-              _content = content
-            }
-          })
+          return md.render(_content)
         }
         return _content
       },
