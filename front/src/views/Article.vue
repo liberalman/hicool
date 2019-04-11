@@ -39,12 +39,13 @@
   import Avatar from 'vue-avatar'
   import { mavonEditor } from "mavon-editor"
   import "mavon-editor/dist/css/index.css"
-  const prism = require('markdown-it-prism')
+  import prism from 'markdown-it-prism'
   import 'prismjs/themes/prism.css'
   import mk from 'markdown-it-katex'
-  import 'katex/dist/katex.min.css';
+  import 'katex/dist/katex.min.css'
+  import 'github-markdown-css/github-markdown.css'
   var MarkdownIt = require('markdown-it')
-  
+
   var md = new MarkdownIt({
     html: true,
     linkify: true,
@@ -77,7 +78,6 @@
       content() {
         let _content = this.$store.state.article.content
         if (this.article.editor == 1) { // 只有markdown才需要渲染
-          //var md = mavonEditor.getMarkdownIt()
           return md.render(_content)
         }
         return _content
@@ -157,7 +157,6 @@
 </script>
 
 <style lang="scss">
-  @import '../../node_modules/github-markdown-css/github-markdown.css';
   @import '../assets/scss/article.scss';
   @import '../assets/scss/components/header.scss';
 </style>
