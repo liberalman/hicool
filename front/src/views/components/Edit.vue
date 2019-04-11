@@ -72,17 +72,10 @@
 </template>
 
 <script>
-  import marked from 'marked'
-  import Prism from 'prismjs'
-  import 'prismjs/themes/prism.css'
   import router from '../../router'
   import { mavonEditor } from 'mavon-editor'
   import 'mavon-editor/dist/css/index.css'
   import { API_ROOT } from '../../config'
-
-  marked.setOptions({
-    highlight: (code) => Prism.highlight(code, Prism.languages.javascript)
-  })
 
   export default {
     name: 'Edit',
@@ -169,15 +162,6 @@
       return ret
     },
     computed: Vuex.mapState({
-      m2html() {
-        let _content = this.content
-        marked(_content, (err, content) => {
-          if(!err) {
-            _content = content
-          }
-        })
-        return _content
-      },
       words() {
         const reg = /(\w)|[\u4e00-\u9fa5]/g
         if(this.content) return this.content.match(reg).length

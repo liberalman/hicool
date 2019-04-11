@@ -19,7 +19,7 @@
       <span class="title" v-for="item in article.tags">
         <el-tag type="success" size="mini">{{item.name}}</el-tag>&nbsp;
       </span>
-      <div class="content markdown-body" v-html="content" v-if="article.editor == 1"></div>
+      <div class="content markdown-body" v-html="content" v-if="article.editor == 1"> </div>
       <div class="content" v-html="content" v-else></div>
       <div class="content" style="margin-top: 1em;" v-if="article.reprint_url">
         转自: <a :href="article.reprint_url" target="_blank">{{article.reprint_url}}</a>
@@ -37,18 +37,22 @@
 <script>
   import router from '../router'
   import Avatar from 'vue-avatar'
-  import markdownItTocAndAnchor from 'markdown-it-toc-and-anchor'
-  import mhl from 'markdown-it-prism'
-  import MarkdownIt from 'markdown-it'
-
-  const md = new MarkdownIt({
+  import { mavonEditor } from "mavon-editor"
+  import "mavon-editor/dist/css/index.css"
+  const prism = require('markdown-it-prism')
+  import 'prismjs/themes/prism.css'
+  import mk from 'markdown-it-katex'
+  import 'katex/dist/katex.min.css';
+  var MarkdownIt = require('markdown-it')
+  
+  var md = new MarkdownIt({
     html: true,
     linkify: true,
-    typographer: true,
-  });
+    typographer: true
+  })
 
-  md.use(mhl);
-  md.use(markdownItTocAndAnchor);
+  md.use(prism)
+  md.use(mk)
 
   export default {
     props: ['headline', 'subline', 'mySrc'],
@@ -60,6 +64,12 @@
       'vNav': () =>
         import('./components/Nav.vue'),
       'avatar' : Avatar,
+      mavonEditor,
+    },
+    data(){
+      return {
+        isMounted: false
+      }
     },
     computed: Vuex.mapState({
       article: state => state.article,
@@ -67,6 +77,7 @@
       content() {
         let _content = this.$store.state.article.content
         if (this.article.editor == 1) { // 只有markdown才需要渲染
+          //var md = mavonEditor.getMarkdownIt()
           return md.render(_content)
         }
         return _content
