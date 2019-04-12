@@ -16,6 +16,7 @@
     "vuex": "^3.0.1"
   },
   "devDependencies": {
+    "@iktakahiro/markdown-it-katex": "^3.1.0",
     "babel-core": "^6.26.3",
     "babel-loader": "^7.1.5",
     "babel-plugin-transform-runtime": "^6.23.0",
@@ -37,7 +38,6 @@
     "less": "^3.8.1",
     "less-loader": "^4.1.0",
     "markdown-it": "^8.4.2",
-    "markdown-it-katex": "^2.0.3",
     "markdown-it-prism": "^2.0.1",
     "mavon-editor": "^2.6.15",
     "mini-css-extract-plugin": "^0.4.1",

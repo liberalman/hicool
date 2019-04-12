@@ -41,7 +41,8 @@
   import "mavon-editor/dist/css/index.css"
   import prism from 'markdown-it-prism'
   import 'prismjs/themes/prism.css'
-  import mk from 'markdown-it-katex'
+  //import mk from 'markdown-it-katex'
+  import mk from '@iktakahiro/markdown-it-katex'
   import 'katex/dist/katex.min.css'
   import 'github-markdown-css/github-markdown.css'
   var MarkdownIt = require('markdown-it')
