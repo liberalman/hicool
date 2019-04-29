@@ -5,6 +5,8 @@ import createPersistedState from "vuex-persistedstate" // 通过localStorage来�
 // modules 模块分类
 import articles from './modules/articles'
 import article from './modules/article'
+import timelines from './modules/timelines'
+import timeline from './modules/timeline'
 import comments from './modules/comments'
 import tags from './modules/tags'
 import user from './modules/user'
@@ -25,6 +27,8 @@ export default new Vuex.Store({
   modules: {
     articles,
     article,
+    timelines,
+    timeline,
     comments,
     tags,
     user,

@@ -32,12 +32,7 @@ class TimelineController extends Controller {
   }
   
   async list() {
-    const list = await this.ctx.service.album.list()
-    this.ctx.body = list;
-  }
-  
-  async likes() {
-    const list = await this.ctx.service.album.likes(this.ctx.state.oauth.token.user.id)
+    const list = await this.ctx.service.timeline.list()
     this.ctx.body = list;
   }
 

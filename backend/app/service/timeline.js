@@ -88,9 +88,9 @@ class TimelineService extends Service {
     let sortName = String(ctx.query.sort_name) || 'publish_time'
     sortName = '-' + sortName
     let condition = {
-      hide: {
+      /*hide: {
         $eq: 0
-      }
+      }*/
     }
     try {
       const list = await ctx.model.Timeline.find(condition)
@@ -117,57 +117,6 @@ class TimelineService extends Service {
       return {
         message: err
       }
-    }
-  }
-  
-  async likes(uid) {
-    //获取like博客列表
-    let { ctx } = this
-    let page = (parseInt(ctx.query.page) > 0) ? parseInt(ctx.query.page) : 1
-    let size = (parseInt(ctx.query.size) > 0) ? parseInt(ctx.query.size) : 10
-    let offset = (page - 1) * size
-    try {
-      const queryTotal = await ctx.model.User.aggregate([{
-        "$match": {
-          "_id": uid,
-          "likeList": {
-            $exists: true
-          }
-        }
-      }, {
-        "$project": {
-          "_id": 0,
-          "total": {
-            "$size": "$likeList"
-          }
-        }
-      }])
-      const articleIds = await ctx.model.User.findOne({
-          "_id": uid
-        }, {
-          "likeList": {
-            "$slice": [offset, size]
-          }
-        })
-        .select('-_id -avatar -nickname -images -email -hashedPassword -salt -defaultEditor -updated -created -status -role -provider -__v')
-      const list = await ctx.model.Article.find({
-          _id: {
-            $in: articleIds.likeList
-          }
-        })
-        .select('title images visit_count comment_count like_count publish_time author_id description tags')
-        .populate({
-          path: 'author_id',
-          select: 'nickname avatar -_id'
-        })
-      return {
-        'list': list,
-        'total': queryTotal.length > 0 ? queryTotal[0].total : 0,
-        'page': page,
-        'size': size,
-      }
-    } catch(err) {
-      ctx.throw(err)
     }
   }
 }

@@ -21,6 +21,9 @@ export const GET_LIKES = 'GET_LIKES'
 export const GET_ARTICLES = 'GET_ARTICLES'
 export const GET_ARTICLE = 'GET_ARTICLE'
 
+export const GET_TIMELINES = 'GET_TIMELINES'
+export const GET_TIMELINE = 'GET_TIMELINE'
+
 export const GET_USER = 'GET_USER'
 export const GET_USER_FAILURE = 'GET_USER_FAILURE'
 export const CLEAR_USER = 'CLEAR_USER'

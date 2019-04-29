@@ -189,6 +189,24 @@ export default {
     return PUTA(`/article/${id}`, data)
     // return PUT(`/article/${id}/update`, data)
   },
+
+  /* timeline */
+  createTimeline (data) {
+    return POSTA(`/timeline`, data)
+  },
+  deleteTimeline (id) {
+    return DELETEA(`/timeline/${id}`)
+  },
+  updateTimeline (id, data) {
+    return PUTA(`/article/${id}`, data)
+  },
+  getTimeline (id) {
+    return GETA(`/timeline/${id}`)
+  },
+  getMyTimelines (page, size) {
+    return GETA(`/timelines?page=${page}&size=${size}&sort_name=updated`)
+  },
+
   // 提交评论
   createComment(articleId, content) {
     return POSTA(`/comment/${articleId}`, { content: content })
