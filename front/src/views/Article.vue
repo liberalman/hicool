@@ -21,8 +21,9 @@
       </span>
       <div class="content markdown-body" v-html="content" v-if="article.editor == 1"> </div>
       <div class="content" v-html="content" v-else></div>
+      <el-divider></el-divider>
       <div class="content" style="margin-top: 1em;" v-if="article.reprint_url">
-        转自: <a :href="article.reprint_url" target="_blank">{{article.reprint_url}}</a>
+        转自: <el-link type="info" :href="article.reprint_url" target="_blank">{{article.reprint_url}}</el-link>
       </div>
       <el-row>
         <el-button round @click="likeArticle()" v-if="!article.is_like">喜欢</el-button>

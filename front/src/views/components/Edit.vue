@@ -125,8 +125,8 @@
             },
             {
               min: 0,
-              max: 100,
-              message: '长度在 3 到 100 个字符',
+              max: 300,
+              message: '长度在 3 到 300 个字符',
               trigger: 'blur'
             }
           ],
