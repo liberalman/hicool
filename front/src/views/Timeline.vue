@@ -7,7 +7,7 @@
         <p class="shadow-light">{{timeline.description}}</p>
       </div>
     </header>
-    <div class="timeline-wrapper" style="margin: 2em auto;">
+    <div class="article-wrapper" style="margin: 2em auto;">
       <div class="create">
         {{timeline.publish_time | handleDateFormat}}
         <el-button :disabled="!isMine" @click="editArticle()" type="text"><i class="el-icon-edit"></i></el-button>
