@@ -3,7 +3,7 @@
     <header class="a-header" :style="{background: 'url('+ (article.cover ? article.cover : 'http://image.hicool.top/static/album/5ac0a43f7c0636267ed49b91/1503658700339782278.jpg') +')' + 'center center / cover', backgroundSize: 'cover'}">
       <vNav></vNav>
       <div class="text-wrap">
-        <h1 class="shaddow">{{article.title}}</h1>
+        <h2 class="shaddow">{{article.title}}</h2>
         <p class="shadow-light">{{article.description}}</p>
       </div>
     </header>

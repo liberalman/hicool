@@ -9,15 +9,14 @@
         </router-link>
 
         <section class="list-abstract">
+          <div v-if="item.images[0]">
           <el-row :gutter="10">
-            <el-col :xs="24" :sm="24" :md="8" :lg="6" :xl="2">
-              <div v-if="item.images[0]" style="text-align:center">
+            <el-col :xs="24" :sm="24" :md="8" :lg="6" :xl="2" style="text-align:center">
                 <el-carousel :interval="4000" height="8em" indicator-position="none">
                   <el-carousel-item v-for="images in item.images" :key="images.url">
                     <img v-bind:src="images.url" class="img-responsive" alt="photo" />
                   </el-carousel-item>
                 </el-carousel>
-              </div>
             </el-col>
             <el-col :xs="24" :sm="24" :md="16" :lg="18" :xl="22">
               <div v-if="item.description">
@@ -26,6 +25,13 @@
               </div>
             </el-col>
           </el-row>
+          </div>
+          <div v-else>
+            <div v-if="item.description">
+              {{item.description}}
+              <router-link :to="{name: 'article', params: {id: item._id}}">»</router-link>
+            </div>
+          </div> 
         </section>
 
         <section class="list-info">
