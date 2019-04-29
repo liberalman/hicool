@@ -17,6 +17,12 @@ export default new VueRouter({
             require(['@/views/Timelines'], resolve)
         }
     }, {
+        path: '/timeline/:id',
+        name: 'timeline',
+        component: function(resolve) {
+            require(['@/views/Timeline'], resolve)
+        }
+    }, {
         path: '/private',
         name: 'PrivateArticle',
         component: function(resolve) {

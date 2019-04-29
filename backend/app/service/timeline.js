@@ -38,20 +38,10 @@ class TimelineService extends Service {
     }
   }
   
-  async find(uid) {
+  async find(id) {
     // 假如 我们拿到用户 id 从数据库获取用户详细信息
-    const user = await this.ctx.model.User.findOne({_id: uid})
-      .select('nickname avatar')
-    return {
-      _id: user._id,
-      nickname: user.nickname,
-      avatar: user.avatar
-    }
-  }
-  
-  async me(uid) {
-    const user = await this.ctx.model.User.findOne({_id: uid})
-      .select('nickname avatar email description status')
+    const user = await this.ctx.model.Timeline.findOne({_id: id})
+      .select('nickname cover points description publish_time')
     return user
   }
   
@@ -94,7 +84,7 @@ class TimelineService extends Service {
     }
     try {
       const list = await ctx.model.Timeline.find(condition)
-        .select('title points publish_time author_id description cover')
+        .select('title description cover')
         .populate({
           path: 'author_id',
           select: '-_id nickname avatar'
@@ -103,7 +93,7 @@ class TimelineService extends Service {
         .limit(size)
         .sort(sortName)
         .exec()
-      const total = await ctx.model.Timeline.count(condition)
+      const total = await ctx.model.Timeline.countDocuments(condition)
       ctx.status = 200
       ctx.body = {
         'list': list,

@@ -198,7 +198,7 @@ export default {
     return DELETEA(`/timeline/${id}`)
   },
   updateTimeline (id, data) {
-    return PUTA(`/article/${id}`, data)
+    return PUTA(`/timeline/${id}`, data)
   },
   getTimeline (id) {
     return GETA(`/timeline/${id}`)

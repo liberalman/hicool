@@ -4,34 +4,26 @@
 
     <ul class="main-wrapper" id="content">
       <li v-for="item in list" :key="item._id" class="main-item">
-        <router-link :to="{name: 'article', params: {id: item._id}}" target="_blank" class="item">
+        <router-link :to="{name: 'timeline', params: {id: item._id}}" target="_blank" class="item">
           <section class="list-title" v-text="item.title"></section>
         </router-link>
 
         <section class="list-abstract">
-          <div v-if="item.images[0]">
           <el-row :gutter="10">
             <el-col :xs="24" :sm="24" :md="8" :lg="6" :xl="2" style="text-align:center">
-                <el-carousel :interval="4000" height="8em" indicator-position="none">
-                  <el-carousel-item v-for="images in item.images" :key="images.url">
-                    <img v-bind:src="images.url" class="img-responsive" alt="photo" />
-                  </el-carousel-item>
-                </el-carousel>
+              <el-image :src="item.cover" :fit="contain" lazy>
+                <div slot="error" class="image-slot">
+                  <i class="el-icon-picture-outline"></i>
+                </div>
+              </el-image>
             </el-col>
             <el-col :xs="24" :sm="24" :md="16" :lg="18" :xl="22">
               <div v-if="item.description">
                 {{item.description}}
-                <router-link :to="{name: 'article', params: {id: item._id}}">»</router-link>
+                <router-link :to="{name: 'timeline', params: {id: item._id}}">»</router-link>
               </div>
             </el-col>
           </el-row>
-          </div>
-          <div v-else>
-            <div v-if="item.description">
-              {{item.description}}
-              <router-link :to="{name: 'article', params: {id: item._id}}">»</router-link>
-            </div>
-          </div> 
         </section>
 
         <section class="list-info">
@@ -70,29 +62,16 @@
       return {
         page: 1,
         size: 10,
-        headline: 'HICOOL', // 用户名
+        headline: 'TIMELINE', // 用户名
         subline: 'The thought of independence and freedom.', // 副标题
-        imgSrc: 'http://image.hicool.top/static/album/5ac0a4bac0979028323030f3/1503763878609383500.jpg' // 头图 http://of30nsqpd.bkt.clouddn.com/2015061101335924.jpeg
+        imgSrc: 'http://image.hicool.top/static/album/5ac0a4bac0979028323030f3/1503763726036656800.jpg' // 头图 http://of30nsqpd.bkt.clouddn.com/2015061101335924.jpeg
       }
     },
     computed: Vuex.mapState({
-      list: state => {
-        for(let i = 0; i < state.articles.list.length; i++) {
-          if(state.articles.list[i].images && state.articles.list[i].images.length > 5) {
-            state.articles.list[i].images.splice(5, state.articles.list[i].images.length - 5)
-          }
-        }
-        return state.articles.list
-      },
-      total: state => state.articles.total
+      list: state => state.timelines.list,
+      total: state => state.timelines.total
     }),
     mounted() {
-      // import { API_ROOT } from '../config'
-      // var self = this;
-      // axios.get(API_ROOT + 'api/content/backgroundimg').then(res => {
-      //   let imgURL = res.data
-      //   self.imgSrc = imgURL[Math.floor(Math.random()*(imgURL.length))]
-      // })
       this.fetchData()
     },
     methods: {

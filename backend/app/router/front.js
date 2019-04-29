@@ -42,6 +42,7 @@ module.exports = app => {
   
   // timelines
   newsRouter.get(`/timelines`, jsonp, controller.timeline.list);
+  newsRouter.resources('timeline', `/timeline`, jsonp, controller.timeline);
   
   // third
   newsRouter.get(`/third/qiniu_token`, app.oAuth2Server.authenticate(), jsonp, controller.third.qiniuToken);

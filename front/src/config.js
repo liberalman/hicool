@@ -3,7 +3,7 @@ export const API_ROOT = (process.env.NODE_ENV === 'production')
   : 'http://localhost:9000' // 已加跨域代理头，注意仅支持GET请求
 export const API_ROOTA = (process.env.NODE_ENV === 'production')
   ? 'https://api.hicool.top:6011'
-  : 'http://localhost:7001' // 已加跨域代理头，注意仅支持GET请求
+  : '' // 已加跨域代理头，注意仅支持GET请求
 
 export const CookieDomain = (process.env.NODE_ENV === 'production')
   ? '.hicool.top'

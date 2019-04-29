@@ -26,14 +26,13 @@ class TimelineController extends Controller {
   
   async show() {
     const { ctx } = this;
-    const userId = ctx.params.id;
-    const userInfo = await ctx.service.user.find(userId);
-    ctx.body = userInfo;
+    const timelineId = ctx.params.id;
+    const timeline = await ctx.service.timeline.find(timelineId);
+    ctx.body = timeline;
   }
   
   async list() {
-    const list = await this.ctx.service.timeline.list()
-    this.ctx.body = list;
+    await this.ctx.service.timeline.list()
   }
 
   async add() {
