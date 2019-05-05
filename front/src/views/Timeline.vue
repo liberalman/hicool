@@ -17,9 +17,13 @@
       <el-timeline>
         <el-timeline-item
           v-for="(activity, index) in timeline.points"
+          placement="top"
           :key="_id"
-          :timestamp="activity.publish_time">
-          {{activity.description}}
+          :timestamp="activity.publish_time | handleDateFormat">
+          <el-card>
+          <h4>tips</h4>
+          <p>{{activity.description}}</p>
+          </el-card>
         </el-timeline-item>
       </el-timeline>
       <el-divider></el-divider>
