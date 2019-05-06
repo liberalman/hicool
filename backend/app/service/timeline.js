@@ -1,4 +1,5 @@
 // app/service/timeline.js
+var mongoose = require('mongoose');
 const Service = require('egg').Service;
 class TimelineService extends Service {
   // 默认不需要提供构造函数。
@@ -97,30 +98,6 @@ class TimelineService extends Service {
     }
   }
   
-  async update(id, params) {
-    const title = params.nickname ? params.nickname.replace(/(^\s+)|(\s+$)/g, '') : ''
-    const NICKNAME_REGEXP = /^[(\u4e00-\u9fa5)0-9a-zA-Z\_\s@]+$/
-    //var EMAIL_REGEXP = /^(\w)+(\.\w+)*@(\w)+((\.\w+)+)$/
-    //检测一下
-    let message
-    if(title === '') {
-      message = '名称不能为空'
-    } else if(title.length <= 2 || title.length > 30 || !NICKNAME_REGEXP.test(title)) {
-      //不符合呢称规定.
-      message = '名称不合法'
-    }
-    if(message) {
-      this.ctx.status = 422
-      return {
-        message: message
-      }
-    }
-    const timeline = await this.ctx.model.Timeline.findByIdAndUpdate(id, params, {
-      new: true,
-      select: 'title description cover'
-    })
-    return timeline
-  }
   async update(uid, id, data) {
     let { ctx } = this
     const timeline = await ctx.model.Timeline.findOne({
@@ -200,6 +177,135 @@ class TimelineService extends Service {
       ctx.status = 500
       return {
         message: err
+      }
+    }
+  }
+
+  async createPoint(uid) {
+    let { ctx } = this
+    var timeline_id = ctx.request.body.timeline_id
+    const timeline = await ctx.model.Timeline.findOne({
+      _id: timeline_id
+    })
+    if(!timeline || timeline.author_id.toString() != uid) {
+      ctx.status = 401
+      ctx.body = {
+        message: "您没有权限修改"
+      }
+    } else {
+    const title = ctx.request.body.title
+    let message
+    if(!title) {
+      message = '标题不能为空.'
+    }
+    if(message) {
+      ctx.status = 422
+      ctx.body = {
+        message: message
+      }
+      return
+    }
+    try {
+      delete ctx.request.body.timeline_id
+      var pointId = new mongoose.Types.ObjectId
+      const point = await ctx.model.Timeline.findByIdAndUpdate(timeline_id,
+        {
+          '$push':{
+            'points': {
+              '_id': pointId, // new ObjectId
+              'title': title,
+              'content': ctx.request.body.content,
+              'publish_time': ctx.request.body.publish_time,
+            }
+          }
+        },{
+          'upsert': true
+        })
+      ctx.status = 201
+    } catch(err) {
+      ctx.status = 500
+      ctx.body = {
+        message: err.message
+      }
+    }
+    }
+  }
+
+  async deletePoint(uid, timeline_id, point_id) {
+    let { ctx } = this
+    const timeline = await ctx.model.Timeline.findOne({
+      _id: timeline_id
+    })
+    if (!timeline) {
+      ctx.status = 500
+      ctx.body = {
+        message: 'no timeline ' + id
+      }
+      return
+    }
+    if(timeline.author_id.toString() != uid) {
+      ctx.status = 401
+      ctx.body = {
+        message: "您没有删删权限"
+      }
+    } else {
+      try {
+        await ctx.model.Timeline.update(
+          { '_id': mongoose.Types.ObjectId(timeline_id)},
+          {
+            $pull: {
+              'points': {
+                '_id': mongoose.Types.ObjectId(point_id)
+              }
+            }
+          })
+        ctx.status = 200
+      } catch(err) {
+        ctx.status = 500
+        ctx.body = {
+          message: err.message
+        }
+      }
+    }
+  }
+  
+  async updatePoint(uid, timeline_id, point_id) {
+    let { ctx } = this
+    const timeline = await ctx.model.Timeline.findOne({
+      _id: timeline_id
+    })
+    if(!timeline || timeline.author_id.toString() != uid) {
+      ctx.status = 401
+      ctx.body = {
+        message: "您没有权限修改"
+      }
+    } else {
+      const title = ctx.request.body.title ? ctx.request.body.title.replace(/(^\s+)|(\s+$)/g, '') : ''
+      const NICKNAME_REGEXP = /^[(\u4e00-\u9fa5)0-9a-zA-Z\_\s@]+$/
+      let message
+      if(title && '' == title) {
+        message = '标题不能为空.'
+      } else if (title.length <= 2 || title.length > 30 || !NICKNAME_REGEXP.test(title)) {
+        //不符合呢称规定.
+        message = '标题不合法'
+      }
+      if(message) {
+        ctx.status = 422 // 422 Unprocessable Entity 请求格式正确，但是由于含有语义错误，无法响应。（RFC 4918 WebDAV）
+        return ctx.body = {
+          message: message
+        }
+      }
+      try {
+        const timeline = await ctx.model.Timeline.update(
+          { '_id': mongoose.Types.ObjectId(timeline_id),
+            'points._id': mongoose.Types.ObjectId(point_id) },
+          { $set: { "points.$": ctx.request.body} })
+        ctx.status = 200
+      } catch(err) {
+        ctx.status = 500
+        ctx.body = {
+          message: err.message
+        }
       }
     }
   }

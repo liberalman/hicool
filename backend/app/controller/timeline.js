@@ -20,7 +20,7 @@ class TimelineController extends Controller {
 
   // 删 删除博客(连同这篇文章的评论一起删除.)
   async destroy() {
-    await this.ctx.service.timeline.delete(this.ctx.state.oauth.token.user.id, this.ctx.params.id)                   
+    await this.ctx.service.timeline.delete(this.ctx.state.oauth.token.user.id, this.ctx.params.id)
   }
 
   // 改
@@ -37,6 +37,22 @@ class TimelineController extends Controller {
   
   async list() {
     await this.ctx.service.timeline.list()
+  }
+
+  //////// point ////////////
+  // 增
+  async createPoint() {
+    await this.ctx.service.timeline.createPoint(this.ctx.state.oauth.token.user.id);
+  }
+
+  // 删 删除博客(连同这篇文章的评论一起删除.)
+  async destroyPoint() {
+    await this.ctx.service.timeline.deletePoint(this.ctx.state.oauth.token.user.id, this.ctx.params.timeline_id, this.ctx.params.point_id)
+  }
+
+  // 改
+  async updatePoint() {
+    await this.ctx.service.timeline.updatePoint(this.ctx.state.oauth.token.user.id, this.ctx.params.timeline_id, this.ctx.params.point_id)
   }
 }
 module.exports = TimelineController;

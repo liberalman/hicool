@@ -45,6 +45,15 @@ export default {
         .then(res => {
           commit(types.GET_TIMELINE, res)
         })
-    }
+    },
+    createPoint ({ commit }, data) {
+      return api.createPoint(data)
+    },
+    deletePoint ({ commit }, data) {
+      return api.deletePoint(data.timelineId, data.pointId)
+    },
+    updatePoint ({ commit }, data) {
+      return api.updatePoint(data.timeline_id, data._id, data)
+    },
   }
 }

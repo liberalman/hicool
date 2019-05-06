@@ -43,6 +43,10 @@ module.exports = app => {
   // timelines
   newsRouter.get(`/timelines`, jsonp, controller.timeline.list);
   newsRouter.resources('timeline', `/timeline`, app.oAuth2Server.authenticate(), jsonp, controller.timeline);
+  // point of timeline
+  newsRouter.post(`/point`, app.oAuth2Server.authenticate(), jsonp, controller.timeline.createPoint);
+  newsRouter.put(`/point/:timeline_id/:point_id`, app.oAuth2Server.authenticate(), jsonp, controller.timeline.updatePoint);
+  newsRouter.delete(`/point/:timeline_id/:point_id`, app.oAuth2Server.authenticate(), jsonp, controller.timeline.destroyPoint);
   
   // third
   newsRouter.get(`/third/qiniu_token`, app.oAuth2Server.authenticate(), jsonp, controller.third.qiniuToken);

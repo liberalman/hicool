@@ -206,6 +206,15 @@ export default {
   getMyTimelines (page, size) {
     return GETA(`/timelines?page=${page}&size=${size}&sort_name=updated`)
   },
+  createPoint (data) {
+    return POSTA(`/point`, data)
+  },
+  deletePoint (timelineId, pointId) {
+    return DELETEA(`/point/${timelineId}/${pointId}`)
+  },
+  updatePoint (timelineId, pointId, data) {
+    return PUTA(`/point/${timelineId}/${pointId}`, data)
+  },
 
   // 提交评论
   createComment(articleId, content) {
