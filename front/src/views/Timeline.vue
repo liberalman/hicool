@@ -10,8 +10,8 @@
     <div class="article-wrapper" style="margin: 2em auto;">
       <div class="create">
         {{timeline.publish_time | handleDateFormat}}
-        <el-button :disabled="!isMine" @click="editArticle()" type="text"><i class="el-icon-edit"></i></el-button>
-        <el-button :disabled="!isMine" @click="deleteArticle()" type="text"><i class="el-icon-delete"></i></el-button>
+        <el-button :disabled="!isMine" @click="editTimeline()" type="text"><i class="el-icon-edit"></i></el-button>
+        <el-button :disabled="!isMine" @click="deleteTimeline()" type="text"><i class="el-icon-delete"></i></el-button>
       </div>
       <div class="content">
       <el-timeline>
@@ -21,8 +21,10 @@
           :key="_id"
           :timestamp="activity.publish_time | handleDateFormat">
           <el-card>
-          <h4>tips</h4>
-          <p>{{activity.description}}</p>
+            <h4>tips</h4>
+            <p>{{activity.description}}</p>
+            <el-button :disabled="!isMine" @click="editPoint()" type="text"><i class="el-icon-edit"></i></el-button>
+            <el-button :disabled="!isMine" @click="deletePoint()" type="text"><i class="el-icon-delete"></i></el-button>
           </el-card>
         </el-timeline-item>
       </el-timeline>
@@ -94,6 +96,9 @@
         });
       },
       editTimeline() {
+        router.push('/post/edit/' + this.$route.params.id)
+      },
+      editPoint() {
         router.push('/post/edit/' + this.$route.params.id)
       },
     }

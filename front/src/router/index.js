@@ -93,6 +93,18 @@ export default new VueRouter({
             require(['@/views/Search2'], resolve)
         }
     }, {
+        path: '/post_timeline/add',
+        name: 'addtimeline',
+        component: function(resolve) {
+            require(['@/views/AddTimeline'], resolve)
+        }
+    }, {
+        path: '/post_timeline/update/:id?',
+        name: 'updatetimeline',
+        component: function(resolve) {
+            require(['@/views/UpdateTimeline'], resolve)
+        }
+    }, {
         path: '/post/add',
         name: 'addarticle',
         component: function(resolve) {

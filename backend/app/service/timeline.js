@@ -9,21 +9,36 @@ class TimelineService extends Service {
   // }
   constructor(ctx) {
     super(ctx);
-    this.root = 'https://cnodejs.org/api/v1';
   }
 
-  async create(params) {
-    // 调用 CNode V1 版本 API
-    const result = await this.ctx.curl(`${this.root}/topics`, {
-      method: 'post',
-      data: params,
-      dataType: 'json',
-      contentType: 'json',
-    });
-    // 检查调用是否成功，如果调用失败会抛出异常
-    this.checkSuccess(result);
-    // 返回创建的 topic 的 id
-    return result.data.topic_id;
+  async create(uid) {
+    let { ctx } = this
+    const title = ctx.request.body.title
+    let message
+    if(!title) {
+      message = '标题不能为空.'
+    } 
+    if(message) {
+      ctx.status = 422
+      ctx.body = {
+        message: message
+      }
+      return
+    }
+    //将图片提取存入images,缩略图调用
+    ctx.request.body["author_id"] = uid
+    try {
+      const timeline = await ctx.model.Timeline.create(ctx.request.body)
+      ctx.status = 201
+      ctx.body = {
+        timeline_id: timeline._id
+      }
+    } catch(err) {
+      ctx.status = 500
+      ctx.body = {
+        message: err.message
+      }
+    }
   }
 
   // 封装统一的调用检查函数，可以在查询、创建和更新等 Service 中复用
@@ -42,7 +57,44 @@ class TimelineService extends Service {
     // 假如 我们拿到用户 id 从数据库获取用户详细信息
     const user = await this.ctx.model.Timeline.findOne({_id: id})
       .select('nickname cover points description publish_time')
+      .populate({
+        path: 'author_id',
+        select: '-_id nickname avatar'
+      })
     return user
+  }
+
+  async delete(uid, id) {
+    let { ctx } = this
+    const timeline = await ctx.model.Timeline.findOne({
+      _id: id
+    })
+    if (!timeline) {
+      ctx.status = 500
+      ctx.body = {
+        message: 'no timeline ' + id
+      }
+      return
+    }
+    if(timeline.author_id.toString() != uid) {
+      ctx.status = 401
+      ctx.body = {
+        message: "您没有删删权限"
+      }
+    } else {
+      try {
+        await ctx.model.Timeline.findByIdAndRemove(id)
+        await ctx.model.Comment.remove({
+          aid: id
+        })
+        ctx.status = 200
+      } catch(err) {
+        ctx.status = 500
+        ctx.body = {
+          message: err.message
+        }
+      }
+    }
   }
   
   async update(uid, params) {
