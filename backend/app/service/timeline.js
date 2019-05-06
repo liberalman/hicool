@@ -296,6 +296,7 @@ class TimelineService extends Service {
         }
       }
       try {
+        ctx.request.body['_id'] = mongoose.Types.ObjectId(ctx.request.body._id)
         const timeline = await ctx.model.Timeline.update(
           { '_id': mongoose.Types.ObjectId(timeline_id),
             'points._id': mongoose.Types.ObjectId(point_id) },

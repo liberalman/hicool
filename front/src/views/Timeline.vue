@@ -186,9 +186,9 @@
       },
       handleAddPoint() {
         var _this = this
-        var method = 'timeline/updatePoint'
-        if (this.point._id === '') {
-          method = 'timeline/createPoint'
+        var method = 'timeline/createPoint'
+        if (this.point._id && this.point._id !== '') {
+          method = 'timeline/updatePoint'
         }
         this.$store.dispatch(method, this.point)
           .then(function(response) {
