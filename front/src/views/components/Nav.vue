@@ -8,9 +8,6 @@
         <router-link class="item" :to="{name: 'Search'}">搜索</router-link>
       </li>
       <li>
-        <router-link class="item" :to="{name: 'Albums'}">相册</router-link>
-      </li>
-      <li>
         <router-link class="item" :to="{name: 'tags'}">标签</router-link>
       </li>
       <li>
@@ -38,6 +35,9 @@
             {{username}}<i class="el-icon-arrow-down el-icon--right"></i>
           </span>
           <el-dropdown-menu slot="dropdown">
+            <el-dropdown-item>
+              <router-link class="item" :to="{path:'/albums'}">相册</router-link>
+            </el-dropdown-item>
             <el-dropdown-item>
               <router-link class="item" :to="{path:'/user/me'}">个人详情</router-link>
             </el-dropdown-item>

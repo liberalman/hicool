@@ -22,6 +22,11 @@ class TimelineController extends Controller {
   async destroy() {
     await this.ctx.service.timeline.delete(this.ctx.state.oauth.token.user.id, this.ctx.params.id)                   
   }
+
+  // 改
+  async update() {
+    await this.ctx.service.timeline.update(this.ctx.state.oauth.token.user.id, this.ctx.params.id, this.ctx.request.body)
+  }
   
   async show() {
     const { ctx } = this;

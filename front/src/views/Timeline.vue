@@ -1,5 +1,5 @@
 <template lang="html">
-  <div class="" v-loading.fullscreen.lock="loading">
+  <div v-loading.fullscreen.lock="loading">
     <header class="a-header" :style="{background: 'url('+ (timeline.cover ? timeline.cover : 'http://image.hicool.top/static/album/5ac0a43f7c0636267ed49b91/1503658700339782278.jpg') +')' + 'center center / cover', backgroundSize: 'cover'}">
       <vNav></vNav>
       <div class="text-wrap">
@@ -68,7 +68,7 @@
         this.$store.dispatch('timeline/getTimeline', { id: this.$route.params.id, isAuthed: this.utils.isLogin() })
       },
       deleteTimeline() {
-        this.$confirm('此操作将永久删除该文章, 是否继续?', '提示', {
+        this.$confirm('此操作将永久删除该资源, 是否继续?', '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
           type: 'warning'
@@ -80,7 +80,7 @@
                   message: '操作成功!',
                   type: 'success'
                 })
-                router.push('/')
+                router.push('/timelines')
               })
               .catch(error => { // 这里的error返回的是个string类型
                 _this.$message({
@@ -96,10 +96,10 @@
         });
       },
       editTimeline() {
-        router.push('/post/edit/' + this.$route.params.id)
+        router.push('/post_timeline/edit/' + this.$route.params.id)
       },
       editPoint() {
-        router.push('/post/edit/' + this.$route.params.id)
+        router.push('/post_point/edit/' + this.$route.params.id)
       },
     }
   }

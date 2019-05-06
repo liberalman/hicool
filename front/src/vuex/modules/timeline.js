@@ -5,17 +5,12 @@ export default {
   namespaced: true,
   state: { // 不是所有变量都要放到 state 中，vuex 创立的初衷是方便我们对变量的管理，然而对组件的一些私有变量，不需要和别的组件共享。所以，state里面只放全局变量、多组件共享变量。
     _id: '',
-    content: '',
     title: '',
     cover: '',
     publish_time: '',
     updated: '',
     author_id: {},
     description: '',
-    top: false,
-    type: 1,
-    editor: 1,
-    status: 1,
     points: [],
     loading: true,
   },
@@ -25,11 +20,11 @@ export default {
     },
     [types.GET_TIMELINE] (state, data) {
       state._id = data._id
-      state.content = data.content
       state.title = data.title
       state.cover = data.cover
       state.publish_time = data.publish_time
       state.updated = data.updated
+      state.author_id = data.author_id
       state.description = data.description
       state.points = data.points
       state.loading = data.loading

@@ -55,13 +55,13 @@ class TimelineService extends Service {
   
   async find(id) {
     // 假如 我们拿到用户 id 从数据库获取用户详细信息
-    const user = await this.ctx.model.Timeline.findOne({_id: id})
-      .select('nickname cover points description publish_time')
+    const timeline = await this.ctx.model.Timeline.findOne({_id: id})
+      .select('title cover points description publish_time updated')
       .populate({
         path: 'author_id',
         select: '-_id nickname avatar'
       })
-    return user
+    return timeline
   }
 
   async delete(uid, id) {
@@ -97,17 +97,17 @@ class TimelineService extends Service {
     }
   }
   
-  async update(uid, params) {
-    const nickname = params.nickname ? params.nickname.replace(/(^\s+)|(\s+$)/g, '') : ''
+  async update(id, params) {
+    const title = params.nickname ? params.nickname.replace(/(^\s+)|(\s+$)/g, '') : ''
     const NICKNAME_REGEXP = /^[(\u4e00-\u9fa5)0-9a-zA-Z\_\s@]+$/
     //var EMAIL_REGEXP = /^(\w)+(\.\w+)*@(\w)+((\.\w+)+)$/
     //检测一下
     let message
-    if(nickname === '') {
-      message = '呢称不能为空'
-    } else if(nickname.length <= 2 || nickname.length > 15 || !NICKNAME_REGEXP.test(nickname)) {
+    if(title === '') {
+      message = '名称不能为空'
+    } else if(title.length <= 2 || title.length > 30 || !NICKNAME_REGEXP.test(title)) {
       //不符合呢称规定.
-      message = '呢称不合法'
+      message = '名称不合法'
     }
     if(message) {
       this.ctx.status = 422
@@ -115,11 +115,53 @@ class TimelineService extends Service {
         message: message
       }
     }
-    const user = await this.ctx.model.User.findByIdAndUpdate(uid, params, {
+    const timeline = await this.ctx.model.Timeline.findByIdAndUpdate(id, params, {
       new: true,
-      select: 'nickname avatar email description status'
+      select: 'title description cover'
     })
-    return user
+    return timeline
+  }
+  async update(uid, id, data) {
+    let { ctx } = this
+    const timeline = await ctx.model.Timeline.findOne({
+      _id: id
+    })
+    if(!timeline || timeline.author_id.toString() != uid) {
+      ctx.status = 401
+      ctx.body = {
+        message: "您没有权限修改"
+      }
+    } else {
+      if(data._id) {
+        delete data._id
+      }
+      const title = data.title ? data.title.replace(/(^\s+)|(\s+$)/g, '') : ''
+      const NICKNAME_REGEXP = /^[(\u4e00-\u9fa5)0-9a-zA-Z\_\s@]+$/
+      let message
+      if(title && '' == title) {
+        message = '标题不能为空.'
+      } else if (title.length <= 2 || title.length > 30 || !NICKNAME_REGEXP.test(title)) {
+        //不符合呢称规定.
+        message = '标题不合法'
+      }
+      if(message) {
+        ctx.status = 422 // 422 Unprocessable Entity 请求格式正确，但是由于含有语义错误，无法响应。（RFC 4918 WebDAV）
+        return ctx.body = {
+          message: message
+        }
+      }
+      try {
+        const timeline = await ctx.model.Timeline.findByIdAndUpdate(id, data, {
+          new: true
+        })
+        ctx.status = 200
+      } catch(err) {
+        ctx.status = 500
+        ctx.body = {
+          message: err.message
+        }
+      }
+    }
   }
   
   async list() {

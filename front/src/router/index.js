@@ -99,7 +99,7 @@ export default new VueRouter({
             require(['@/views/AddTimeline'], resolve)
         }
     }, {
-        path: '/post_timeline/update/:id?',
+        path: '/post_timeline/edit/:id?',
         name: 'updatetimeline',
         component: function(resolve) {
             require(['@/views/UpdateTimeline'], resolve)

@@ -1,5 +1,6 @@
 <template>
-  <div>
+  <div class="article-wrapper" style="margin: 2em auto;">
+    <div class="content">
     </br>
     <el-form :model="timeline" :rules="rules" ref="timeline" label-width="80px">
       <el-form-item label="标题" prop="title">
@@ -24,6 +25,7 @@
       <div class="model-show">
         <img :src="modelSrc" alt="">
       </div>
+    </div>
     </div>
   </div>
 </template>
@@ -180,4 +182,5 @@
 </script>
 
 <style lang="scss">
+  @import '../../assets/scss/article.scss';
 </style>
