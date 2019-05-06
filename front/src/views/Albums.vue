@@ -110,7 +110,7 @@ export default {
       state.albums.list.forEach(function(item, index) {
         list.push({
           "src": item.cover,
-          "href": '/#/album/' + item._id,
+          "href": '/album/' + item._id,
           "title": item.title,
           "content": item.content,
           "publish_time": item.publish_time
@@ -135,7 +135,7 @@ export default {
       index,
       value
     }) {
-      window.location.href = "/#/album/" + value._id
+      window.location.href = "/album/" + value._id
       /*
       // 阻止a标签跳转
       event.preventDefault()

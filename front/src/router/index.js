@@ -3,7 +3,7 @@ import Hello from '@/views/Hello'
 Vue.use(VueRouter)
 
 export default new VueRouter({
-    //mode: 'history',
+    mode: 'history',
     routes: [{
         path: '/',
         name: 'Index',
