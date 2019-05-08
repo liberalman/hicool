@@ -51,6 +51,7 @@
     "spark-md5": "^3.0.0",
     "tinymce": "^4.9.2",
     "ueditor": "^1.2.3",
+    "uglifyjs-webpack-plugin": "^2.1.2",
     "universal-cookie": "^3.0.1",
     "url-loader": "^1.0.1",
     "vue-avatar": "^2.1.6",
