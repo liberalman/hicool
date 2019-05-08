@@ -56,8 +56,8 @@ class TimelineService extends Service {
   
   async find(id) {
     // 假如 我们拿到用户 id 从数据库获取用户详细信息
-    const timeline = await this.ctx.model.Timeline.findOne({_id: id})
-      .select('title cover points description publish_time updated')
+    const timeline = await this.ctx.model.Timeline.findOne({_id: id}, {points:{$slice:10}})
+      .select('title cover description publish_time updated ')
       .populate({
         path: 'author_id',
         select: '-_id nickname avatar'
@@ -212,10 +212,13 @@ class TimelineService extends Service {
         {
           '$push':{
             'points': {
+              '$each': [{
               '_id': pointId, // new ObjectId
               'title': title,
               'content': ctx.request.body.content,
               'publish_time': ctx.request.body.publish_time,
+              }],
+              '$sort': { 'publish_time': -1}
             }
           }
         },{

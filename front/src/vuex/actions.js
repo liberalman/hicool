@@ -213,6 +213,7 @@ export default {
     return DELETEA(`/point/${timelineId}/${pointId}`)
   },
   updatePoint (timelineId, pointId, data) {
+    delete data.timeline_id
     return PUTA(`/point/${timelineId}/${pointId}`, data)
   },
 
