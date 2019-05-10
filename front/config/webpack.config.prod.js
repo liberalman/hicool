@@ -8,7 +8,7 @@ var CopyWebpackPlugin = require('copy-webpack-plugin')
 var HtmlWebpackPlugin = require('html-webpack-plugin')
 var MiniCssExtractPlugin = require('mini-css-extract-plugin')
 var OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
-var UglifyJsPlugin = require('uglifyjs-webpack-plugin')
+const TerserPlugin = require('terser-webpack-plugin')
 
 var env = process.env.NODE_ENV === 'testing' ?
   require('../config/test.env') :
@@ -86,10 +86,11 @@ var webpackConfig = merge(baseWebpackConfig, {
   ],
   optimization: {
     minimizer: [
-      new UglifyJsPlugin({ //压缩js
+      new TerserPlugin({
+        test: /\.js(\?.*)?$/i,
         cache: true,
         parallel: true,
-        sourceMap: false // set to true if you want JS source maps
+        sourceMap: true,
       }),
       new OptimizeCSSAssetsPlugin() // Compress extracted CSS. We are using this plugin so that possible
       // duplicated CSS from different components can be deduped.
