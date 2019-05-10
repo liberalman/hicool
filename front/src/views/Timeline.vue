@@ -47,15 +47,14 @@
           <el-input v-model="point.title" autocomplete="off"></el-input>
         </el-form-item>
         <el-form-item label="内容">
-          <el-input v-model="point.content" autocomplete="off"></el-input>
+          <el-input v-model="point.content" autocomplete="off" type="textarea" maxlength="300"
+            show-word-limit></el-input>
         </el-form-item>
         <el-form-item label="时间">
           <el-date-picker
             v-model="point.publish_time"
             type="datetime"
-            placeholder="选择时间"
-            align="right"
-            :picker-options="pickerOptions">
+            placeholder="选择时间">
           </el-date-picker>
         </el-form-item>
       </el-form>
