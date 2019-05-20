@@ -65,7 +65,6 @@
 </template>
 
 <script>
-  import { API_ROOT } from '../../config'
   import router from '../../router'
   // Import TinyMCE
   import tinymce from 'tinymce/tinymce'

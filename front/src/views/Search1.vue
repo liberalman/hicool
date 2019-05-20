@@ -76,8 +76,6 @@
 </template>
 
 <script>  
-  import { API_ROOT } from '../config'
-
   export default {
     name: 'Search',
     components: {

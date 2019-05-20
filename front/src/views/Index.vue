@@ -89,12 +89,6 @@
       total: state => state.articles.total
     }),
     mounted() {
-      // import { API_ROOT } from '../config'
-      // var self = this;
-      // axios.get(API_ROOT + 'api/content/backgroundimg').then(res => {
-      //   let imgURL = res.data
-      //   self.imgSrc = imgURL[Math.floor(Math.random()*(imgURL.length))]
-      // })
       this.fetchData()
     },
     methods: {

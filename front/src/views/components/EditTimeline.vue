@@ -32,7 +32,6 @@
 
 <script>
   import router from '../../router'
-  import { API_ROOT } from '../../config'
 
   export default {
     name: 'EditTimeline',

@@ -67,6 +67,9 @@ export default {
         .then(res => {
           commit(types.GET_ARTICLE, res)
         })
-    }
+    },
+    toggleLikeArticle ({ commit }, id) {
+      return api.toggleLikeArticle(id)
+    },
   }
 }

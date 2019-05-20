@@ -69,8 +69,6 @@
 </template>
 
 <script>
-  import { API_ROOT } from '../../config'
-
   export default {
     data() {
       return {

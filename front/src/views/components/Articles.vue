@@ -80,11 +80,6 @@ export default {
     this.fetchData()
   },
   created() {
-    // var self = this;
-    // axios.get(API_ROOT + 'api/content/backgroundimg').then(res => {
-    //   let imgURL = res.data
-    //   self.imgSrc = imgURL[Math.floor(Math.random()*(imgURL.length))]
-    // })
   },
   methods: {
     fetchData() {

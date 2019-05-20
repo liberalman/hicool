@@ -162,6 +162,12 @@ export default {
     return GETA(`/album/${id}`)
     //return GET(`/album/${id}`)
   },
+  deletePhoto (gallery_id, photo_id) {
+    return DELETEA(`/album/${gallery_id}/${photo_id}`)
+  },
+  addPhoto (gallery_id, data) {
+    return PUTA(`/album/${gallery_id}/add_photo`, data)
+  },
   getQiniuToken() {
     //let ret = GET(`/upload/qiniu_token`)
     let ret = GETA(`/third/qiniu_token`)
@@ -188,6 +194,9 @@ export default {
   updateArticle (id, data) {
     return PUTA(`/article/${id}`, data)
     // return PUT(`/article/${id}/update`, data)
+  },
+  toggleLikeArticle (id) {
+    return POSTA(`/article/${id}/toggle_like`)
   },
 
   /* timeline */

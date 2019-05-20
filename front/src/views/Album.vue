@@ -233,20 +233,20 @@ export default {
             _this.dialogImageUrl = _this.imageUrl;
             _this.dialogVisible = true;
 
-            axios.post(API_ROOT + 'album/' + _this.$route.params.id + '/addPhoto', {
-                "url": _this.imageUrl,
-                "description": "my test photo"
-              }, {
-                headers: {
-                  'Authorization': 'Bearer ' + this.getCookie('token')
-                }
+          this.$store.dispatch('album/' + _this.$route.params.id + '/addPhoto', { url: this.imageUrl, description: 'my test photo', gallery_id: this.$route.params.id})
+          .then(function(response) {
+                router.push('/post/edit/' + _this.$route.params.id)
+              _this.$message({
+                message: '操作成功!',
+                type: 'success'
               })
-              .then(res => {
-                router.push('/post/edit/' + this.$route.params.id)
-              })
-              .catch(error => {
-                alert(error.response.status + ' ' + error.response.data.error)
-              })
+            })
+            .catch(error => { // 这里的error返回的是个string类型
+              _this.$message({
+                message: error,
+                type: 'error'
+              });
+            })
           })
           .catch(error => {
             _this.$message({
@@ -274,28 +274,19 @@ export default {
         type: 'warning'
       }).then(() => {
         var _this = this;
-        axios.delete(API_ROOT + 'album/delete_photo', {
-            data: {
-              "gallery_id": this.$route.params.id,
-              "photo_id": photo_id,
-            },
-            headers: {
-              'Authorization': 'Bearer ' + this.getCookie('token')
-            }
-          })
+        this.$store.dispatch('album/deletePhoto', { gallery_id: this.$route.params.id, photo_id: photo_id})
           .then(function(response) {
-            _this.$message({
-              message: '操作成功!',
-              type: 'success'
-            });
-          })
-          .catch(error => {
-            console.log(error)
-            _this.$message({
-              message: error.response.status + ' ' + error.response.data.message,
-              type: 'error'
-            });
-          })
+              _this.$message({
+                message: '操作成功!',
+                type: 'success'
+              })
+            })
+            .catch(error => { // 这里的error返回的是个string类型
+              _this.$message({
+                message: error,
+                type: 'error'
+              });
+            })
       }).catch(() => {
         this.$message({
           type: 'info',

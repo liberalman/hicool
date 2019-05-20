@@ -135,21 +135,17 @@
       },
       likeArticle() {
         let _this = this
-        axios.put(API_ROOT + 'article/' + this.$route.params.id + '/toggleLike', {}, {
-          headers: {
-            'Authorization': 'Bearer ' + this.getCookie('token')
-          }
-        })
+        this.$store.dispatch(`article/toggleLikeArticle`, this.$route.params.id)
         .then(function(response) {
-            _this.$message({
-              message: '操作成功!',
-              type: 'success'
-            });
-            router.go(0)
+          _this.$message({
+            message: '操作成功!',
+            type: 'success'
+          })
+          router.go(0)
         })
-        .catch(error => {
-          this.$message({
-            message: error.response.status + ' ' + error.response.data.message,
+        .catch(error => { // 这里的error返回的是个string类型
+          _this.$message({
+            message: error,
             type: 'error'
           });
         })
