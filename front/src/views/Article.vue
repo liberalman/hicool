@@ -154,7 +154,12 @@
           });
         })
       },
+    },
+    watch: {
+      '$route'(to, from) {
+        this.fetchData()
     }
+}
   }
 </script>
 
