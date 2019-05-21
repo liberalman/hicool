@@ -24,6 +24,7 @@ module.exports = app => {
   newsRouter.get(`/article/:id`, jsonp, controller.article.show);
   newsRouter.post(`/article/:id/toggle_like`, app.oAuth2Server.authenticate(), jsonp, controller.article.toggleLike);
   newsRouter.resources('article', `/article`, app.oAuth2Server.authenticate(), jsonp, controller.article);
+  newsRouter.delete('/image/:id', app.oAuth2Server.authenticate(), jsonp, controller.admin.article.cleanImage);
   
   // comment
   newsRouter.get(`/comment/:article_id/list`, jsonp, controller.comment.list);

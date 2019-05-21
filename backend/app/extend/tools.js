@@ -24,7 +24,7 @@ exports.extractImage = function(content) {
 
 exports.DEBUG = function(str) {
   let options = {
-    flags: 'w',     // a append模式
+    flags: 'a',     // a append模式
     encoding: 'utf8',  // utf8编码
     autoClose: true,
   };

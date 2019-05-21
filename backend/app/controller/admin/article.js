@@ -61,5 +61,9 @@ class ArticleController extends Controller {
   async toggleLike() {
     await this.ctx.service.article.toggleLike(this.ctx.state.oauth.token.user.id)
   }
+
+  async cleanImage() {
+    await this.ctx.service.third.deleteImage(this.ctx.params.id)
+  }
 }
 module.exports = ArticleController;
