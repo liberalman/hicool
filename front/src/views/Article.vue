@@ -128,9 +128,9 @@
       },
       editArticle() {
         if (this.article.editor == 1) { // markdown编辑器
-          router.push('/post/edit/' + this.$route.params.id)
+          router.push({ params: { id: this.$route.params.id}, name: 'editarticle'})
         } else {
-          router.push('/post/edit1/' + this.$route.params.id)
+          router.push({ params: { id: this.$route.params.id}, name: 'editarticle1'})
         }
       },
       likeArticle() {
