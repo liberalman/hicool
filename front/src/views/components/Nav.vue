@@ -39,6 +39,9 @@
               <router-link class="item" :to="{path:'/albums'}">相册</router-link>
             </el-dropdown-item>
             <el-dropdown-item>
+              <router-link class="item" :to="{path:'/map'}">map</router-link>
+            </el-dropdown-item>
+            <el-dropdown-item>
               <router-link class="item" :to="{path:'/user/me'}">个人详情</router-link>
             </el-dropdown-item>
             <el-dropdown-item>

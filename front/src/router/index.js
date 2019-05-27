@@ -150,6 +150,12 @@ export default new VueRouter({
             require(['@/views/Register'], resolve)
         }
     }, {
+        path: '/map',
+        name: 'map',
+        component: function(resolve) {
+            require(['@/views/Map'], resolve)
+        }
+    }, {
       path: '/home',
       name: 'home',
       component: function (resolve) {
