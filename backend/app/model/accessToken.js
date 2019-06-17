@@ -8,6 +8,7 @@ module.exports = app => {
       unique: true
     },
     accessTokenExpiresAt: Date,
+    createAt: Date,
     scope: String,
     clientId: String,
     userId: {

@@ -5,6 +5,7 @@ module.exports = app => {
   const RefreshTokenSchema = new mongoose.Schema({
     refreshToken: { type: String, unique: true },
     refreshTokenExpiresAt: Date,
+    createAt: Date,
     scope: String,
     clientId: String,
     userId: { type: String, allowNull: false }

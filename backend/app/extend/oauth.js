@@ -102,11 +102,14 @@ module.exports = app => {
     async saveToken(token, client, user) {
       try {
         console.log('saveToken invoked.......')
-        var accessTokenExpiresAt = new Date(token.accessTokenExpiresAt); 
+        var now = new Date(token.accessTokenExpiresAt)
+        var accessTokenExpiresAt = new Date(token.accessTokenExpiresAt);
         accessTokenExpiresAt.setDate(accessTokenExpiresAt.getDate() + 7); // 7天有效期
+        // 记得要设置数据库索引  db.getCollection('accesstokens').createIndex({ "createAt": 1 }, { expireAfterSeconds: 7 * 24 * 3600 })
         await this.ctx.model.AccessToken.create({
           accessToken: token.accessToken,
           accessTokenExpiresAt: accessTokenExpiresAt,
+          createAt: now,
           clientId: client.clientId,
           userId: user.userId,
           scope: token.scope || ''
@@ -117,6 +120,7 @@ module.exports = app => {
         await this.ctx.model.RefreshToken.create({
           refreshToken: token.refreshToken,
           refreshTokenExpiresAt: refreshTokenExpiresAt,
+          createAt: now,
           clientId: client.clientId,
           userId: user.userId,
           scope: token.scope || ''
@@ -127,6 +131,7 @@ module.exports = app => {
           accessTokenExpiresAt: accessTokenExpiresAt,
           refreshToken: token.refreshToken,
           refreshTokenExpiresAt: refreshTokenExpiresAt,
+          createAt: now,
           client: { id: client.clientId },
           user: user
         }
