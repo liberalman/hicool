@@ -158,7 +158,6 @@ module.exports = app => {
   UserSchema
     .path('nickname')
     .validate({
-      isAsync: true,
       validator: function(v, cb) {
         const self = this
         self.constructor.findOne({
@@ -176,7 +175,6 @@ module.exports = app => {
   UserSchema
     .path('email')
     .validate({
-      isAsync: true,
       validator: function(v, cb) {
         const self = this
         self.constructor.findOne({
