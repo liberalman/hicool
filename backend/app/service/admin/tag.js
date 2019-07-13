@@ -32,6 +32,7 @@ class TagService extends Service {
     let { ctx } = this
     try {
       const result = await ctx.model.TagCategory.find({})
+      console.log(result)
       ctx.status = 200
       ctx.body = { list: result }
     } catch(err) {
