@@ -182,7 +182,7 @@ const columns = [
   },
   {
     title: '标签分类',
-    dataIndex: 'category'
+    dataIndex: 'categoryName'
   },
   {
     title: '排序',
@@ -245,7 +245,7 @@ export default {
             is_show: state.tags.list[i].is_show,
             is_index: state.tags.list[i].is_index,
             categoryName: state.tags.list[i].cid.name,
-            cid: state.tags.list[i].cid
+            cid: state.tags.list[i].cid._id
           })
         }
         return dataSource
