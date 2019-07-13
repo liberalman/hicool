@@ -34,7 +34,7 @@ module.exports = app => {
   newsRouter.post(`/comment/:comment_id/reply`, app.oAuth2Server.authenticate(), jsonp, controller.comment.reply);
 
   // tags
-  newsRouter.get(`/category/list`, jsonp, controller.admin.tag.categoryList);
+  newsRouter.get(`/categories`, jsonp, controller.admin.tag.categoryList);
   newsRouter.get(`/tags`, jsonp, controller.admin.tag.list);
   newsRouter.resources('tag', `/tag`, app.oAuth2Server.authenticate(), jsonp, controller.admin.tag);
   

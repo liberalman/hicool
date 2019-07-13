@@ -22,6 +22,15 @@ export default {
         .then(res => {
           commit(types.GET_TAGS, res)
         })
+    },
+    add ({ commit }, tag) {
+      return api.addTag(tag)
+    },
+    update ({ commit }, tag) {
+      return api.updateTag(tag)
+    },
+    delete ({ commit }, id) {
+      return api.deleteTag(id)
     }
   }
 }

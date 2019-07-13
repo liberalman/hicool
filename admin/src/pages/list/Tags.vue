@@ -1,4 +1,5 @@
 <template>
+  <div>
   <a-card>
     <div :class="advanced ? 'search' : null">
       <a-form layout="horizontal">
@@ -6,7 +7,7 @@
           <a-row >
           <a-col :md="8" :sm="24" >
             <a-form-item
-              label="规则编号"
+              label="名称"
               :labelCol="{span: 5}"
               :wrapperCol="{span: 18, offset: 1}"
             >
@@ -15,7 +16,7 @@
           </a-col>
           <a-col :md="8" :sm="24" >
             <a-form-item
-              label="使用状态"
+              label="状态"
               :labelCol="{span: 5}"
               :wrapperCol="{span: 18, offset: 1}"
             >
@@ -27,7 +28,7 @@
           </a-col>
           <a-col :md="8" :sm="24" >
             <a-form-item
-              label="调用次数"
+              label="排位"
               :labelCol="{span: 5}"
               :wrapperCol="{span: 18, offset: 1}"
             >
@@ -80,26 +81,95 @@
     </div>
     <div>
       <div class="operator">
-        <a-button @click="addNew" type="primary">新建</a-button>
-        <a-button >批量操作</a-button>
-        <a-dropdown>
-          <a-menu @click="handleMenuClick" slot="overlay">
-            <a-menu-item key="delete">删除</a-menu-item>
-            <a-menu-item key="audit">审批</a-menu-item>
-          </a-menu>
-          <a-button>
-            更多操作 <a-icon type="down" />
-          </a-button>
-        </a-dropdown>
+        <a-button @click="visible = true" type="primary">新建</a-button>
       </div>
-      <standard-table
+      <a-table
         :columns="columns"
         :dataSource="dataSource"
         :selectedRows="selectedRows"
-        @change="onchange"
-      />
+      >
+        <span slot="action" slot-scope="text, record">
+        <a-dropdown>
+          <a-menu slot="overlay">
+            <a-menu-item @click="updateTag(record)">修改</a-menu-item>
+            <a-menu-item>
+              <a-popconfirm placement="top" title="Are you sure delete this one?"
+                            @confirm="_confirmDel(record.key, record._id)" okText="Yes" cancelText="No">
+                Delete
+              </a-popconfirm>
+            </a-menu-item>
+          </a-menu>
+          <a-button>
+            更多 <a-icon type="down" />
+          </a-button>
+        </a-dropdown>
+
+        </span>
+      </a-table>
     </div>
   </a-card>
+  <a-modal title="详情"
+                     :visible="visible"
+                     @ok="_confirmAdd"
+                     @cancel="_cancelAdd">
+    <a-form>
+      <a-form-item
+        label="名称"
+        :labelCol="{span: 7}"
+        :wrapperCol="{span: 10}"
+      >
+        <a-input placeholder="尽量简洁" v-model="newTag.name" />
+      </a-form-item>
+      <a-form-item
+        label="排序"
+        :labelCol="{span: 7}"
+        :wrapperCol="{span: 10}"
+        :required="false"
+        help="数值越大排名越靠前，取值范围0~1000"
+      >
+        <a-input-number :min="0" :max="1000" v-model="newTag.sort"/>
+        <span>位</span>
+      </a-form-item>
+      <a-form-item
+        label="分类"
+        :labelCol="{span: 7}"
+        :wrapperCol="{span: 10}"
+        :required="false"
+        help="选择标签分类"
+      >
+          <a-select v-model="newTag.cid">
+            <a-select-option value="5a4ca9c1623bf51b5e326f67">IT技术</a-select-option>
+            <a-select-option value="5a5ca7608cef9674e1046d3b">Business</a-select-option>
+            <a-select-option value="5a4ca9c1623bf51b5e326f6b">其它分类</a-select-option>
+          </a-select>
+      </a-form-item>
+      <a-form-item
+        label="is_index"
+        :labelCol="{span: 7}"
+        :wrapperCol="{span: 10}"
+        :required="false"
+        help="is index"
+      >
+        <a-radio-group v-model="newTag.is_index">
+          <a-radio :value="true">是</a-radio>
+          <a-radio :value="false">否</a-radio>
+        </a-radio-group>
+      </a-form-item>
+      <a-form-item
+        label="是否显示"
+        :labelCol="{span: 7}"
+        :wrapperCol="{span: 10}"
+        :required="false"
+        help="显示到主页"
+      >
+        <a-radio-group v-model="newTag.is_show">
+          <a-radio :value="true">是</a-radio>
+          <a-radio :value="false">否</a-radio>
+        </a-radio-group>
+      </a-form-item>
+    </a-form>
+</a-modal>
+</div>
 </template>
 
 <script>
@@ -107,12 +177,8 @@ import { mapState } from 'vuex'
 import StandardTable from '../../components/table/StandardTable'
 const columns = [
   {
-    title: '标签id',
-    dataIndex: 'no'
-  },
-  {
     title: '描述',
-    dataIndex: 'description'
+    dataIndex: 'name'
   },
   {
     title: '标签分类',
@@ -123,17 +189,33 @@ const columns = [
     dataIndex: 'sort',
     sorter: true,
     needTotal: true,
-    customRender: (text) => '第 ' + text
+    customRender: (text) => '第 ' + text + '位'
   },
   {
     title: 'index',
-    dataIndex: 'index'
+    dataIndex: 'is_index',
+    customRender: (text) => text ? '是' : '否'
   },
   {
     title: 'show',
-    dataIndex: 'show'
+    dataIndex: 'is_show',
+    customRender: (text) => text ? '是' : '否'
+  },
+  {
+    title: 'action',
+    key: 'action',
+    scopedSlots: { customRender: 'action' }
   }
 ]
+
+const initTag = {
+  name: '',
+  cid: '5a4ca9c1623bf51b5e326f67',
+  is_index: true,
+  is_show: true,
+  sort: 1,
+  isAdd: true // true add, false update
+}
 
 export default {
   name: 'QueryList',
@@ -141,27 +223,29 @@ export default {
   data () {
     return {
       tagCategoryId: 0,
-      advanced: true,
+      advanced: false,
       columns: columns,
       selectedRowKeys: [],
-      selectedRows: []
+      selectedRows: [],
+      visible: false,
+      newTag: initTag
     }
   },
   computed: {
     ...mapState({
-      // total: state => state.tags.total,
       total: state => state.tags.list.length,
       dataSource: state => {
         const dataSource = []
         for (let i = 0; i < state.tags.list.length; i++) {
           dataSource.push({
             key: i,
-            no: state.tags.list[i]._id,
-            description: state.tags.list[i].name
-            // sort: state.tags.list[i].sort,
-            // show: state.tags.list[i].is_show,
-            // index: state.tags.list[i].is_index,
-            // category: state.tags.list[i].cid.name
+            _id: state.tags.list[i]._id,
+            name: state.tags.list[i].name,
+            sort: state.tags.list[i].sort,
+            is_show: state.tags.list[i].is_show,
+            is_index: state.tags.list[i].is_index,
+            categoryName: state.tags.list[i].cid.name,
+            cid: state.tags.list[i].cid
           })
         }
         return dataSource
@@ -178,30 +262,46 @@ export default {
     toggleAdvanced () {
       this.advanced = !this.advanced
     },
-    onchange (selectedRowKeys, selectedRows) {
-      this.selectedRowKeys = selectedRowKeys
-      this.selectedRows = selectedRows
-    },
-    remove () {
-      this.dataSource = this.dataSource.filter(item => this.selectedRowKeys.indexOf(item.key) < 0)
-      this.selectedRows = this.selectedRows.filter(item => this.selectedRowKeys.indexOf(item.key) < 0)
-    },
-    addNew () {
-      this.dataSource.unshift({
-        key: this.dataSource.length,
-        no: 'NO ' + this.dataSource.length,
-        description: '这是一段描述',
-        callNo: Math.floor(Math.random() * 1000),
-        status: Math.floor(Math.random() * 10) % 4,
-        show: true,
-        index: true,
-        category: 'IT'
-      })
-    },
-    handleMenuClick (e) {
-      if (e.key === 'delete') {
-        this.remove()
+    // add tag
+    _confirmAdd: function () {
+      var _this = this
+      let str = ''
+      if (this.newTag.isAdd === true) {
+        str = 'tags/add'
+      } else {
+        str = 'tags/update'
       }
+      this.$store.dispatch(str, this.newTag)
+        .then(res => {
+          _this.$message.success('success')
+          _this.visible = false
+          _this.newTag = initTag
+        })
+        .catch(err => {
+          _this.$message.error(err)
+        })
+    },
+    updateTag: function (tag) {
+      this.newTag = tag
+      this.newTag.isAdd = false
+      this.visible = true
+    },
+    _cancelAdd: function () {
+      this.visible = false
+      this.newTag = initTag
+    },
+    // delete tag
+    _confirmDel: function (index, id) {
+      var _this = this
+      this.$store.dispatch('tags/delete', id)
+        .then(res => {
+          _this.list.splice(index, 1) // 删除list中对应的行
+          _this.$store.commit('tags/setTotal', _this.total - 1) // 更改total值。
+          _this.$message.success('success')
+        })
+        .catch(err => {
+          _this.$message.error(err)
+        })
     }
   }
 }
