@@ -40,8 +40,8 @@ export default {
     update ({ commit }, { id, data }) {
       return api.updateTimeline(id, data)
     },
-    getTimeline ({ commit }, { id }) {
-      api.getTimeline(id)
+    getTimeline ({ commit }, { id , page, size }) {
+      api.getTimeline(id, page, size)
         .then(res => {
           commit(types.GET_TIMELINE, res)
         })

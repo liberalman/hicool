@@ -34,6 +34,15 @@
         </el-timeline-item>
       </el-timeline>
       <el-divider></el-divider>
+      <el-pagination
+        style="text-align: center;"
+        @size-change="handleSizeChange"
+        @current-change="handleCurrentChange"
+        :current-page="page"
+        :page-sizes="[10, 20, 30, 40]"
+        :page-size="size"
+        layout="total, sizes, prev, pager, next, jumper"
+        :total="total" />
       </div>
     </div>
     <CopyRight />
@@ -80,6 +89,8 @@
     },
     data(){
       return {
+        page: 1,
+        size: 10,
         dialogVisible: false,
         point: {
           _id: '',
@@ -102,7 +113,20 @@
     },
     methods: {
       fetchData() {
-        this.$store.dispatch('timeline/getTimeline', { id: this.$route.params.id, isAuthed: this.utils.isLogin() })
+        this.$store.dispatch('timeline/getTimeline', {
+          id: this.$route.params.id,
+          isAuthed: this.utils.isLogin(),
+          page: this.page,
+          size: this.size
+        })
+      },
+      handleSizeChange(val) {
+        this.size = val
+        this.fetchData()
+      },
+      handleCurrentChange(val) {
+        this.page = val
+        this.fetchData()
       },
       deleteTimeline() {
         this.$confirm('此操作将永久删除该资源, 是否继续?', '提示', {

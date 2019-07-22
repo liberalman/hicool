@@ -55,14 +55,25 @@ class TimelineService extends Service {
   }
   
   async find(id) {
-    // 假如 我们拿到用户 id 从数据库获取用户详细信息
-    const timeline = await this.ctx.model.Timeline.findOne({_id: id}, {points:{$slice:10}})
+    let { ctx } = this
+    let page = (parseInt(ctx.query.page) > 0) ? parseInt(ctx.query.page) : 1
+    let size = (parseInt(ctx.query.size) > 0) ? parseInt(ctx.query.size) : 10
+    let startRow = (page - 1) * size
+    const data = await ctx.model.Timeline.findOne({
+        '_id': id
+      },
+      {
+        'points': {
+          '$slice': [startRow, startRow+size],
+          //'$sort': { 'publish_time': 1 },
+        }
+      })
       .select('title cover description publish_time updated ')
       .populate({
         path: 'author_id',
         select: '-_id nickname avatar'
       })
-    return timeline
+    return data
   }
 
   async delete(uid, id) {
@@ -216,7 +227,7 @@ class TimelineService extends Service {
               '_id': pointId, // new ObjectId
               'title': title,
               'content': ctx.request.body.content,
-              'publish_time': ctx.request.body.publish_time,
+              'publish_time': new Date(ctx.request.body.publish_time),
               }],
               '$sort': { 'publish_time': -1}
             }

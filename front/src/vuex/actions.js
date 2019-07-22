@@ -209,8 +209,8 @@ export default {
   updateTimeline (id, data) {
     return PUTA(`/timeline/${id}`, data)
   },
-  getTimeline (id) {
-    return GETA(`/timeline/${id}`)
+  getTimeline (id, page, size) {
+    return GETA(`/timeline/${id}?page=${page}&size=${size}`)
   },
   getMyTimelines (page, size) {
     return GETA(`/timelines?page=${page}&size=${size}&sort_name=updated`)
