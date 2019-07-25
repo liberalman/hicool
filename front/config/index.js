@@ -2,7 +2,7 @@
 var path = require('path')
 
 module.exports = {
-  build: {
+  build: { // yarn build 的时候会用到如下配置
     env: require('./prod.env'),
     port: 5000,
     index: path.resolve(__dirname, '../dist/index.html'),
@@ -14,7 +14,7 @@ module.exports = {
     // Surge or Netlify already gzip all static assets for you.
     // Before setting to `true`, make sure to:
     // npm install --save-dev compression-webpack-plugin
-    productionGzip: false,
+    // productionGzip: true, // vue-cli3.0以后， 没有了productionGzip配置
     productionGzipExtensions: ['js', 'css'],
     // Run the build command with an extra argument to
     // View the bundle analyzer report after build finishes:

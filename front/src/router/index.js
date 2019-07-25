@@ -11,6 +11,12 @@ export default new VueRouter({
             require(['@/views/Index'], resolve)
         }
     }, {
+        path: '/index',
+        name: 'Index1',
+        component: function(resolve) {
+            require(['@/views/Index1'], resolve)
+        }
+    }, {
         path: '/timelines',
         name: 'Timelines',
         component: function(resolve) {

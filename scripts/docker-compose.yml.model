@@ -50,7 +50,6 @@ mongo:
 nginx:
   ports:
     - 443:443/tcp
-    - 6012:6012/tcp
     - 6011:6011/tcp
     - 80:80/tcp
   image: nginx

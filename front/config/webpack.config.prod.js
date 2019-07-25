@@ -9,6 +9,7 @@ var HtmlWebpackPlugin = require('html-webpack-plugin')
 var MiniCssExtractPlugin = require('mini-css-extract-plugin')
 var OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 const TerserPlugin = require('terser-webpack-plugin')
+const CompressionPlugin = require("compression-webpack-plugin")
 
 var env = process.env.NODE_ENV === 'testing' ?
   require('../config/test.env') :
@@ -82,7 +83,16 @@ var webpackConfig = merge(baseWebpackConfig, {
       to: config.build.assetsSubDirectory,
       ignore: ['.*']
     }]),
-
+    new CompressionPlugin({
+      filename: '[path].gz[query]', //目标资源名称。[file] 会被替换成原资源。[path] 会被替换成原资源路径，[query] 替换成原查询字符串
+      algorithm: 'gzip',//算法
+      test: new RegExp(
+        '\\.(js|css)$'    //压缩 js 与 css
+      ),
+      threshold: 10240, //只处理比这个值大的资源。按字节计算
+      minRatio: 0.8, //只有压缩率比这个值小的资源才会被处理
+      deleteOriginalAssets: true // 是否删除原始资产
+    }),
   ],
   optimization: {
     minimizer: [
@@ -108,6 +118,19 @@ var webpackConfig = merge(baseWebpackConfig, {
       automaticNameDelimiter: '~',
       name: true,
       cacheGroups: {
+        mavonEditor: { // 分割第三方库
+          name: 'mavonEditor',
+          test: /[\\/]node_modules[\\/]mavon-editor[\\/]/,
+          priority: 10  // 优先级要大于 vendors 不然会被打包进 vendors
+        },
+        public: { // 分割共用文件
+          name: 'public',
+          test: 'src/views/components',
+          minSize: 0, //表示在压缩前的最小模块大小,默认值是 30kb
+          minChunks: 2, // 最小公用次数
+          priority: 5, // 优先级
+          reuseExistingChunk: true // 公共模块必开启
+        },
         vendors: {
           test: /[\\/]node_modules[\\/]/,
           priority: -10
