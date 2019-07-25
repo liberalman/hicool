@@ -14,7 +14,7 @@ module.exports = {
     // Surge or Netlify already gzip all static assets for you.
     // Before setting to `true`, make sure to:
     // npm install --save-dev compression-webpack-plugin
-    // productionGzip: true, // vue-cli3.0以后， 没有了productionGzip配置
+    productionGzip: false, // 不能启用压缩，因为微信浏览器不支持gzip
     productionGzipExtensions: ['js', 'css'],
     // Run the build command with an extra argument to
     // View the bundle analyzer report after build finishes:
