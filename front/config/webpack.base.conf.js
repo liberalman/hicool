@@ -35,7 +35,7 @@ module.exports = {
     'axios': 'axios',
     // 'vue-lazyload': 'VueLazyload',
     // 'moment': 'moment',
-    'element-ui': 'ELEMENT'
+    // 'element-ui': 'ELEMENT'
   },
   module: {
     rules: [{

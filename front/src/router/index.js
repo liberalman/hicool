@@ -88,13 +88,13 @@ export default new VueRouter({
         }
     }, {
         path: '/search1',
-        name: 'Search',
+        name: 'Search1',
         component: function(resolve) {
             require(['@/views/Search1'], resolve)
         }
     }, {
         path: '/search2',
-        name: 'Search',
+        name: 'Search2',
         component: function(resolve) {
             require(['@/views/Search2'], resolve)
         }

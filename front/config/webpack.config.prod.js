@@ -108,7 +108,7 @@ var webpackConfig = merge(baseWebpackConfig, {
       automaticNameDelimiter: '~',
       name: true,
       cacheGroups: {
-        mavonEditor: { // 分割第三方库
+        /*mavonEditor: { // 分割第三方库
           name: 'mavonEditor',
           test: /[\\/]node_modules[\\/]mavon-editor[\\/]/,
           priority: 10  // 优先级要大于 vendors 不然会被打包进 vendors
@@ -120,7 +120,7 @@ var webpackConfig = merge(baseWebpackConfig, {
           minChunks: 2, // 最小公用次数
           priority: 5, // 优先级
           reuseExistingChunk: true // 公共模块必开启
-        },
+        },*/
         vendors: {
           test: /[\\/]node_modules[\\/]/,
           priority: -10
