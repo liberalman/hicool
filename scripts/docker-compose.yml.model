@@ -46,7 +46,7 @@ mongo:
     - ~/data/mongo/db:/data/db
   ports:
     - "${mongodb_port}:27017"
-  command: -master --auth
+  command: --auth
 nginx:
   ports:
     - 443:443/tcp
@@ -72,6 +72,7 @@ xunsearch:
 #  ports:
 #    - ${search_port}:${search_port}
 apache-php:
+  # https://github.com/liberalman/apahce-php7-mongodb.git
   image: php-mongodb:7.2-apache
   volumes:
     - /data/www:/var/www/html
