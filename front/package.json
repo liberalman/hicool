@@ -40,6 +40,7 @@
     "less-loader": "^4.1.0",
     "markdown-it": "^9.0.1",
     "markdown-it-prism": "^2.0.2",
+    "markdown-it-vue": "^1.0.9",
     "mavon-editor": "^2.6.15",
     "mini-css-extract-plugin": "^0.4.1",
     "morgan": "^1.9.0",

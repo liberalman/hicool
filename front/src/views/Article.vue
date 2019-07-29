@@ -19,7 +19,9 @@
       <span class="title" v-for="item in article.tags">
         <el-tag type="success" size="mini">{{item.name}}</el-tag>&nbsp;
       </span>
-      <div class="content markdown-body" v-html="content" v-if="article.editor == 1"> </div>
+      <div class="content markdown-body" v-if="article.editor == 1">
+        <markdown-it-vue :content="article.content" :options="options"/>
+      </div>
       <div class="content" v-html="content" v-else></div>
       <el-divider></el-divider>
       <div class="content" style="margin-top: 1em;" v-if="article.reprint_url">
@@ -38,22 +40,9 @@
 <script>
   import router from '../router'
   import Avatar from 'vue-avatar'
-  import prism from 'markdown-it-prism'
-  import 'prismjs/themes/prism.css'
-  //import mk from 'markdown-it-katex'
-  import mk from '@iktakahiro/markdown-it-katex'
-  import 'katex/dist/katex.min.css'
-  import 'github-markdown-css/github-markdown.css'
-  var MarkdownIt = require('markdown-it')
 
-  var md = new MarkdownIt({
-    html: true,
-    linkify: true,
-    typographer: true
-  })
-
-  //md.use(prism)
-  md.use(mk)
+  import MarkdownItVue from 'markdown-it-vue'
+  import 'markdown-it-vue/dist/markdown-it-vue.css'
 
   export default {
     props: ['headline', 'subline', 'mySrc'],
@@ -65,22 +54,39 @@
       'vNav': () =>
         import('./components/Nav.vue'),
       'avatar' : Avatar,
+      MarkdownItVue
     },
     data(){
       return {
-        isMounted: false
+        isMounted: false,
+        options: {
+          markdownIt: {
+            linkify: true
+          },
+          linkAttributes: {
+            target: '_blank',
+            rel: 'noopener'
+          },
+          katex: {
+            throwOnError: false,
+            errorColor: '#cc0000'
+          },
+          icons: 'font-awesome',
+          githubToc: {
+            tocFirstLevel: 2,
+            tocLastLevel: 3,
+            tocClassName: 'toc',
+            anchorLinkSymbol: '',
+            anchorLinkSpace: false,
+            anchorClassName: 'anchor',
+            anchorLinkSymbolClassName: 'octicon octicon-link'
+          }
+        }
       }
     },
     computed: Vuex.mapState({
       article: state => state.article,
       loading: state => state.article.loading,
-      content() {
-        let _content = this.$store.state.article.content
-        if (this.article.editor == 1) { // 只有markdown才需要渲染
-          return md.render(_content)
-        }
-        return _content
-      },
       isMine() {
         return this.utils.isMine(this.article)
       },
@@ -88,9 +94,6 @@
     mounted () {
       this.fetchData()
     },
-    /*beforeDestroy() {
-      this.$store.dispatch('clearArticle')
-    },*/
     methods: {
       fetchData() {
         this.$store.dispatch('article/getArticle', { id: this.$route.params.id, isAuthed: this.utils.isLogin() })
