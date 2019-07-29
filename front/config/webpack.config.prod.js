@@ -10,6 +10,7 @@ var MiniCssExtractPlugin = require('mini-css-extract-plugin')
 var OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 const TerserPlugin = require('terser-webpack-plugin')
 const CompressionPlugin = require("compression-webpack-plugin")
+const UselessFile = require('useless-files-webpack-plugin')
 
 var env = process.env.NODE_ENV === 'testing' ?
   require('../config/test.env') :
@@ -83,6 +84,12 @@ var webpackConfig = merge(baseWebpackConfig, {
       to: config.build.assetsSubDirectory,
       ignore: ['.*']
     }]),
+    new UselessFile({
+      root: './src', // 项目目录
+      out: './fileList.json', // 输出文件列表
+      clean: false,// 删除文件,
+      exclude: path // 排除文件列表, 格式为文件路径数组
+    }),
   ],
   optimization: {
     minimizer: [

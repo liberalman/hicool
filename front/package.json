@@ -56,6 +56,7 @@
     "ueditor": "^1.2.3",
     "universal-cookie": "^3.0.1",
     "url-loader": "^1.0.1",
+    "useless-files-webpack-plugin": "^1.0.1",
     "vue-avatar": "^2.1.6",
     "vue-baidu-map": "^0.21.20",
     "vue-cropper": "^0.3.1",
