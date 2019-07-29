@@ -40,7 +40,7 @@
 <script>
   import router from '../router'
   import Avatar from 'vue-avatar'
-
+  // https://github.com/ravenq/markdown-it-vue
   import MarkdownItVue from 'markdown-it-vue'
   import 'markdown-it-vue/dist/markdown-it-vue.css'
 
