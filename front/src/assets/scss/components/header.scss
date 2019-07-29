@@ -39,6 +39,14 @@ header {
         h2 {
             font-size: 2.5rem;
         }
+        h3 {
+            font-size: 2.0rem;
+        }
+        @media only screen and (max-width: 100px) {
+           .h3 {
+               font-size: 1.5rem;
+           }
+        }
         p {
             font-size: 1.2rem;
             cursor: default;

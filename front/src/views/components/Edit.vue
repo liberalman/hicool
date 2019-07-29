@@ -156,7 +156,6 @@
             }
           ]
         },
-        article: this.$props.article
       }
       return ret
     },
@@ -182,6 +181,9 @@
           message: msg,
           type: 'warning'
         });
+      },
+      //
+      async $imgDel() {
       },
       // 绑定@imgAdd event
       async $imgAdd(pos, file) {

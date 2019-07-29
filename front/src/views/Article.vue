@@ -3,7 +3,7 @@
     <header class="a-header" :style="{background: 'url('+ (article.cover ? article.cover : 'http://image.hicool.top/static/album/5ac0a43f7c0636267ed49b91/1503658700339782278.jpg') +')' + 'center center / cover', backgroundSize: 'cover'}">
       <vNav></vNav>
       <div class="text-wrap">
-        <h2 class="shaddow">{{article.title}}</h2>
+        <h3 class="shadow">{{article.title}}</h3>
         <p class="shadow-light">{{article.description}}</p>
       </div>
     </header>
@@ -38,8 +38,6 @@
 <script>
   import router from '../router'
   import Avatar from 'vue-avatar'
-  import { mavonEditor } from "mavon-editor"
-  import "mavon-editor/dist/css/index.css"
   import prism from 'markdown-it-prism'
   import 'prismjs/themes/prism.css'
   //import mk from 'markdown-it-katex'
@@ -54,7 +52,7 @@
     typographer: true
   })
 
-  md.use(prism)
+  //md.use(prism)
   md.use(mk)
 
   export default {
@@ -67,7 +65,6 @@
       'vNav': () =>
         import('./components/Nav.vue'),
       'avatar' : Avatar,
-      mavonEditor,
     },
     data(){
       return {
