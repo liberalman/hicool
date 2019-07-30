@@ -27,16 +27,6 @@ module.exports = {
       '@': resolve('src'),
     },
   },
-  externals: {
-    // 左边是给 require用的, 右边是给全局调用的
-    'vue': 'Vue',
-    'vue-router': 'VueRouter',
-    'vuex': 'Vuex',
-    'axios': 'axios',
-    // 'vue-lazyload': 'VueLazyload',
-    // 'moment': 'moment',
-    // 'element-ui': 'ELEMENT'
-  },
   module: {
     rules: [{
         test: /\.vue$/,

@@ -11,6 +11,7 @@ var OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 const TerserPlugin = require('terser-webpack-plugin')
 const CompressionPlugin = require("compression-webpack-plugin")
 const UselessFile = require('useless-files-webpack-plugin')
+const WebpackCdnPlugin = require('webpack-cdn-plugin')
 
 var env = process.env.NODE_ENV === 'testing' ?
   require('../config/test.env') :
@@ -45,6 +46,18 @@ var webpackConfig = merge(baseWebpackConfig, {
     filename: utils.assetsPath('js/[name].[chunkhash].js'),
     chunkFilename: utils.assetsPath('js/[id].[chunkhash].js')
   },
+  externals: {
+    // 左边是给 require用的, 右边是给全局调用的
+    'axios': 'axios',
+    'vue': 'Vue',
+    'vue-router': 'VueRouter',
+    'vue-avatar': 'VueAvatar',
+    'vue-baidu-map': 'VueBaiduMap',
+    'vue-moment': 'vueMoment',
+    'vuex': 'Vuex',
+    // 'vue-lazyload': 'VueLazyload',
+    'element-ui': 'ELEMENT',
+  },
   plugins: [
     // http://vuejs.github.io/vue-loader/en/workflow/production.html
     new webpack.DefinePlugin({
@@ -75,8 +88,53 @@ var webpackConfig = merge(baseWebpackConfig, {
         // more options:
         // https://github.com/kangax/html-minifier#options-quick-reference
       },
-      // necessary to consistently work with multiple chunks via CommonsChunkPlugin
-      chunksSortMode: 'none'
+      chunksSortMode: 'none', //如果使用webpack4将该配置项设置为'none'
+    }),
+    new WebpackCdnPlugin({
+      modules: [
+        {
+          name: 'vue',
+          var: 'Vue',
+          path: 'dist/vue.min.js'
+        },
+        {
+          name: 'vue-router',
+          var: 'VueRouter',
+          path: 'dist/vue-router.min.js'
+        },
+        {
+          name: 'vuex',
+          var: 'Vuex',
+          path: 'dist/vuex.min.js'
+        },
+        {
+          name: 'vue-avatar',
+          var: 'VueAvatar',
+          path: 'dist/vue-avatar.min.js'
+        },
+        {
+          name: 'vue-baidu-map',
+          var: 'VueBaiduMap',
+          path: 'index.js'
+        },
+        {
+          name: 'vue-moment',
+          var: 'vueMoment',
+          path: 'dist/vue-moment.js'
+        },
+        {
+          name: 'element-ui',
+          var: 'ELEMENT',
+          path: 'lib/index.js',
+          style: 'lib/theme-chalk/index.css'
+        },
+        {
+          name: 'axios',
+          var: 'axios',
+          path: 'dist/axios.min.js'
+        }
+      ],
+      publicPath: '/node_modules'
     }),
     // copy custom static assets 拷贝图片
     new CopyWebpackPlugin([{
@@ -87,7 +145,7 @@ var webpackConfig = merge(baseWebpackConfig, {
     new UselessFile({
       root: './src', // 项目目录
       out: './fileList.json', // 输出文件列表
-      clean: false,// 删除文件,
+      clean: false, // 删除文件,
       exclude: path // 排除文件列表, 格式为文件路径数组
     }),
   ],
@@ -103,7 +161,8 @@ var webpackConfig = merge(baseWebpackConfig, {
       // duplicated CSS from different components can be deduped.
     ],
     runtimeChunk: {
-      name: "manifest" //runtimeChunk是webpack固定生成的一段代码，用来维护模块之间的以来关系的，比如给每个模块一个ID之类的，这部分代码跟你写的代码完全没有关系，所以单独切割出来能够防止他的变化影响你自己的代码的hash变化
+      name: "manifest" //runtimeChunk是webpack固定生成的一段代码，用来维护模块之间的依赖关系的，
+      // 比如给每个模块一个ID之类的，这部分代码跟你写的代码完全没有关系，所以单独切割出来能够防止他的变化影响你自己的代码的hash变化
     },
     splitChunks: {
       chunks: 'async',
@@ -115,7 +174,12 @@ var webpackConfig = merge(baseWebpackConfig, {
       automaticNameDelimiter: '~',
       name: true,
       cacheGroups: {
-        /*mavonEditor: { // 分割第三方库
+        markdownItVue: { // 分割第三方库
+          name: 'markdownItVue',
+          test: /[\\/]node_modules[\\/]markdown-it-vue[\\/]/,
+          priority: 10  // 优先级要大于 vendors 不然会被打包进 vendors
+        },
+        mavonEditor: { // 分割第三方库
           name: 'mavonEditor',
           test: /[\\/]node_modules[\\/]mavon-editor[\\/]/,
           priority: 10  // 优先级要大于 vendors 不然会被打包进 vendors
@@ -127,7 +191,7 @@ var webpackConfig = merge(baseWebpackConfig, {
           minChunks: 2, // 最小公用次数
           priority: 5, // 优先级
           reuseExistingChunk: true // 公共模块必开启
-        },*/
+        },
         vendors: {
           test: /[\\/]node_modules[\\/]/,
           priority: -10
@@ -162,7 +226,9 @@ if(config.build.productionGzip) {
 
 if(config.build.bundleAnalyzerReport) {
   var BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
-  webpackConfig.plugins.push(new BundleAnalyzerPlugin())
+  webpackConfig.plugins.push(new BundleAnalyzerPlugin({
+    analyzerPort: 8888
+  }))
 }
 
 module.exports = webpackConfig

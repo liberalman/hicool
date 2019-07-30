@@ -364,7 +364,6 @@
 </script>
 
 <style lang="scss">
-  @import '../../../node_modules/github-markdown-css/github-markdown.css';
   @import '../../assets/scss/post.scss';
   @import '../../assets/scss/components/preview.scss';
 </style>

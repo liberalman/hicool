@@ -19,7 +19,7 @@
       <span class="title" v-for="item in article.tags">
         <el-tag type="success" size="mini">{{item.name}}</el-tag>&nbsp;
       </span>
-      <div class="content markdown-body" v-if="article.editor == 1">
+      <div class="content" v-if="article.editor == 1">
         <markdown-it-vue :content="article.content" :options="options"/>
       </div>
       <div class="content" v-html="content" v-else></div>

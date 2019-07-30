@@ -1,6 +1,6 @@
 import Hello from '@/views/Hello'
 
-Vue.use(VueRouter)
+if (!window.VueRouter) Vue.use(VueRouter)
 
 export default new VueRouter({
     mode: 'history',
