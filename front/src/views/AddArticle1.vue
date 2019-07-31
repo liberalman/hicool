@@ -1,6 +1,6 @@
 <template lang="html">
   <div class="" v-loading.fullscreen.lock="loading">
-    <header class="a-header" :style="{background: 'url('+ (article.cover ? article.cover : 'http://offical.b0.upaiyun.com/static/album/5ac0a43f7c0636267ed49b91/1503658700339782278.jpg') +')' + 'center center / cover', backgroundSize: 'cover'}">
+    <header class="a-header" :style="{background: 'url('+ (article.cover ? article.cover : 'http://image.hicool.top/static/album/5ac0a43f7c0636267ed49b91/1503658700339782278.jpg') +')' + 'center center / cover', backgroundSize: 'cover'}">
       <vNav></vNav>
       <div class="text-wrap">
         <h1 class="shaddow">{{article.title}}</h1>
@@ -41,7 +41,7 @@ export default {
       article: {
         _id: '',
         title: '',
-        cover: 'http://offical.b0.upaiyun.com/static/album/5ac0a43f7c0636267ed49b91/1503658700339782278.jpg',
+        cover: 'http://image.hicool.top/static/album/5ac0a43f7c0636267ed49b91/1503658700339782278.jpg',
         content: '', // 富文本编辑器双向绑定的内容
         description: '',
         top: false,

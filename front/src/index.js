@@ -12,9 +12,9 @@ Vue.use(ElementUI)
 Vue.use(require('vue-moment'))
 
 // 搜索框
-import 'vue-instant/dist/vue-instant.css'
-import VueInstant from 'vue-instant/dist/vue-instant.common'
-Vue.use(VueInstant)
+//import 'vue-instant/dist/vue-instant.css'
+//import VueInstant from 'vue-instant/dist/vue-instant.common'
+//Vue.use(VueInstant)
 
 // 公共方法
 import Utils from './utils/utils.js'

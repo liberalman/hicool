@@ -37,6 +37,7 @@
   import vueCropper from 'vue-cropper'
   import * as qiniu from 'qiniu-js' // https://github.com/qiniu/js-sdk
   import utils from '../../utils/utils'
+  var hljs = require('highlight.js')
 
   export default {
     name: 'AvatarQiniu',

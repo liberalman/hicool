@@ -44,6 +44,11 @@ module.exports = WebpackMerge(baseWebpackConfig, {
           path: 'lib/index.js',
           style: 'lib/theme-chalk/index.css' // 引入样式文件
         },
+        {
+          name: 'axios',
+          var: 'axios',
+          path: 'dist/axios.min.js'
+        },
       ],
       publicPath: '/node_modules'
     }),

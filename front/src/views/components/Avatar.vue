@@ -58,6 +58,7 @@
 
 <script>
 import vueCropper from 'vue-cropper'
+var hljs = require('highlight.js')
 
 export default {
   data: function () {

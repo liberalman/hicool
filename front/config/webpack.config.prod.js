@@ -93,14 +93,19 @@ var webpackConfig = merge(baseWebpackConfig, {
     new WebpackCdnPlugin({
       modules: [
         {
-          name: 'vue',
-          var: 'Vue',
+          name: 'vue', // name是我们在使用import或者require的时候，引入的包名称
+          var: 'Vue', // var是引入包时候，内部的全局变量名
           path: 'dist/vue.min.js'
         },
         {
           name: 'vue-router',
           var: 'VueRouter',
           path: 'dist/vue-router.min.js'
+        },
+        {
+          name: 'vue-cropper',
+          var: 'VueCropper',
+          path: 'dist/index.js'
         },
         {
           name: 'vuex',
@@ -126,13 +131,103 @@ var webpackConfig = merge(baseWebpackConfig, {
           name: 'element-ui',
           var: 'ELEMENT',
           path: 'lib/index.js',
-          style: 'lib/theme-chalk/index.css'
+          style: 'lib/theme-chalk/index.css' //插入样式文件
         },
         {
           name: 'axios',
           var: 'axios',
           path: 'dist/axios.min.js'
-        }
+        },
+        /*{
+          name: 'highlight.js',
+          var: 'highlight',
+          prodUrl: '//cdn.bootcss.com/highlight.js/9.15.8/highlight.min.js'
+        },*/
+        {
+          name: 'highlight.js/styles/github.css',
+          cssOnly: true,
+          prodUrl: '//cdn.bootcss.com/highlight.js/9.15.8/styles/github.min.css'
+        },
+        /*{
+          name: '@iktakahiro/markdown-it-katex',
+          var: 'katex',
+          path: 'index.js',
+        },*/
+        {
+          name: 'github-markdown-css/github-markdown.css',
+          cssOnly: true,
+          prodUrl: '//cdn.bootcss.com/github-markdown-css/3.0.1/github-markdown.css'
+        },
+        /*{
+          name: 'markdown-it',
+          var: 'markdown-it',
+          prodUrl: '//cdn.bootcss.com/markdown-it/9.0.1/markdown-it.min.js'
+        },*/
+        /*{
+          name: 'markdown-it-emoji',
+          var: 'markdown-it-emoji',
+          path: 'index.js',
+        },*/
+        {
+          name: 'tinymce/tinymce',
+          var: 'tinymce',
+          prodUrl: '//cdn.bootcss.com/tinymce/5.0.12/jquery.tinymce.min.js'
+        },
+        {
+          name: 'tinymce/themes/silver',
+          var: 'tinymce',
+          prodUrl: '//cdn.bootcss.com/tinymce/5.0.12/themes/silver/theme.min.js'
+        },
+        {
+          name: 'tinymce/plugins/advlist',
+          var: 'tinymce',
+          prodUrl: '//cdn.bootcss.com/tinymce/5.0.12/plugins/advlist/plugin.min.js'
+        },
+        {
+          name: 'tinymce/plugins/link',
+          var: 'tinymce',
+          prodUrl: '//cdn.bootcss.com/tinymce/5.0.12/plugins/link/plugin.min.js'
+        },
+        {
+          name: 'tinymce/plugins/image',
+          var: 'tinymce',
+          prodUrl: '//cdn.bootcss.com/tinymce/5.0.12/plugins/image/plugin.min.js'
+        },
+        {
+          name: 'tinymce/plugins/code',
+          var: 'tinymce',
+          prodUrl: '//cdn.bootcss.com/tinymce/5.0.12/plugins/code/plugin.min.js'
+        },
+        {
+          name: 'tinymce/plugins/table',
+          var: 'tinymce',
+          prodUrl: '//cdn.bootcss.com/tinymce/5.0.12/plugins/table/plugin.min.js'
+        },
+        {
+          name: 'tinymce/plugins/textcolor',
+          var: 'tinymce',
+          prodUrl: '//cdn.bootcss.com/tinymce/5.0.12/plugins/textcolor/plugin.min.js'
+        },
+        {
+          name: 'tinymce/plugins/paste',
+          var: 'tinymce',
+          prodUrl: '//cdn.bootcss.com/tinymce/5.0.12/plugins/paste/plugin.min.js'
+        },
+        {
+          name: 'tinymce/plugins/textcolor',
+          var: 'tinymce',
+          prodUrl: '//cdn.bootcss.com/tinymce/5.0.12/plugins/textcolor/plugin.min.js'
+        },
+        {
+          name: 'tinymce/plugins/colorpicker',
+          var: 'tinymce',
+          prodUrl: '//cdn.bootcss.com/tinymce/5.0.12/plugins/colorpicker/plugin.min.js'
+        },
+        {
+          name: 'popmotion',
+          var: 'popmotion',
+          prodUrl: '//cdn.bootcss.com/popmotion/4.3.4/popmotion.global.min.js'
+        },
       ],
       publicPath: '/node_modules'
     }),

@@ -19,8 +19,10 @@
       <span class="title" v-for="item in article.tags">
         <el-tag type="success" size="mini">{{item.name}}</el-tag>&nbsp;
       </span>
-      <div class="content markdown-body" v-if="article.editor == 1" v-html="content(article.content)"></div>
-      <div class="content" v-html="article.content" v-else></div>
+      <div class="content" v-if="article.editor == 1">
+        <markdown-it-vue :content="article.content" :options="options"/>
+      </div>
+      <div class="content" v-html="content" v-else></div>
       <el-divider></el-divider>
       <div class="content" style="margin-top: 1em;" v-if="article.reprint_url">
         转自: <el-link type="info" :href="article.reprint_url" target="_blank">{{article.reprint_url}}</el-link>
@@ -38,9 +40,9 @@
 <script>
   import router from '../router'
   import Avatar from 'vue-avatar'
-  var mk = require('./components/Markdown.js')
-  import 'highlight.js/styles/github.css'
-  import 'github-markdown-css/github-markdown.css'
+  // https://github.com/ravenq/markdown-it-vue
+  import MarkdownItVue from 'markdown-it-vue'
+  import 'markdown-it-vue/dist/markdown-it-vue.css'
 
   export default {
     props: ['headline', 'subline', 'mySrc'],
@@ -51,7 +53,8 @@
         import('./components/CopyRight.vue'),
       'vNav': () =>
         import('./components/Nav.vue'),
-      'avatar' : Avatar
+      'avatar' : Avatar,
+      MarkdownItVue
     },
     data(){
       return {
@@ -92,9 +95,6 @@
       this.fetchData()
     },
     methods: {
-      content(content) {
-        return mk.Render(content)
-      },
       fetchData() {
         this.$store.dispatch('article/getArticle', { id: this.$route.params.id, isAuthed: this.utils.isLogin() })
       },

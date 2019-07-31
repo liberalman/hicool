@@ -85,7 +85,7 @@
       return {
         headline: 'Hicool Search', // 用户名
         subline: 'The thought of independence and freedom.', // 副标题
-        imgSrc: 'https://offical.b0.upaiyun.com/static/album/5ac0a4bac0979028323030f3/1503759063328965200.jpg', // 头图 http://of30nsqpd.bkt.clouddn.com/2015061101335924.jpeg
+        imgSrc: 'http://image.hicool.top/static/album/5ac0a4bac0979028323030f3/1503759063328965200.jpg', // 头图 http://of30nsqpd.bkt.clouddn.com/2015061101335924.jpeg
         
         value: '',
         suggestionAttribute: 'original_title',
