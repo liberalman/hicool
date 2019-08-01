@@ -1,4 +1,4 @@
-import { API_ROOT,API_ROOTA } from '../config'
+import { API_ROOT } from '../config'
 import * as types from './mutation-types'
 import axios from 'axios'
 import CryptoJS from 'crypto-js'
@@ -7,18 +7,14 @@ import utils from '../utils/utils'
 //axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded'
 axios.defaults.headers.post['Content-Type'] = 'application/json'
 
-let baseUrl = `${API_ROOT}/api/1/front`
-let baseUrla = `${API_ROOTA}/api/v1/front`
+let baseUrl = `${API_ROOT}/api/v1/front`
 
 // 增
 function POST (url, params) {
   return revoke('POST', baseUrl, url, params)
 }
-function POSTA (url, params) {
-  return revoke('POST', baseUrla, url, params)
-}
-function POSTA_1 (url, params) {
-  return revoke1('POST', baseUrla, url, params)
+function POST_1 (url, params) {
+  return revoke1('POST', baseUrl, url, params)
 }
 
 // 增
@@ -30,24 +26,15 @@ function POST_AUTH (url, params) {
 function DELETE (url, params) {
   return revoke('DELETE', baseUrl, url)
 }
-function DELETEA (url, params) {
-  return revoke('DELETE', baseUrla, url)
-}
 
 // 改
 function PUT (url, params) {
   return revoke('PUT', baseUrl, url, params)
 }
-function PUTA (url, params) {
-  return revoke('PUT', baseUrla, url, params)
-}
 
 // 查
 function GET (url, params) {
   return revoke('GET', baseUrl, url)
-}
-function GETA (url, params) {
-  return revoke('GET', baseUrla, url)
 }
 
 function revoke1 (method, baseUrl, url, params) {
@@ -116,133 +103,121 @@ function revoke (method, baseUrl, url, params) {
 
 export default {
   getArticles (page, size, tagId) {
-    // return GET(`/article/list?page=${page}&size=${size}&sort_name=updated&tag_id=${tagId}`)
-    return GETA(`/articles?page=${page}&size=${size}&sort_name=updated&tag_id=${tagId}`)
+    return GET(`/articles?page=${page}&size=${size}&sort_name=updated&tag_id=${tagId}`)
   },
   //  获取我的文章列表, type=2 私密文章
   getMyArticles(page, size, tagId, type) {
-    return GETA(`/myarticles?page=${page}&size=${size}&sort_name=updated&tag_id=${tagId}&type=${type}`)
-    //return GET(`/article/mine?page=${page}&size=${size}&sort_name=updated&tag_id=${tagId}&type=${type}`)
+    return GET(`/myarticles?page=${page}&size=${size}&sort_name=updated&tag_id=${tagId}&type=${type}`)
   },
   //  获取我收藏的文章
   getLikes(page, size) {
-    return GETA(`/likes?page=${page}&size=${size}`)
-    //return GET(`/user/me/likes?page=${page}&size=${size}`)
+    return GET(`/likes?page=${page}&size=${size}`)
   },
   getArticle (id, isAuthed) {
     if (isAuthed) {
-      return GETA(`/article/${id}`)
-      // return GET(`/article/${id}/authed`)
+      return GET(`/article/${id}`)
     } else {
-      return GETA(`/article/${id}`)
-      // return GET(`/article/${id}`)
+      return GET(`/article/${id}`)
     }
   },
   // 根据 文章 id 获取 comments
   getComments (id) {
-    return GETA(`/comment/${id}/list`)
+    return GET(`/comment/${id}/list`)
   },
   login (email, password, captcha) {
-    return POSTA_1(`/user/login`, `password=${password}&captcha=${captcha}&client_id=web&client_secret=fskefgtarwdbawydrawpdpaiuiawdtg&grant_type=password&username=${email}`)
-    //return POST_AUTH(`/local/login`, `{"email":"${email}","password":"${password}","captcha":"${captcha}"}`)
+    return POST_1(`/user/login`, `password=${password}&captcha=${captcha}&client_id=web&
+    client_secret=fskefgtarwdbawydrawpdpaiuiawdtg&grant_type=password&username=${email}`)
   },
   logout () {
     return POST(`/user/logout`)
   },
   register(nickname, email, password, captcha) {
-    return POST_AUTH('/local/register', `{"nickname":"${nickname}","email":"${email}","password":"${password}","captcha":"${captcha}"}`)
+    return POST_AUTH('/local/register', `{"nickname":"${nickname}","email":
+    "${email}","password":"${password}","captcha":"${captcha}"}`)
   },
   // 获取相册列表
-  getAlbums(page, size, sortName) {
-    return GETA(`/albums?page=${page}&size=${size}&sort_name=${sortName}`)
-    //return GET(`/album/list?page=${page}&size=${size}&sort_name=${sortName}`)
+  getalbums(page, size, sortName) {
+    return GET(`/albums?page=${page}&size=${size}&sort_name=${sortName}`)
   },
   // 获取相册
-  getAlbum(id) {
-    return GETA(`/album/${id}`)
-    //return GET(`/album/${id}`)
+  getalbum(id) {
+    return GET(`/album/${id}`)
   },
   deletePhoto (gallery_id, photo_id) {
-    return DELETEA(`/album/${gallery_id}/${photo_id}`)
+    return DELETE(`/album/${gallery_id}/${photo_id}`)
   },
   addPhoto (gallery_id, data) {
-    return PUTA(`/album/${gallery_id}/add_photo`, data)
+    return PUT(`/album/${gallery_id}/add_photo`, data)
   },
   getQiniuToken() {
-    //let ret = GET(`/upload/qiniu_token`)
-    let ret = GETA(`/third/qiniu_token`)
+    let ret = GET(`/third/qiniu_token`)
     ret.catch(error => {
-      return POSTA(`/third/qiniu_token`, null)
+      return POST(`/third/qiniu_token`, null)
     })
     return ret
   },
   getUser(id) {
     if (id === 'me')
-      return GETA('/me')
+      return GET('/me')
     else
-      return GETA(`/user/${id}`)
-    //return GET(`/user/${id}`)
+      return GET(`/user/${id}`)
   },
   createArticle (data) {
-    return POSTA(`/article`, data)
-    // return POST(`/article/create`, data)
+    return POST(`/article`, data)
   },
   deleteArticle (id) {
-    //return DELETE(`/article/${id}`)
-    return DELETEA(`/article/${id}`)
+    return DELETE(`/article/${id}`)
   },
   updateArticle (id, data) {
-    return PUTA(`/article/${id}`, data)
+    return PUT(`/article/${id}`, data)
     // return PUT(`/article/${id}/update`, data)
   },
   toggleLikeArticle (id) {
-    return POSTA(`/article/${id}/toggle_like`)
+    return POST(`/article/${id}/toggle_like`)
   },
 
   /* timeline */
   createTimeline (data) {
-    return POSTA(`/timeline`, data)
+    return POST(`/timeline`, data)
   },
   deleteTimeline (id) {
-    return DELETEA(`/timeline/${id}`)
+    return DELETE(`/timeline/${id}`)
   },
   updateTimeline (id, data) {
-    return PUTA(`/timeline/${id}`, data)
+    return PUT(`/timeline/${id}`, data)
   },
   getTimeline (id, page, size) {
-    return GETA(`/timeline/${id}?page=${page}&size=${size}`)
+    return GET(`/timeline/${id}?page=${page}&size=${size}`)
   },
   getMyTimelines (page, size) {
-    return GETA(`/timelines?page=${page}&size=${size}&sort_name=updated`)
+    return GET(`/timelines?page=${page}&size=${size}&sort_name=updated`)
   },
   createPoint (data) {
-    return POSTA(`/point`, data)
+    return POST(`/point`, data)
   },
   deletePoint (timelineId, pointId) {
-    return DELETEA(`/point/${timelineId}/${pointId}`)
+    return DELETE(`/point/${timelineId}/${pointId}`)
   },
   updatePoint (timelineId, pointId, data) {
     delete data.timeline_id
-    return PUTA(`/point/${timelineId}/${pointId}`, data)
+    return PUT(`/point/${timelineId}/${pointId}`, data)
   },
 
   // 提交评论
   createComment(articleId, content) {
-    return POSTA(`/comment/${articleId}`, { content: content })
-    //return POST(`/article/:id/comment/create`, data)
+    return POST(`/comment/${articleId}`, { content: content })
   },
   deleteComment(commentId) {
-    return DELETEA(`/comment/${commentId}`, null)
-    //return DELETE(`/article/:article_id/:comment_id`, data)
+    return DELETE(`/comment/${commentId}`, null)
   },
   createReply(commentId, toUserId, content) {
-    return POSTA(`/comment/${commentId}/reply`, { toUserId: toUserId, content: content })
+    return POST(`/comment/${commentId}/reply`, { toUserId: toUserId, content: content })
   },
   deleteReply(commentId, replyId) {
-    return DELETEA(`/comment/${commentId}/${replyId}`, null)
+    return DELETE(`/comment/${commentId}/${replyId}`, null)
   },
   getTags () {
-    return GETA(`/tags`)
+    return GET(`/tags`)
     //return GET(`/tag/list`)
   }
 }

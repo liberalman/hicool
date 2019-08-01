@@ -1,9 +1,6 @@
 export const API_ROOT = (process.env.NODE_ENV === 'production')
-  ? 'https://api.hicool.top:6012'
-  : 'http://localhost:9000' // 已加跨域代理头，注意仅支持GET请求
-export const API_ROOTA = (process.env.NODE_ENV === 'production')
   ? 'https://api.hicool.top:6011'
-  : '' // 已加跨域代理头，注意仅支持GET请求
+  : 'https://api.hicool.top:6011' // 已加跨域代理头，注意仅支持GET请求
 
 export const CookieDomain = (process.env.NODE_ENV === 'production')
   ? '.hicool.top'
@@ -19,6 +16,7 @@ export const QINIU_IMG_ADDR = (process.env.NODE_ENV === 'production')
   ? 'http://image.hicool.top'
   : 'http://image.hicool.top'
 
+// 又拍云
 export const UPYUN_UPLOAD_ADDR = (process.env.NODE_ENV === 'production')
   ? 'http://v0.api.upyun.com'
   : 'http://v0.api.upyun.com'

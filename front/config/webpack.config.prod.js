@@ -138,11 +138,11 @@ var webpackConfig = merge(baseWebpackConfig, {
           var: 'axios',
           path: 'dist/axios.min.js'
         },
-        /*{
+        {
           name: 'highlight.js',
           var: 'highlight',
           prodUrl: '//cdn.bootcss.com/highlight.js/9.15.8/highlight.min.js'
-        },*/
+        },
         {
           name: 'highlight.js/styles/github.css',
           cssOnly: true,
@@ -269,11 +269,11 @@ var webpackConfig = merge(baseWebpackConfig, {
       automaticNameDelimiter: '~',
       name: true,
       cacheGroups: {
-        markdownItVue: { // 分割第三方库
+        /*markdownItVue: { // 分割第三方库
           name: 'markdownItVue',
           test: /[\\/]node_modules[\\/]markdown-it-vue[\\/]/,
           priority: 10  // 优先级要大于 vendors 不然会被打包进 vendors
-        },
+        },*/
         mavonEditor: { // 分割第三方库
           name: 'mavonEditor',
           test: /[\\/]node_modules[\\/]mavon-editor[\\/]/,

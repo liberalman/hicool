@@ -6,6 +6,7 @@ var baseWebpackConfig = require('./webpack.base.conf')
 var WebpackMerge = require('webpack-merge')
 const WebpackCdnPlugin = require('webpack-cdn-plugin')
 
+console.log(config)
 module.exports = WebpackMerge(baseWebpackConfig, {
   // 模块：例如解读css，图片如何转换、压缩
   module: {
@@ -61,8 +62,8 @@ module.exports = WebpackMerge(baseWebpackConfig, {
   devServer: {
     inline: true,
     compress: true,
-    host: '127.0.0.1',
-    port: 5001,
+    host: config.dev.host,
+    port: config.dev.port,
     historyApiFallback: true,
     proxy: config.dev.proxyTable //跨越设置，要先配置这里启用
   }
