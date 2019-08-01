@@ -138,11 +138,11 @@ var webpackConfig = merge(baseWebpackConfig, {
           var: 'axios',
           path: 'dist/axios.min.js'
         },
-        {
+        /*{
           name: 'highlight.js',
           var: 'highlight',
           prodUrl: '//cdn.bootcss.com/highlight.js/9.15.8/highlight.min.js'
-        },
+        },*/
         {
           name: 'highlight.js/styles/github.css',
           cssOnly: true,
