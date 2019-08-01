@@ -7,3 +7,5 @@ test/unit/coverage
 yarn.lock
 log/
 .project
+.yarnclean
+unused-files.json

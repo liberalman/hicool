@@ -1,6 +1,6 @@
 export const API_ROOT = (process.env.NODE_ENV === 'production')
   ? 'https://api.hicool.top:6011'
-  : 'https://api.hicool.top:6011' // 已加跨域代理头，注意仅支持GET请求
+  : '' // 已加跨域代理头，注意仅支持GET请求
 
 export const CookieDomain = (process.env.NODE_ENV === 'production')
   ? '.hicool.top'

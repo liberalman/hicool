@@ -6,7 +6,6 @@ var baseWebpackConfig = require('./webpack.base.conf')
 var WebpackMerge = require('webpack-merge')
 const WebpackCdnPlugin = require('webpack-cdn-plugin')
 
-console.log(config)
 module.exports = WebpackMerge(baseWebpackConfig, {
   // 模块：例如解读css，图片如何转换、压缩
   module: {
