@@ -32,6 +32,7 @@ import 'markdown-it-highlight/dist/index.css'
 import echarts from 'echarts'
 import mermaid from 'mermaid'
 import flowchart from 'flowchart.js'
+
 const DEFAULT_OPTIONS_LINK_ATTRIBUTES = {
   attrs: {
     target: '_blank',

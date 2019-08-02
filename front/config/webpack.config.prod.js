@@ -153,6 +153,11 @@ var webpackConfig = merge(baseWebpackConfig, {
           path: 'index.js',
         },*/
         {
+          name: 'katex', // @iktakahiro/markdown-it-katex依赖于此
+          var: 'katex',
+          path: 'dist/katex.min.js',
+        },
+        {
           name: 'github-markdown-css',
           cssOnly: true,
           prodUrl: '//cdn.bootcss.com/github-markdown-css/3.0.1/github-markdown.css'
@@ -252,6 +257,36 @@ var webpackConfig = merge(baseWebpackConfig, {
           name: 'mermaid',
           var: 'mermaid',
           path: 'dist/mermaid.min.js'
+        },
+        {
+          name: 'mavon-editor',
+          var: 'MavonEditor',
+          path: 'dist/mavon-editor.js',
+        },
+        {
+          name: 'unorm',
+          var: 'unorm',
+          path: 'lib/unorm.js',
+        },
+        /*{
+          name: 'uslug',
+          var: 'uslug',
+          paths: ['lib/L.js', 'lib/M.js', 'lib/N.js'],
+        },*/
+        {
+          name: 'raphael',
+          var: 'Raphael',
+          path: 'raphael.min.js',
+        },
+        {
+          name: 'crypto-js',
+          var: 'CryptoJS',
+          path: 'crypto-js.js',
+        },
+        {
+          name: 'flowchart.js',
+          var: 'flowchart',
+          prodUrl: '//cdn.bootcss.com/flowchart/1.12.2/flowchart.min.js'
         },
       ],
       publicPath: '/node_modules'
