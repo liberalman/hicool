@@ -161,6 +161,12 @@ export default new VueRouter({
         component: function(resolve) {
             require(['@/views/Map'], resolve)
         }
+    },  {
+        path: '/gojs',
+        name: 'gojs',
+        component: function(resolve) {
+          require(['@/views/Gojs'], resolve)
+       }
     }, {
       path: '/home',
       name: 'home',

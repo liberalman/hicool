@@ -5,7 +5,8 @@ import router from './router'
 import store from './vuex/store'
 import * as filters from './utils/filter'
 
-import ElementUI from 'element-ui'   // 完整引入，样式在webpack.config.dev.js打包的时候就引入了。
+import ElementUI from 'element-ui'   // 完整引入
+//import 'element-ui/lib/theme-chalk/index.css' // 在index.html中引入CDN地址了，这里就不打包进去了
 Vue.use(ElementUI)
 
 // 使用时间格式化插件moment()

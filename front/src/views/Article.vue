@@ -19,7 +19,9 @@
       <span class="title" v-for="item in article.tags">
         <el-tag type="success" size="mini">{{item.name}}</el-tag>&nbsp;
       </span>
-      <div class="content markdown-body" v-if="article.editor == 1" v-html="content(article.content)"></div>
+      <div class="content markdown-body" v-if="article.editor == 1">
+        <markdown-it-vue class="md-body" :content="article.content" :options="options"/>
+      </div>
       <div class="content" v-html="article.content" v-else></div>
       <el-divider></el-divider>
       <div class="content" style="margin-top: 1em;" v-if="article.reprint_url">
@@ -38,9 +40,7 @@
 <script>
   import router from '../router'
   import Avatar from 'vue-avatar'
-  var mk = require('./components/Markdown.js')
-  import 'highlight.js/styles/github.css'
-  import 'github-markdown-css/github-markdown.css'
+  //import 'highlight.js/styles/github.css'
 
   export default {
     props: ['headline', 'subline', 'mySrc'],
@@ -51,7 +51,9 @@
         import('./components/CopyRight.vue'),
       'vNav': () =>
         import('./components/Nav.vue'),
-      'avatar' : Avatar
+      'avatar' : Avatar,
+      'markdown-it-vue': () =>
+        import('./components/Markdown'),
     },
     data(){
       return {
@@ -92,9 +94,6 @@
       this.fetchData()
     },
     methods: {
-      content(content) {
-        return mk.Render(content)
-      },
       fetchData() {
         this.$store.dispatch('article/getArticle', { id: this.$route.params.id, isAuthed: this.utils.isLogin() })
       },

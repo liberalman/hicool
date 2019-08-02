@@ -130,19 +130,18 @@ var webpackConfig = merge(baseWebpackConfig, {
         {
           name: 'element-ui',
           var: 'ELEMENT',
-          path: 'lib/index.js',
-          style: 'lib/theme-chalk/index.css' //插入样式文件
+          path: 'lib/index.js'
         },
         {
           name: 'axios',
           var: 'axios',
           path: 'dist/axios.min.js'
         },
-        /*{
+        { // markdown-it-highlight依赖highlight.js，两个都要安装
           name: 'highlight.js',
-          var: 'highlight',
+          var: 'hljs',
           prodUrl: '//cdn.bootcss.com/highlight.js/9.15.8/highlight.min.js'
-        },*/
+        },
         {
           name: 'highlight.js/styles/github.css',
           cssOnly: true,
@@ -154,20 +153,20 @@ var webpackConfig = merge(baseWebpackConfig, {
           path: 'index.js',
         },*/
         {
-          name: 'github-markdown-css/github-markdown.css',
+          name: 'github-markdown-css',
           cssOnly: true,
           prodUrl: '//cdn.bootcss.com/github-markdown-css/3.0.1/github-markdown.css'
         },
-        /*{
+        {
           name: 'markdown-it',
-          var: 'markdown-it',
+          var: 'markdownit',
           prodUrl: '//cdn.bootcss.com/markdown-it/9.0.1/markdown-it.min.js'
-        },*/
-        /*{
+        },
+        {
           name: 'markdown-it-emoji',
-          var: 'markdown-it-emoji',
-          path: 'index.js',
-        },*/
+          var: 'markdownitEmoji',
+          path: 'dist/markdown-it-emoji-light.min.js',
+        },
         {
           name: 'tinymce/tinymce',
           var: 'tinymce',
@@ -227,6 +226,32 @@ var webpackConfig = merge(baseWebpackConfig, {
           name: 'popmotion',
           var: 'popmotion',
           prodUrl: '//cdn.bootcss.com/popmotion/4.3.4/popmotion.global.min.js'
+        },
+        {
+          name: 'gojs',
+          var: 'Go',
+          path: 'release/go.js'
+        },
+        {
+          name: 'echarts',
+          var: 'echarts',
+          path: 'dist/echarts.min.js'
+        },
+        /*{
+          name: 'emojione',
+          var: 'emojioneList',
+          path: 'lib/js/emojione.min.js'
+        },
+        {
+          name: 'markdown-it-icons',
+          var: 'module',
+          path: 'dist/index.js',
+          style: 'dist/index.css' //插入样式文件
+        },*/
+        {
+          name: 'mermaid',
+          var: 'mermaid',
+          path: 'dist/mermaid.min.js'
         },
       ],
       publicPath: '/node_modules'
