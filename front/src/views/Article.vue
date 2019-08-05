@@ -19,8 +19,8 @@
       <span class="title" v-for="item in article.tags">
         <el-tag type="success" size="mini">{{item.name}}</el-tag>&nbsp;
       </span>
-      <div class="content markdown-body" v-if="article.editor == 1">
-        <markdown-it-vue class="md-body" :content="article.content" :options="options"/>
+      <div class="content" v-if="article.editor == 1">
+        <markdown-it-vue :content="article.content" :options="options"/>
       </div>
       <div class="content" v-html="article.content" v-else></div>
       <el-divider></el-divider>

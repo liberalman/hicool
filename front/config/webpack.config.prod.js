@@ -173,9 +173,9 @@ var webpackConfig = merge(baseWebpackConfig, {
           path: 'dist/markdown-it-emoji-light.min.js',
         },
         {
-          name: 'tinymce/tinymce',
+          name: 'tinymce',
           var: 'tinymce',
-          prodUrl: '//cdn.bootcss.com/tinymce/5.0.12/jquery.tinymce.min.js'
+          prodUrl: '//cdn.bootcss.com/tinymce/5.0.12/tinymce.min.js'
         },
         {
           name: 'tinymce/themes/silver',
@@ -216,16 +216,6 @@ var webpackConfig = merge(baseWebpackConfig, {
           name: 'tinymce/plugins/paste',
           var: 'tinymce',
           prodUrl: '//cdn.bootcss.com/tinymce/5.0.12/plugins/paste/plugin.min.js'
-        },
-        {
-          name: 'tinymce/plugins/textcolor',
-          var: 'tinymce',
-          prodUrl: '//cdn.bootcss.com/tinymce/5.0.12/plugins/textcolor/plugin.min.js'
-        },
-        {
-          name: 'tinymce/plugins/colorpicker',
-          var: 'tinymce',
-          prodUrl: '//cdn.bootcss.com/tinymce/5.0.12/plugins/colorpicker/plugin.min.js'
         },
         {
           name: 'popmotion',
