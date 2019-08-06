@@ -16,6 +16,7 @@ module.exports = app => {
   newsRouter.resources('user', `/user`, jsonp, controller.user);
   // 带上app.oAuth2Server.authenticate()表示该请求需要验证身份
   newsRouter.resources('me', `/me`, app.oAuth2Server.authenticate(), jsonp, controller.me);
+  newsRouter.get(`/captcha`, 'user.captcha');
   
   // articles
   newsRouter.get(`/articles`, jsonp, controller.article.list);

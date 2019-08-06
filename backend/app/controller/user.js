@@ -83,5 +83,9 @@ class UserController extends Controller {
   async logout() {
     this.ctx.body = "ok"
   }
+
+  async captcha() {
+    this.ctx.body = "1111" //暂时不能输出图片二进制数据
+  }
 }
 module.exports = UserController;
