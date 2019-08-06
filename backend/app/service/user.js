@@ -1,4 +1,5 @@
 // app/service/user.js
+var mongoose = require('mongoose');
 const Service = require('egg').Service;
 class UserService extends Service {
   // 默认不需要提供构造函数。
@@ -142,6 +143,22 @@ class UserService extends Service {
         'page': page,
         'size': size
       }
+    } catch(err) {
+      // ctx.throw(err)
+      return {
+        message: err.message
+      }
+    }
+  }
+
+  async logout(accessToken) {
+    let { ctx } = this
+    let condition = {
+      accessToken: accessToken
+    }
+    try {
+      await ctx.model.AccessToken.remove(condition)
+      return {}
     } catch(err) {
       // ctx.throw(err)
       return {

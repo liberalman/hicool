@@ -12,7 +12,7 @@ module.exports = app => {
   newsRouter.get(`/users`, jsonp, controller.user.list);
   newsRouter.post(`/user`, jsonp, controller.user.create); // 注册
   newsRouter.post(`/user/login`, app.oAuth2Server.token(), 'user.token') // 登录，获取token
-  newsRouter.get(`/user/logout`, app.oAuth2Server.token(), 'user.logout'); // 注销
+  newsRouter.post(`/user/logout`, app.oAuth2Server.authenticate(), jsonp, 'user.logout'); // 注销
   newsRouter.resources('user', `/user`, jsonp, controller.user);
   // 带上app.oAuth2Server.authenticate()表示该请求需要验证身份
   newsRouter.resources('me', `/me`, app.oAuth2Server.authenticate(), jsonp, controller.me);
