@@ -1,6 +1,5 @@
 // app/controller/user.js
 const Controller = require('egg').Controller;
-
 // 定义创建接口的请求参数规则
 const createRule = {
   nickname: { type: 'string', required: false },
@@ -81,7 +80,11 @@ class UserController extends Controller {
   }
   
   async logout() {
-    this.ctx.body = "ok"
+    this.ctx.body = await this.ctx.service.user.logout(this.ctx.state.oauth.token.accessToken)
+  }
+
+  async captcha() {
+    this.ctx.body = "1111" //暂时不能输出图片二进制数据
   }
 }
 module.exports = UserController;
