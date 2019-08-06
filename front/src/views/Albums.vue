@@ -30,24 +30,6 @@
         </div>
       </vue-waterfall-easy>
     </div>
-    <!--
-    <el-row>
-      <el-col :span="8" v-for="(item, index) in albums" :key="item" :offset="index > 0 ? 2 : 0">
-        <el-card :body-style="{ padding: '0px' }">
-          <img v-bind:src="item.cover" class="image">
-          <div style="padding: 14px;">
-            <h2>{{item.title}}</h2>
-            <span>{{item.content}}</span>
-            <div class="bottom clearfix">
-              <time class="time">{{ item.publish_time | handleDateFormat }}</time>
-              <el-button type="text" class="button">》</el-button>
-            </div>
-          </div>
-        </el-card>
-        <br />
-      </el-col>
-    </el-row>
--->
     <el-pagination style="text-align: center;" @size-change="handleSizeChange"
       @current-change="handleCurrentChange"
       :current-page="page" :page-sizes="[10, 20, 30, 40]"
@@ -71,7 +53,8 @@ export default {
       type: Number,
       default: 5
     },
-    imgsArr: { // 请求返回的图片数据，格式：[{src:'1.jpg','link':'url1' info:'自定义图片信息'},{src:'2.jpg','link':'url2',info:'自定义图片信息'}...]
+    imgsArr: {
+      // 请求返回的图片数据，格式：[{src:'1.jpg','link':'url1' info:'自定义图片信息'},{src:'2.jpg','link':'url2',info:'自定义图片信息'}...]
       type: Array,
       required: true
     },
@@ -113,7 +96,8 @@ export default {
           "href": '/album/' + item._id,
           "title": item.title,
           "content": item.content,
-          "publish_time": item.publish_time
+          "publish_time": item.publish_time,
+          "_id": item._id
         })
       })
       return list
@@ -135,7 +119,7 @@ export default {
       index,
       value
     }) {
-      window.location.href = "/album/" + value._id
+      //window.location.href = "/album/" + value._id //跳转
       /*
       // 阻止a标签跳转
       event.preventDefault()

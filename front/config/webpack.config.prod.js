@@ -278,6 +278,11 @@ var webpackConfig = merge(baseWebpackConfig, {
           var: 'flowchart',
           prodUrl: '//cdn.bootcss.com/flowchart/1.12.2/flowchart.min.js'
         },
+        {
+          name: 'vue-waterfall-easy',
+          var: 'vueWaterfallEasy',
+          path: 'src/vue-waterfall-easy/script/vueWaterfallEasy.js',
+        },
       ],
       publicPath: '/node_modules'
     }),

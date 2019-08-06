@@ -43,30 +43,7 @@ function revoke1 (method, baseUrl, url, params) {
       'Content-Type': 'application/x-www-form-urlencoded'
     }
   }
-  return new Promise((resolve, reject) => {
-    url = sign(method, baseUrl + url, params)
-    let ret = {}
-    if (method === 'POST') {
-      ret = axios.post(url, params, headers)
-    } else if (method === 'PUT') {
-      ret = axios.put(url, params, headers)
-    } else if (method === 'DELETE') {
-      ret = axios.delete(url, headers)
-    } else if (method === 'GET') {
-      ret = axios.get(url, headers)
-    } else {
-      let err = 'no this method:' + method
-      reject(err)
-      return
-    }
-    ret.then(response => {
-      resolve(response.data)
-    })
-      .catch((error) => {
-        let err = `${error.response.status} ${error.response.statusText}, ${error.response.data.message}`
-        reject(err)
-      })
-  })
+  return doit(method, baseUrl, url, headers, params)
 }
 
 function revoke (method, baseUrl, url, params) {
@@ -75,6 +52,10 @@ function revoke (method, baseUrl, url, params) {
       'Authorization': 'Bearer ' + utils.getCookie('token')
     }
   }
+  return doit(method, baseUrl, url, headers, params)
+}
+
+function doit (method, baseUrl, url, headers, params) {
   return new Promise((resolve, reject) => {
     url = sign(method, baseUrl + url, params)
     let ret = {}
@@ -125,8 +106,7 @@ export default {
     return GET(`/comment/${id}/list`)
   },
   login (email, password, captcha) {
-    return POST_1(`/user/login`, `password=${password}&captcha=${captcha}&client_id=web&
-    client_secret=fskefgtarwdbawydrawpdpaiuiawdtg&grant_type=password&username=${email}`)
+    return POST_1(`/user/login`, `password=${password}&captcha=${captcha}&client_id=web&client_secret=fskefgtarwdbawydrawpdpaiuiawdtg&grant_type=password&username=${email}`)
   },
   logout () {
     return POST(`/user/logout`)
@@ -136,11 +116,11 @@ export default {
     "${email}","password":"${password}","captcha":"${captcha}"}`)
   },
   // 获取相册列表
-  getalbums(page, size, sortName) {
+  getAlbums(page, size, sortName) {
     return GET(`/albums?page=${page}&size=${size}&sort_name=${sortName}`)
   },
   // 获取相册
-  getalbum(id) {
+  getAlbum(id) {
     return GET(`/album/${id}`)
   },
   deletePhoto (gallery_id, photo_id) {

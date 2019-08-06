@@ -3,7 +3,7 @@
     <header>
       <vNav></vNav>
       <el-carousel :interval="5000" arrow="always">
-        <el-carousel-item v-for="item in album.images" :key="item">
+        <el-carousel-item v-for="item in album.images.slice(0, 5)" :key="item">
           <div style="text-align: center">
             <img v-bind:src="item.url" class="img-responsive" alt="响应式图像" />
           </div>
@@ -124,7 +124,6 @@ export default {
       page: 1, // request param
       dialogImageUrl: '',
       dialogVisible: false,
-
       imageUrl: '',
     }
   },
