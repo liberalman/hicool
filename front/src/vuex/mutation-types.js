@@ -45,6 +45,7 @@ export const LOGIN = 'LOGIN'
 export const LOGIN_USER = 'LOGIN_USER'
 export const LOGOUT_USER = 'LOGOUT_USER'
 export const LOGIN_USER_FAILURE = 'LOGIN_USER_FAILURE'
+export const GET_CAPTCHA = 'GET_CAPTCHA'
 
 export const GET_QINIU_TOKEN = 'GET_QINIU_TOKEN'
 export const GET_QINIU_TOKEN_FAILURE = 'GET_QINIU_TOKEN_FAILURE'

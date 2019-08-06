@@ -283,6 +283,11 @@ var webpackConfig = merge(baseWebpackConfig, {
           var: 'vueWaterfallEasy',
           path: 'src/vue-waterfall-easy/script/vueWaterfallEasy.js',
         },
+        {
+          name: 'vue-social-captcha',
+          var: 'Captcha',
+          path: 'dist/vue-social-captcha.umd.min.js',
+        },
       ],
       publicPath: '/node_modules'
     }),

@@ -192,7 +192,7 @@
           name2: "秘书1",
           name3: "秘书2",
           linktext: "link",
-          img: require("../assets/img/03.png")
+          img: require("../assets/img/background-1.png")
         },
         {
           key: "3",

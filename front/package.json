@@ -86,6 +86,7 @@
     "vue-instant": "^1.0.2",
     "vue-loader": "^15.3.0",
     "vue-moment": "^4.0.0",
+    "vue-social-captcha": "^0.1.1",
     "vue-template-compiler": "^2.5.17",
     "vue-waterfall-easy": "^2.4.4",
     "vuex-persistedstate": "^2.5.4",

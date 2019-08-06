@@ -17,11 +17,6 @@ function POST_1 (url, params) {
   return revoke1('POST', baseUrl, url, params)
 }
 
-// 增
-function POST_AUTH (url, params) {
-  return revoke('POST', `${API_ROOT}/auth`, url, params)
-}
-
 // 删
 function DELETE (url, params) {
   return revoke('DELETE', baseUrl, url)
@@ -105,15 +100,19 @@ export default {
   getComments (id) {
     return GET(`/comment/${id}/list`)
   },
+  getCaptcha () {
+    return GET(`/user/captcha?${Math.random()}`)
+  },
   login (email, password, captcha) {
-    return POST_1(`/user/login`, `password=${password}&captcha=${captcha}&client_id=web&client_secret=fskefgtarwdbawydrawpdpaiuiawdtg&grant_type=password&username=${email}`)
+    return POST_1(
+      `/user/login`,
+      `password=${password}&captcha=${captcha}&client_id=web&client_secret=fskefgtarwdbawydrawpdpaiuiawdtg&grant_type=password&username=${email}`)
   },
   logout () {
     return POST(`/user/logout`)
   },
   register(nickname, email, password, captcha) {
-    return POST_AUTH('/local/register', `{"nickname":"${nickname}","email":
-    "${email}","password":"${password}","captcha":"${captcha}"}`)
+    return POST('/user', `{"nickname":"${nickname}","email":"${email}","password":"${password}","captcha":"${captcha}"}`)
   },
   // 获取相册列表
   getAlbums(page, size, sortName) {
