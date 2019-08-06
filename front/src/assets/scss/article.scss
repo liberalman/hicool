@@ -52,9 +52,9 @@
       max-width: 980px;
       margin: 0 auto;
     }
-    @media (max-width: 767px) {
+    @media (max-width: 767px) { // 手机屏幕的时候
       .markdown-body {
-        padding: 15px;
+        padding: 5px;
       }
     }
     /* markdown-body */
