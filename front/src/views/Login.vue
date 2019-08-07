@@ -81,11 +81,7 @@
     },
     methods: {
       getCaptcha() {
-        //this.imgSrc = `${API_ROOT}/api/1/front/user/captcha?${Math.random()}`
-        this.$store.dispatch('user/getCaptcha')
-          .then(res => {
-            this.imgsrc = res.img_src
-          })
+        this.imgSrc = `${API_ROOT}/api/1/front/user/captcha?${Math.random()}`
       },
       submitForm(formName) {
         let _this = this

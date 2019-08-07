@@ -291,12 +291,12 @@ var webpackConfig = merge(baseWebpackConfig, {
       ],
       publicPath: '/node_modules'
     }),
-    // copy custom static assets 拷贝图片
-    /*new CopyWebpackPlugin([{
+    // copy custom static assets 拷贝图片，如果不拷贝，例如/static/img/background-1.png这种图片，后面会带一个随机后缀，没法指定地址了。
+    new CopyWebpackPlugin([{
       from: path.resolve(__dirname, '../static'),
       to: config.build.assetsSubDirectory,
       ignore: ['.*']
-    }]),*/
+    }]),
     /*new UselessFile({
       root: './src', // 项目目录
       out: './fileList.json', // 输出文件列表
