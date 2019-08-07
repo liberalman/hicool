@@ -16,10 +16,10 @@
           <el-input type="password" v-model="ruleForm.confirm_password" auto-complete="off"
                     style="width: 200px;"></el-input>
         </el-form-item>
-        <!--<el-form-item label="验证码" prop="captcha">
+        <el-form-item label="验证码" prop="captcha">
           <el-input type="captcha" v-model="ruleForm.captcha" auto-complete="off" style="width: 70px;"></el-input>
           <img :src="imgSrc" style="width: 100px;"/>
-        </el-form-item>-->
+        </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="submitForm('ruleForm')" @keyup.enter="submitForm('ruleForm')"
                      style="width: 200px;">注册
@@ -28,16 +28,6 @@
         <el-form-item>
           <a href="/#/login">登录</a> | <a href="/">首页</a>
         </el-form-item>
-        <Captcha
-          :parm="captchaOption"
-          @callback="captchaNotice"
-          id="Captcha"
-          scene="Login"
-          type="TencentCaptcha"
-          url=""
-        >
-          <el-button id="Captcha" type="button" ref="Captcha" style="display:none;"/>
-        </Captcha>
       </el-form>
     </div>
   </div>
@@ -115,45 +105,36 @@
       }
     },
     mounted() {
-      //this.getCaptcha()
+      this.getCaptcha()
     },
     methods: {
-      // 回调监听
-      // status: 1成功,2验证中,0失败
-      // res: 三方返回的原始数据
-      captchaNotice(status, res) {
-        //console.log(status)
-        //console.log(res)
-        let _this = this
-        this.$store.dispatch('user/register', this.ruleForm)
-          .then(res => {
-            this.utils.saveCookie('token', res.token)
-            this.utils.saveCookie('username', res.username)
-            this.utils.saveCookie('token', res.token)
-            this.ruleForm.password = ''
-            setTimeout(() => {
-              router.push('/')
-            }, 400)
-            this.$message({
-              message: '注册成功!',
-              type: 'success'
-            });
-          })
-          .catch((error) => { // 这里的error，输出的是个string类型
-            _this.$message({
-              message: error,
-              type: 'warning'
-            });
-          })
-      },
-      /*getCaptcha() {
+      getCaptcha() {
         this.imgSrc = `${API_ROOT}/api/1/front/user/captcha?${Math.random()}`
-      },*/
+      },
       submitForm(formName) {
         let _this = this
         this.$refs[formName].validate(vaild => {
           if (vaild) {
-            _this.$refs.Captcha.$el.click();
+            this.$store.dispatch('user/register', this.ruleForm)
+              .then(res => {
+                this.utils.saveCookie('token', res.token)
+                this.utils.saveCookie('username', res.username)
+                this.utils.saveCookie('token', res.token)
+                this.ruleForm.password = ''
+                setTimeout(() => {
+                  router.push('/')
+                }, 400)
+                this.$message({
+                  message: '注册成功!',
+                  type: 'success'
+                });
+              })
+              .catch((error) => { // 这里的error，输出的是个string类型
+                _this.$message({
+                  message: error,
+                  type: 'warning'
+                });
+              })
           } else {
             console.log('something err')
             return false;

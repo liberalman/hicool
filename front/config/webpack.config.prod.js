@@ -292,17 +292,17 @@ var webpackConfig = merge(baseWebpackConfig, {
       publicPath: '/node_modules'
     }),
     // copy custom static assets 拷贝图片
-    new CopyWebpackPlugin([{
+    /*new CopyWebpackPlugin([{
       from: path.resolve(__dirname, '../static'),
       to: config.build.assetsSubDirectory,
       ignore: ['.*']
-    }]),
-    new UselessFile({
+    }]),*/
+    /*new UselessFile({
       root: './src', // 项目目录
       out: './fileList.json', // 输出文件列表
       clean: false, // 删除文件,
       exclude: path // 排除文件列表, 格式为文件路径数组
-    }),
+    }),*/
   ],
   optimization: {
     minimizer: [
@@ -329,11 +329,6 @@ var webpackConfig = merge(baseWebpackConfig, {
       automaticNameDelimiter: '~',
       name: true,
       cacheGroups: {
-        /*markdownItVue: { // 分割第三方库
-          name: 'markdownItVue',
-          test: /[\\/]node_modules[\\/]markdown-it-vue[\\/]/,
-          priority: 10  // 优先级要大于 vendors 不然会被打包进 vendors
-        },*/
         mavonEditor: { // 分割第三方库
           name: 'mavonEditor',
           test: /[\\/]node_modules[\\/]mavon-editor[\\/]/,
