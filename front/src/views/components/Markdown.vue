@@ -62,7 +62,10 @@ export default {
       default() {
         return {
           markdownIt: {
-            linkify: true
+            linkify: false,
+            html: true,
+            breaks: true,
+            xhtmlOut: true,
           },
           linkAttributes: DEFAULT_OPTIONS_LINK_ATTRIBUTES,
           katex: DEFAULT_OPTIONS_KATEX,
@@ -115,7 +118,13 @@ export default {
     const optTasklists = this.options.tasklists || DEFAULT_OPTIONS_TASKLISTS
     const optIcons = this.options.icons || DEFAULT_OPTIONS_ICONS
     const optGithubToc = this.options.githubToc || DEFAULT_OPTIONS_GITHUBTOC
-    let md = new MarkdownIt(optMarkdownIt)
+    //let md = new MarkdownIt(optMarkdownIt)
+    let md = new MarkdownIt({
+        html: true,
+        linkify: true,
+        xhtmlOut: true,
+        breaks: true, 
+      })
       .use(MarkdownItEmoji)
       .use(MarkdownItSubscript)
       .use(MarkdownItSuperscript)
