@@ -57,6 +57,7 @@ nginx:
     - ${BASE_DIR}/nginx:/etc/nginx/conf.d
     - /var/cache/nginx:/var/cache/nginx
     - /data/hicool/admin/dist:/admin
+    - /data/hicool/front/dist:/front
 xunsearch:
   image: docker.io/hightman/xunsearch
   volumes:
@@ -80,9 +81,9 @@ apache-php:
   ports:
     - ${apache_port}:80
 #    - 8443:443
-front:
-  image: hicool
-  volumes:
-    - ${ROOT_DIR}/front:/data/hicool
-  ports:
-    - "${hicool_port}:5000"
+#front:
+#  image: hicool
+#  volumes:
+#    - ${ROOT_DIR}/front:/data/hicool
+#  ports:
+#    - "${hicool_port}:5000"
