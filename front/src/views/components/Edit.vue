@@ -60,7 +60,15 @@
         </el-col>
       </el-row>
 
-      <mavonEditor prop="content" style="min-height: 900px" v-model="article.content" ref="md" @imgAdd="$imgAdd" @imgDel="$imgDel" placeholder="Markdown" :subfield="true"></mavonEditor>
+      <mavonEditor
+        style="min-height: 900px"
+        v-model="article.content"
+        ref="md"
+        @change="$change"
+        @imgAdd="$imgAdd"
+        @imgDel="$imgDel"
+        placeholder="Markdown"
+        :subfield="true"/>
     </el-form>
 
     <div class="model" v-show="model" @click="model = false">
@@ -75,6 +83,17 @@
   import router from '../../router'
   import { mavonEditor } from 'mavon-editor'
   import 'mavon-editor/dist/css/index.css'
+  import echarts from 'echarts'
+  import MarkdownItEcharts from './markdown-it-plugin-echarts'
+  import flowchart from 'flowchart.js'
+  import MarkdownItFlowchart from './markdown-it-plugin-flowchart'
+  import mermaid from 'mermaid'
+  import MarkdownItMermaid from './markdown-it-plugin-mermaid'
+
+  mavonEditor.getMarkdownIt()
+    .use(MarkdownItMermaid)
+    .use(MarkdownItEcharts)
+    .use(MarkdownItFlowchart)
 
   export default {
     name: 'Edit',
@@ -276,6 +295,32 @@
       },
       //
       async $imgDel() {
+      },
+      async $change(value, render) {
+        // render echarts
+        document.querySelectorAll('.md-echarts').forEach(element => {
+          try {
+            let options = JSON.parse(element.textContent)
+            let chart = echarts.init(element)
+                 chart.setOption(options)
+          } catch (e) {
+            element.outerHTML = `<pre>echarts complains: ${e}</pre>`
+          }
+        })
+          
+        // render mermaid
+        mermaid.init(undefined, document.querySelectorAll('.mermaid'))
+        // render flowchart
+        document.querySelectorAll('.md-flowchart').forEach(element => {
+          try {
+            let code = element.textContent
+            let chart = flowchart.parse(code)
+            element.textContent = ''
+            chart.drawSVG(element)
+          } catch (e) {
+            element.outerHTML = `<pre>flowchart complains: ${e}</pre>`
+          }
+        })
       },
       // 绑定@imgAdd event
       async $imgAdd(pos, file) {
