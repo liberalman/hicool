@@ -29,17 +29,13 @@
 #  - mongo:mongo
 #  - redis:redis
 #  image: liberalman/libertyblog-api-koa
-#libertyblog-admin:
+#redis:
+#  image: redis
+#  volumes:
+#    - ~/data/redis/data:/data
+#    - ${BASE_DIR}/redis.conf:/etc/redis/redis.conf
 #  ports:
-#  - 8700:8700/tcp
-#  image: liberalman/libertyblog-admin
-redis:
-  image: redis
-  volumes:
-    - ~/data/redis/data:/data
-    - ${BASE_DIR}/redis.conf:/etc/redis/redis.conf
-  ports:
-    - "${redis_port}:6379"
+#    - "${redis_port}:6379"
 mongo:
   image: mongo
   volumes:
