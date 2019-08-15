@@ -142,6 +142,16 @@ var webpackConfig = merge(baseWebpackConfig, {
           var: 'hljs',
           prodUrl: '//cdn.bootcss.com/highlight.js/9.15.8/highlight.min.js'
         },
+        /*{ // 这个方式不行，页面内容全没了
+          name: 'highlight.js/lib/languages/yaml.js',
+          var: 'yaml',
+          prodUrl: '//cdn.bootcss.com/highlight.js/9.15.8/languages/yaml.min.js'
+        },
+        { // markdown-it-highlight依赖highlight.js，两个都要安装
+          name: 'highlight.js/lib/languages/go.js',
+          var: 'Go',
+          prodUrl: '//cdn.bootcss.com/highlight.js/9.15.8/languages/go.min.js'
+        },*/
         {
           name: 'highlight.js/styles/github.css',
           cssOnly: true,

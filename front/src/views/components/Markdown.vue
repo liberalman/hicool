@@ -16,7 +16,7 @@ import MarkdownItMark from 'markdown-it-mark'
 const katex = require('@iktakahiro/markdown-it-katex')
 import MarkdownItTasklists from 'markdown-it-task-lists'
 //import MarkdownItIcons from 'markdown-it-icons' // 包太大，暂时无法优化，先去掉
-import MarkdownItHighlight from 'markdown-it-highlight'
+
 import MarkdownItLatex from 'markdown-it-latex'
 import MarkdownItContainer from 'markdown-it-container'
 import MarkdownItGithubToc from 'markdown-it-github-toc'
@@ -28,7 +28,9 @@ import MarkdownItFlowchart from './markdown-it-plugin-flowchart'
 import 'github-markdown-css'
 import 'markdown-it-latex/dist/index.css'
 //import 'markdown-it-icons/dist/index.css' // 包太大，暂时无法优化，先去掉
-import 'markdown-it-highlight/dist/index.css'
+
+import MarkdownItHighlight from './markdown-it-highlight.js'
+
 import echarts from 'echarts'
 import mermaid from 'mermaid'
 import flowchart from 'flowchart.js'
