@@ -16,6 +16,7 @@ module.exports = app => {
   newsRouter.resources('user', `/user`, jsonp, controller.user);
   // 带上app.oAuth2Server.authenticate()表示该请求需要验证身份
   newsRouter.resources('me', `/me`, app.oAuth2Server.authenticate(), jsonp, controller.me);
+  newsRouter.put('/user/change_password', app.oAuth2Server.authenticate(), jsonp, 'me.changePassword');
   newsRouter.get(`/captcha`, 'user.captcha');
   
   // articles
@@ -52,4 +53,9 @@ module.exports = app => {
   // third
   newsRouter.get(`/third/qiniu_token`, app.oAuth2Server.authenticate(), jsonp, controller.third.qiniuToken);
   newsRouter.post(`/third/qiniu_token`, app.oAuth2Server.authenticate(), jsonp, controller.third.qiniuRefreshToken);
+
+  // tip
+  newsRouter.get(`/tips`, jsonp, controller.tip.list);
+  newsRouter.get(`/tip`, jsonp, controller.tip.show);
+  //newsRouter.resources('tip', `/tip`, app.oAuth2Server.authenticate(), jsonp, controller.tip);
 };

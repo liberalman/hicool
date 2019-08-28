@@ -49,3 +49,6 @@ export const GET_CAPTCHA = 'GET_CAPTCHA'
 
 export const GET_QINIU_TOKEN = 'GET_QINIU_TOKEN'
 export const GET_QINIU_TOKEN_FAILURE = 'GET_QINIU_TOKEN_FAILURE'
+
+export const GET_TIPS = 'GET_TIPS'
+export const GET_TIP = 'GET_TIP'

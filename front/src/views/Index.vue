@@ -72,9 +72,7 @@
         page: 1,
         size: 10,
         tagId: '',
-        headline: 'HICOOL', // 用户名
-        subline: 'The thought of independence and freedom.', // 副标题
-        imgSrc: 'http://image.hicool.top/static/album/5ac0a4bac0979028323030f3/1503763878609383500.jpg' // 头图 http://of30nsqpd.bkt.clouddn.com/2015061101335924.jpeg
+        headline: 'HICOOL'
       }
     },
     computed: Vuex.mapState({
@@ -86,7 +84,9 @@
         }
         return state.articles.list
       },
-      total: state => state.articles.total
+      total: state => state.articles.total,
+      imgSrc: state => state.tip.cover,
+      subline: state => state.tip.content
     }),
     mounted() {
       this.fetchData()
@@ -98,6 +98,7 @@
           size: this.size,
           tagId: this.tagId
         })
+        this.$store.dispatch('tip/getTipIndex')
       },
       handleSizeChange(val) {
         //console.log(`每页 ${val} 条`);

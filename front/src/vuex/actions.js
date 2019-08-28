@@ -198,7 +198,16 @@ export default {
   getTags () {
     return GET(`/tags`)
     //return GET(`/tag/list`)
-  }
+  },
+  getTip (id) {
+    return GET(`/tip/${id}`)
+  },
+  getTips (page, size) {
+    return GET(`/tips?page=${page}&size=${size}`)
+  },
+  getTipIndex () {
+    return GET(`/tip`)
+  },
 }
 
 // body 是必须json格式的字符串

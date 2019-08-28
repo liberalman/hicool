@@ -64,7 +64,7 @@ class ThirdService extends Service {
     //                delimiter 指定目录分隔符
     var options = {
         prefix: prefix,
-        limit: 1000, // max is 1000
+        limit: 100, // max is 1000
         marker: _marker,
     };
 
@@ -136,7 +136,7 @@ class ThirdService extends Service {
         }
       });
     }
-    this.ctx.body = deleteOperations
+    this.ctx.body = { options: deleteOperations, _marker: _marker }
   }
 }
 module.exports = ThirdService;

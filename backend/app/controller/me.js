@@ -12,7 +12,7 @@ exports.index = async ctx => {
 };
 
 exports.update = async ctx => {
-  console.log(ctx.request.body)
+  // console.log(ctx.request.body)
   const userInfo = await ctx.service.user.update(ctx.state.oauth.token.user.id, ctx.request.body);
   if (userInfo) {
     ctx.body = userInfo;
@@ -44,3 +44,8 @@ exports.token = async ctx => {
      */
   ctx.body = ctx.state.oauth.token
 };
+
+exports.changePassword = async ctx => {
+  ctx.body = await ctx.service.user.changePassword(ctx.state.oauth.token.user.id)
+}
+

@@ -13,6 +13,8 @@ import user from './modules/user'
 import third from './modules/third'
 import albums from './modules/albums'
 import album from './modules/album'
+import tips from './modules/tips'
+import tip from './modules/tip'
 import privateArticles from './modules/privateArticles'
 import likeArticles from './modules/likeArticles'
 
@@ -36,7 +38,9 @@ export default new Vuex.Store({
     albums,
     album,
     privateArticles,
-    likeArticles
+    likeArticles,
+    tips,
+    tip,
   },
   plugins: process.env.NODE_ENV !== 'production' ? [
     createPersistedState(),

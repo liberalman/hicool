@@ -10,7 +10,7 @@ class UserService extends Service {
   // }
   constructor(ctx) {
     super(ctx);
-    this.root = 'https://cnodejs.org/api/v1';
+    this.root = 'http://api.hicool.top/api/v1';
   }
 
   async create(params) {
@@ -159,6 +159,47 @@ class UserService extends Service {
     try {
       await ctx.model.AccessToken.remove(condition)
       return {}
+    } catch(err) {
+      // ctx.throw(err)
+      return {
+        message: err.message
+      }
+    }
+  }
+
+  async changePassword(uid) {
+    let { ctx } = this
+    let old_password = String(ctx.query.old_password)
+    let password = String(ctx.query.password)
+    let message
+    if(old_password === '') {
+      message = '旧密码不能为空'
+    } else if(password === '') {
+      message = '密码不能为空'
+    }
+    if(message) {
+      ctx.status = 422
+      return ctx.body = {                                                                                             
+        message: message
+      }
+    }
+    try {
+      const user = await ctx.model.User.findOne({_id: uid})
+      // 生成密码hash，与服务器端对比，相同则认证通过，否则返回null
+      if (user.hashedPassword !== ctx.model.User.encryptPassword(old_password, user.salt)) {
+        ctx.status = 500
+        return ctx.body = {
+          message: 'old password error.'
+        }
+      }
+      let params = {
+        hashedPassword: ctx.model.User.encryptPassword(password, user.salt),
+      }
+      await ctx.model.User.findByIdAndUpdate(uid, params, {
+        select: 'hashedPassword'
+      })
+      return {
+      }
     } catch(err) {
       // ctx.throw(err)
       return {
