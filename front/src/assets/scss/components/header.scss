@@ -98,4 +98,14 @@ header {
             transform: translateY(0);
         }
     }
+
+    /* 蒙版、遮罩 */
+    .mask {
+        background: #efefef;
+        -moz-opacity: 0.8;
+        opacity: 0.8; /* 不透明度 */
+        -webkit-filter: blur(2px); /* Chrome, Opera 填充像素个数,个数越多越模糊*/
+        -ms-filter: blur(2px);
+        filter: blur(2px);
+     }
 }
