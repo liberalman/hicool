@@ -119,14 +119,14 @@ const webpackConfig = merge(baseWebpackConfig, {
         path: 'dist/antd.min.js'
       },
       {
-        name: 'ant-design-vue/dist/antd.min.css', // name是我们在使用import或者require的时候，引入的包名称
-        path: 'dist/antd.min.css',
-        cssOnly: true,
-      },
-      {
         name: 'axios',
         var: 'axios',
         path: 'dist/axios.min.js'
+      },
+      {
+        name: '@antv/g2',
+        var: 'G2',
+        path: 'index.js'
       },
     ],
       publicPath: '/node_modules'
@@ -187,7 +187,7 @@ if (config.build.productionGzip) {
     })
   )
 }
-
+config.build.bundleAnalyzerReport=true
 if (config.build.bundleAnalyzerReport) {
   const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
   webpackConfig.plugins.push(new BundleAnalyzerPlugin())
