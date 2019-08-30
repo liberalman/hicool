@@ -34,7 +34,7 @@ const webpackConfig = merge(baseWebpackConfig, {
   },
   externals: {
     // 左边是给 require用的, 右边是给全局调用的
-    'axios': 'axios',
+    //'axios': 'axios',
     'vue': 'Vue',
     'vue-router': 'VueRouter',
     'vuex': 'Vuex',
@@ -65,7 +65,7 @@ const webpackConfig = merge(baseWebpackConfig, {
         // more options:
         // https://github.com/kangax/html-minifier#options-quick-reference
       },
-      chunksSortMode: 'dependency'
+      chunksSortMode: 'none' // webpack4 must be none
     }),
     // keep module.id stable when vendor modules does not change
     new webpack.HashedModuleIdsPlugin(),
@@ -99,15 +99,36 @@ const webpackConfig = merge(baseWebpackConfig, {
     new WebpackCdnPlugin({
       modules: [
       {
-        name: 'ant-design-vue', // name是我们在使用import或者require的时候，引入的包名称
+        name: 'vue', // name是我们在使用import或者require的时候，引入的包名称
         var: 'Vue', // var是引入包时候，内部的全局变量名
+        path: 'dist/vue.min.js'
+      },
+      {
+        name: 'vue-router',
+        var: 'VueRouter',
+        path: 'dist/vue-router.min.js'
+      },
+      {
+        name: 'vuex',
+        var: 'Vuex',
+        path: 'dist/vuex.min.js'
+      },
+      {
+        name: 'ant-design-vue', // name是我们在使用import或者require的时候，引入的包名称
+        var: 'antd', // var是引入包时候，内部的全局变量名
         path: 'dist/antd.min.js'
       },
       {
         name: 'ant-design-vue/dist/antd.min.css', // name是我们在使用import或者require的时候，引入的包名称
         path: 'dist/antd.min.css',
         cssOnly: true,
-      }],
+      },
+      {
+        name: 'axios',
+        var: 'axios',
+        path: 'dist/axios.min.js'
+      },
+    ],
       publicPath: '/node_modules'
     })
   ],

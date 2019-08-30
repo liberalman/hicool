@@ -26,7 +26,7 @@ import AdvancedDetail from '@/pages/detail/AdvancedDetail'
 import TaskCard from '@/pages/components/TaskCard'
 import ColorBox from '@/pages/components/Palette'
 
-Vue.use(Router)
+if (!window.VueRouter) Vue.use(VueRouter)
 
 export default new Router({
   routes: [
