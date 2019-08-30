@@ -1,8 +1,10 @@
 {
   "name": "hicool",
   "version": "3.6.1",
-  "main": "index.js",
+  "description": "hicool manager project",
+  "author": "Liberalman <zscchina@163.com>",
   "license": "MIT",
+  "main": "index.js",
   "scripts": {
     "dev": "webpack-dev-server --config=config/webpack.config.dev.js --mode=development",
     "start": "node prod.server.js",
