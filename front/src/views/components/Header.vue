@@ -1,7 +1,7 @@
 <template>
   <header>
     <vNav></vNav>
-    <div class="img-wrap mask">
+    <div class="img-wrap">
       <img :src="mySrc" />
     </div>
     <div class="text-wrap">

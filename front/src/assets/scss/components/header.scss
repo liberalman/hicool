@@ -8,9 +8,10 @@ header {
         max-height: 100vh;
         min-height: 30vh;
         background-color: #eee;
+        overflow: hidden; /* hidden image of child overflow */
         img {
             width: 100%;
-            max-height: inherit;
+            /*max-height: inherit;*/
             max-width: 100%;
             vertical-align: middle;
             opacity: 0;
@@ -98,14 +99,4 @@ header {
             transform: translateY(0);
         }
     }
-
-    /* 蒙版、遮罩 */
-    .mask {
-        background: #efefef;
-        -moz-opacity: 0.8;
-        opacity: 0.8; /* 不透明度 */
-        -webkit-filter: blur(2px); /* Chrome, Opera 填充像素个数,个数越多越模糊*/
-        -ms-filter: blur(2px);
-        filter: blur(2px);
-     }
 }
