@@ -131,16 +131,16 @@ const webpackConfig = merge(baseWebpackConfig, {
       {
         name: 'pouchdb',
         var: 'PouchDB',
-        path: 'pouchdb.min.js'
+        path: 'dist/pouchdb.min.js'
       },
       {
         name: 'moment',
-        var: 'Moment',
+        var: 'moment',
         path: 'min/moment.min.js'
       },
       {
         name: 'lodash',
-        var: 'Lodash',
+        var: '_',
         path: 'lodash.min.js'
       },
     ],
