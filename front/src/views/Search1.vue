@@ -39,7 +39,7 @@
             大约有 {{count}} 项符合查询结果。（搜索耗时：{{search_cost}} 秒）
           </p>
           <p>(C)opyright 2016 - Hicool search - 页面处理总时间：{{total_cost}} 秒<br>
-            Powered by <a href="http://www.hicool.top/" target="_blank" title="Hicool 博客">hicool</a></p>
+            Powered by <a href="https://www.hicool.top/" target="_blank" title="Hicool 博客">hicool</a></p>
           </el-form-item>
         </el-form>
       </div>
@@ -134,7 +134,7 @@
       onSubmit() {
         let _this = this
         axios.get(
-          'http://www.hicool.top/libertyblog-search/api.php', {
+          'https://www.hicool.top/libertyblog-search/api.php', {
           params: {
             cmd: 'search',
             key: this.key,

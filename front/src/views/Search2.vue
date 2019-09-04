@@ -120,7 +120,7 @@
       },
       onSubmit() {
         let _this = this
-        axios.get(`http://www.hicool.top/search/json?query=${this.key}&page=${this.page}&size=${this.size}`)
+        axios.get(`https://www.hicool.top/search/json?query=${this.key}&page=${this.page}&size=${this.size}`)
           .then(function (response) {
             _this.list = response.data.docs
             _this.count = response.data.total
