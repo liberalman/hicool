@@ -41,6 +41,8 @@ module.exports = app => {
   newsRouter.get(`/albums`, jsonp, controller.album.list);
   newsRouter.get(`/album/:id`, jsonp, controller.album.show);
   newsRouter.resources('album', `/album`, app.oAuth2Server.authenticate(), jsonp, controller.album);
+  newsRouter.post(`/album/:id/add_photo`, app.oAuth2Server.authenticate(), jsonp, controller.album.addPhoto);
+
   
   // timelines
   newsRouter.get(`/timelines`, jsonp, controller.timeline.list);

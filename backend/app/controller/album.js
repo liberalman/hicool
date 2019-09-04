@@ -53,5 +53,11 @@ class AlbumController extends Controller {
     });
     this.ctx.body = {user, client};
   }
+
+  async addPhoto() {
+    const { ctx } = this;
+    ctx.body = await ctx.service.album.addPhoto(ctx.state.oauth.token.user.id,
+        ctx.params.id, ctx.request.body)
+  }
 }
 module.exports = AlbumController;

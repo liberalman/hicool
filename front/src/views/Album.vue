@@ -17,7 +17,13 @@
     <div style="text-align: center;padding: 0 14px;">
       <el-collapse>
         <el-collapse-item title="+添加图片">
-          <el-upload :auto-upload="false" :on-preview="handlePreview" :on-remove="handleRemove" :before-upload="beforeUpload" ref="upload" action="uploadUrl()" list-type="picture-card">
+          <el-upload :auto-upload="false"
+            :on-preview="handlePreview"
+            :on-remove="handleRemove"
+            :before-upload="beforeUpload"
+            ref="upload"
+            list-type="picture-card"
+            action="uploadUrl()">
             <i class="el-icon-plus"></i>
           </el-upload>
           <el-dialog :visible.sync="dialogVisible">
@@ -29,7 +35,7 @@
       </el-collapse>
     </div>
 
-    <div style="height: 100em;">
+    <div style="height: 300em;">
       <vue-waterfall-easy :imgsArr="imgsArr" @scrollReachBottom="fetchData" @click="clickFn">
         <div slot-scope="props">
           <el-card :body-style="{ padding: '0px' }">
@@ -69,6 +75,7 @@
 <script>
 import vueWaterfallEasy from 'vue-waterfall-easy'
 import CanvasCompress from 'canvas-compress'
+import { QINIU_UPLOAD_ADDR, QINIU_IMG_ADDR } from '../config'
 
 async function compress(file) {
   const compressor = new CanvasCompress({
@@ -173,7 +180,7 @@ export default {
     },
     handleSuccess(res, file) { //上传成功后在图片框显示图片。根据你七牛云上绑定的域名 拼接了这个key 就是你上传文件的地址了，'http://你的域名地址.com/'+ res.key
       console.log(res)
-      this.imageUrl = 'http://image.hicool.top/' + res.key
+      this.imageUrl = 'https://image.hicool.top/' + res.key
     },
     handleError(res) { //显示错误
       console.log(res)
@@ -205,9 +212,10 @@ export default {
         filetype = 'jpg'
       }
 
-      // 压缩
       let _this = this
-      compress(file).then(function(blob) {
+      // 压缩
+      let blob = await compress(file)
+      //compress(file).then((blob) => {
         // https://serversideup.net/uploading-files-vuejs-axios/
         // 重命名要上传的文件
         /*let curr = Vue.moment().format('YYYYMMDD').toString()
@@ -220,41 +228,39 @@ export default {
         formdata.append('file', blob)
         formdata.append('token', _this.$store.state.third.qiniuToken)
         formdata.append('key', keyname)
+
         // 获取到凭证之后再将文件上传到七牛云空间
-        axios.post(QINIU_UPLOAD_ADDR, formdata, {
+        let result = await axios.post(QINIU_UPLOAD_ADDR, formdata, {
             headers: {
               'Content-Type': 'multipart/form-data'
             }
-          }).then(res => {
-            console.log(res.data.hash)
-            _this.imageUrl = QINIU_IMG_ADDR + '/' + res.data.key
-            console.log(_this.imageUrl)
-            _this.dialogImageUrl = _this.imageUrl;
-            _this.dialogVisible = true;
-
-          this.$store.dispatch('album/' + _this.$route.params.id + '/addPhoto', { url: this.imageUrl, description: 'my test photo', gallery_id: this.$route.params.id})
-          .then(function(response) {
-                router.push('/post/edit/' + _this.$route.params.id)
+        })
+        if(200 === result.status) {
+          _this.imageUrl = QINIU_IMG_ADDR + '/' + result.data.key
+          // console.log('img_hash:' + result.data.hash + ', img_addr:' + _this.imageUrl)
+          _this.dialogImageUrl = _this.imageUrl;
+          _this.dialogVisible = true;
+          let res = this.$store.dispatch('album/addPhoto', { gallery_id: _this.$route.params.id,
+              data: { url: _this.imageUrl, description: 'my test photo', source: 0} })
+            .then(function(response) {
+              _this.$router.push('/album/' + _this.$route.params.id)
               _this.$message({
                 message: '操作成功!',
                 type: 'success'
               })
-            })
-            .catch(error => { // 这里的error返回的是个string类型
+            }).catch(error => { // 这里的error返回的是个string类型
+              console.log(error)
               _this.$message({
-                message: error,
+                message: error.response.status + ' ' + error.response.data.error,
                 type: 'error'
-              });
+              })
             })
+        } else {
+          _this.$message({
+            message: result.response.status + ' ' + result.response.data.error,
+            type: 'error'
           })
-          .catch(error => {
-            _this.$message({
-              message: error.response.status + ' ' + error.response.data.error,
-              type: 'error'
-            });
-          })
-      })
-
+        }
       return isJPG && isPNG && isGIF && isLt2m
     },
     uploadUrl() {
@@ -273,7 +279,7 @@ export default {
         type: 'warning'
       }).then(() => {
         var _this = this;
-        this.$store.dispatch('album/deletePhoto', { gallery_id: this.$route.params.id, photo_id: photo_id})
+        __this.$store.dispatch('album/deletePhoto', { gallery_id: _this.$route.params.id, photo_id: photo_id})
           .then(function(response) {
               _this.$message({
                 message: '操作成功!',

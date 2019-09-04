@@ -9,13 +9,13 @@ export const CookieDomain = (process.env.NODE_ENV === 'production')
 
 // 七牛云的上传地址，根据自己所在地区选择
 export const QINIU_UPLOAD_ADDR = (process.env.NODE_ENV === 'production')
-  ? 'http://up-z0.qiniup.com/offical'
-  : 'http://up-z0.qiniup.com/test'
+  ? 'https://up-z0.qiniup.com/offical'
+  : 'https://up-z0.qiniup.com/test'
 
 // 这是七牛云空间的外链默认域名
 export const QINIU_IMG_ADDR = (process.env.NODE_ENV === 'production')
-  ? 'http://image.hicool.top'
-  : 'http://image.hicool.top'
+  ? 'https://image.hicool.top'
+  : 'https://image.hicool.top'
 
 // 又拍云
 export const UPYUN_UPLOAD_ADDR = (process.env.NODE_ENV === 'production')

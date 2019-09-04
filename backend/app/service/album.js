@@ -1,4 +1,5 @@
 // app/service/user.js
+const mongoose = require('mongoose')
 const Service = require('egg').Service;
 class AlbumService extends Service {
   // 默认不需要提供构造函数。
@@ -172,6 +173,16 @@ class AlbumService extends Service {
     } catch(err) {
       ctx.throw(err)
     }
+  }
+
+  async addPhoto(uid, albumId, params) {
+    params._id = new mongoose.Types.ObjectId()
+    const res = await this.ctx.model.Album
+      .update(
+        { _id: albumId },
+        { $push: { images: params } }
+      )
+    return res
   }
 }
 module.exports = AlbumService;

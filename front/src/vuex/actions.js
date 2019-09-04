@@ -124,7 +124,7 @@ export default {
     return DELETE(`/album/${gallery_id}/${photo_id}`)
   },
   addPhoto (gallery_id, data) {
-    return PUT(`/album/${gallery_id}/add_photo`, data)
+    return POST(`/album/${gallery_id}/add_photo`, data)
   },
   getQiniuToken() {
     let ret = GET(`/third/qiniu_token`)
