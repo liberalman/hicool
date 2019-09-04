@@ -7,52 +7,50 @@ import utils from '../utils/utils'
 //axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded'
 axios.defaults.headers.post['Content-Type'] = 'application/json'
 
-let baseUrl = `${API_ROOT}/api/v1/front`
-
 // 增
 function POST (url, params) {
-  return revoke('POST', baseUrl, url, params)
+  return revoke('POST', API_ROOT, url, params)
 }
 function POST_1 (url, params) {
-  return revoke1('POST', baseUrl, url, params)
+  return revoke1('POST', API_ROOT, url, params)
 }
 
 // 删
 function DELETE (url, params) {
-  return revoke('DELETE', baseUrl, url)
+  return revoke('DELETE', API_ROOT, url)
 }
 
 // 改
 function PUT (url, params) {
-  return revoke('PUT', baseUrl, url, params)
+  return revoke('PUT', API_ROOT, url, params)
 }
 
 // 查
 function GET (url, params) {
-  return revoke('GET', baseUrl, url)
+  return revoke('GET', API_ROOT, url)
 }
 
-function revoke1 (method, baseUrl, url, params) {
+function revoke1 (method, API_ROOT, url, params) {
   const headers = {
     headers: {
       'Content-Type': 'application/x-www-form-urlencoded'
     }
   }
-  return doit(method, baseUrl, url, headers, params)
+  return doit(method, API_ROOT, url, headers, params)
 }
 
-function revoke (method, baseUrl, url, params) {
+function revoke (method, API_ROOT, url, params) {
   const headers = {
     headers: {
       'Authorization': 'Bearer ' + utils.getCookie('token')
     }
   }
-  return doit(method, baseUrl, url, headers, params)
+  return doit(method, API_ROOT, url, headers, params)
 }
 
-function doit (method, baseUrl, url, headers, params) {
+function doit (method, API_ROOT, url, headers, params) {
   return new Promise((resolve, reject) => {
-    url = sign(method, baseUrl + url, params)
+    url = sign(method, API_ROOT + url, params)
     let ret = {}
     if (method === 'POST') {
       ret = axios.post(url, params, headers)

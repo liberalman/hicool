@@ -33,7 +33,7 @@ module.exports = {
     proxyTable: {
       '/api': {
         //target: 'http://localhost:7001/api',
-        target: 'https://api.hicool.top:6011/api',
+        target: 'http://www.hicool.top/api',
         changeOrigin: true,
         pathRewrite: {
           '^/api': ''
