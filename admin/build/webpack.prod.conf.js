@@ -71,22 +71,6 @@ const webpackConfig = merge(baseWebpackConfig, {
     new webpack.HashedModuleIdsPlugin(),
     // enable scope hoisting
     new webpack.optimize.ModuleConcatenationPlugin(),
-    /*
-    // extract webpack runtime and module manifest to its own file in order to
-    // prevent vendor hash from being updated whenever app bundle is updated
-    new webpack.optimize.CommonsChunkPlugin({
-      name: 'manifest',
-      minChunks: Infinity
-    }),
-    // This instance extracts shared chunks from code splitted chunks and bundles them
-    // in a separate chunk, similar to the vendor chunk
-    // see: https://webpack.js.org/plugins/commons-chunk-plugin/#extra-async-commons-chunk
-    new webpack.optimize.CommonsChunkPlugin({
-      name: 'app',
-      async: 'vendor-async',
-      children: true,
-      minChunks: 3
-    }),*/
 
     // copy custom static assets
     new CopyWebpackPlugin([
@@ -116,7 +100,8 @@ const webpackConfig = merge(baseWebpackConfig, {
       {
         name: 'ant-design-vue', // name是我们在使用import或者require的时候，引入的包名称
         var: 'antd', // var是引入包时候，内部的全局变量名
-        path: 'dist/antd.min.js'
+        path: 'dist/antd.min.js',
+        style: 'dist/antd.min.css', // see in index.html
       },
       {
         name: 'axios',
@@ -127,6 +112,36 @@ const webpackConfig = merge(baseWebpackConfig, {
         name: '@antv/g2',
         var: 'G2',
         path: 'dist/g2.min.js'
+      },
+      {
+        name: '@ant-design/icons/lib/dist.js',
+        var: 'AntDesignIcons',
+        path: 'lib/umd.js'
+      },
+      {
+        name: '@antv/data-set',
+        var: 'DataSet',
+        path: 'dist/data-set.min.js'
+      },
+      {
+        name: 'mockjs',
+        var: 'Mock',
+        path: 'dist/mock-min.js'
+      },
+      {
+        name: 'pouchdb',
+        var: 'PouchDB',
+        path: 'pouchdb.min.js'
+      },
+      {
+        name: 'moment',
+        var: 'Moment',
+        path: 'min/moment.min.js'
+      },
+      {
+        name: 'lodash',
+        var: 'Lodash',
+        path: 'lodash.min.js'
       },
     ],
       publicPath: '/node_modules'

@@ -3,7 +3,7 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router/lazy'
-import 'ant-design-vue/dist/antd.min.css'
+//import 'ant-design-vue/dist/antd.min.css' // see build/webpack.prod.conf.js
 import Antd from 'ant-design-vue'
 import Viser from 'viser-vue'
 import axios from 'axios'
