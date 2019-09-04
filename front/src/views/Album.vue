@@ -243,11 +243,11 @@ export default {
           let res = this.$store.dispatch('album/addPhoto', { gallery_id: _this.$route.params.id,
               data: { url: _this.imageUrl, description: 'my test photo', source: 0} })
             .then(function(response) {
-              _this.$router.push('/album/' + _this.$route.params.id)
               _this.$message({
                 message: '操作成功!',
                 type: 'success'
               })
+              _this.$router.push('/album/' + _this.$route.params.id)
             }).catch(error => { // 这里的error返回的是个string类型
               console.log(error)
               _this.$message({
