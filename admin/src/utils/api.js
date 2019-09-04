@@ -1,7 +1,8 @@
 import axios from 'axios'
 import CryptoJS from 'crypto-js'
 
-let baseUrl = 'http://localhost:8080/api/v1/admin'
+// let baseUrl = 'http://localhost:8700/api/v1/admin'
+let baseUrl = 'https://www.hicool.top/api/v1/admin'
 
 // 增
 /*
@@ -105,7 +106,7 @@ export default {
     return GET(`/users?page=${page}&size=${size}&sort_name=created&sort_order=false`)
   },
   login (email, password, captcha) {
-    let secret = ''
+    let secret = 'fskefgtarwdbawydrawpdpaiuiawdtg'
     // return POST_AUTH(`/local/login`, `{"email":"${email}","password":"${password}","captcha":"${captcha}"}`)
     var params = new URLSearchParams()
     params.append('username', email)
