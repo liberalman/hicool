@@ -1,41 +1,3 @@
-#libertyblog-web:
-#  ports:
-#  - 8900:8900/tcp
-#  image: liberalman/libertyblog-web
-#  links:
-#  - 'libertyblog-api-koa'
-#libertyblog-api-koa:
-#  ports:
-#  - 9000:9000/tcp
-#  environment:
-#    GITHUB_CALLBACK_URL: '${GITHUB_CALLBACK_URL}'
-#    GITHUB_CLIENT_ID: '${GITHUB_CLIENT_ID}'
-#    GITHUB_CLIENT_SECRET: '${GITHUB_CLIENT_SECRET}'
-#    MONGO_PASSWORD: ''
-#    MONGO_USERNAME: ''
-#    QINIU_APP_BUCKET: QINIU_APP_BUCKET
-#    QINIU_APP_DOMAIN: QINIU_APP_DOMAIN
-#    QINIU_APP_KEY: QINIU_APP_KEY
-#    QINIU_APP_SECRET: QINIU_APP_SECRET
-#    QQ_CALLBACK_URL: QQ_CALLBACK_URL
-#    QQ_CLIENT_ID: QQ_CLIENT_ID
-#    QQ_CLIENT_SECRET: QQ_CLIENT_SECRET
-#    REDIS_PASSWORD: ''
-#    WEIBO_CALLBACK_URL: WEIBO_CALLBACK_URL
-#    WEIBO_CLIENT_ID: WEIBO_CLIENT_ID
-#    WEIBO_CLIENT_SECRET: WEIBO_CLIENT_SECRET
-#    INITDATA: 'true'
-#  links:
-#  - mongo:mongo
-#  - redis:redis
-#  image: liberalman/libertyblog-api-koa
-#redis:
-#  image: redis
-#  volumes:
-#    - ~/data/redis/data:/data
-#    - ${BASE_DIR}/redis.conf:/etc/redis/redis.conf
-#  ports:
-#    - "${redis_port}:6379"
 mongo:
   image: mongo
   volumes:
@@ -46,7 +8,6 @@ mongo:
 nginx:
   ports:
     - 443:443/tcp
-    - 6011:6011/tcp
     - 80:80/tcp
   image: nginx
   volumes:
@@ -62,13 +23,6 @@ xunsearch:
   ports:
     - ${xun_search_port1}:8383
     - ${xun_search_port2}:8384
-#search:
-#  image: liberalman/search
-#  volumes:
-#    - ${ROOT_DIR}/search/store:/store
-#    - ${ROOT_DIR}/search/conf.ini:/conf.ini
-#  ports:
-#    - ${search_port}:${search_port}
 apache-php:
   # https://github.com/liberalman/apahce-php7-mongodb.git
   image: php-mongodb:7.2-apache
@@ -76,10 +30,16 @@ apache-php:
     - /data/www:/var/www/html
   ports:
     - ${apache_port}:80
-#    - 8443:443
-#front:
-#  image: hicool
+front:
+  image: hicool
+  volumes:
+    - ${ROOT_DIR}/front:/data/hicool
+  ports:
+    - "${hicool_port}:5000"
+#search:
+#  image: liberalman/search
 #  volumes:
-#    - ${ROOT_DIR}/front:/data/hicool
+#    - ${ROOT_DIR}/search/store:/store
+#    - ${ROOT_DIR}/search/conf.ini:/conf.ini
 #  ports:
-#    - "${hicool_port}:5000"
+#    - ${search_port}:${search_port}

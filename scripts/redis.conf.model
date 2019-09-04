@@ -1,2 +1,0 @@
-# password
-requirepass ${redis_password}
