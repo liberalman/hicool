@@ -126,7 +126,7 @@ const webpackConfig = merge(baseWebpackConfig, {
       {
         name: '@antv/g2',
         var: 'G2',
-        path: 'index.js'
+        path: 'dist/g2.min.js'
       },
     ],
       publicPath: '/node_modules'

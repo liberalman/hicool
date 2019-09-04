@@ -32,7 +32,7 @@ function GET (url, params) {
 }
 
 function revoke (method, baseUrl, url, params) {
-  const token = 'Bearer a5394671821118d3987a9c98ac3e28c69500b53c'
+  const token = 'Bearer '
   const headers = {
     headers: {
       'Content-Type': 'application/json;charset=UTF-8',
@@ -106,7 +106,7 @@ export default {
     return GET(`/users?page=${page}&size=${size}&sort_name=created&sort_order=false`)
   },
   login (email, password, captcha) {
-    let secret = 'fskefgtarwdbawydrawpdpaiuiawdtg'
+    let secret = ''
     // return POST_AUTH(`/local/login`, `{"email":"${email}","password":"${password}","captcha":"${captcha}"}`)
     var params = new URLSearchParams()
     params.append('username', email)
