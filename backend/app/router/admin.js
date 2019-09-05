@@ -49,4 +49,8 @@ module.exports = app => {
   // third
   newsRouter.get(`/third/qiniu_token`, app.oAuth2Server.authenticate(), jsonp, controller.third.qiniuToken);
   newsRouter.post(`/third/qiniu_token`, app.oAuth2Server.authenticate(), jsonp, controller.third.qiniuRefreshToken);
+
+  // tip
+  newsRouter.get(`/tips`, app.oAuth2Server.authenticate(), jsonp, controller.tip.list);
+  newsRouter.get(`/tip`, app.oAuth2Server.authenticate(), jsonp, controller.tip.show);
 };

@@ -14,13 +14,13 @@
         <template v-else>
           <a-card :hoverable="true">
             <a-card-meta >
-              <div style="margin-bottom: 3px" slot="title"><router-link :to="{ path: '/detail/user/' + item._id }">{{item.nickname}}</router-link></div>
+              <div style="margin-bottom: 3px" slot="title"><router-link :to="{ path: '/user/' + item._id }">{{item.nickname}}</router-link></div>
               <a-avatar class="card-avatar" slot="avatar" :src="item.avatar" size="large" />
               <div class="meta-content" slot="description">{{item.description}} email：{{item.email}} 状态：{{item.status == 1 ? '已验证' : '未验证'}} 通知：{{item.notifyCount}} birthday：{{item.birthday}} role：{{item.role}}
               </div>
             </a-card-meta>
-            <a slot="actions"><router-link :to="{ path: '/form/edituser/' + item._id }">修改</router-link></a>
-            <a slot="actions"><router-link :to="{ path: '/detail/user/' + item._id }">详情</router-link></a>
+            <a slot="actions"><router-link :to="{ path: '/user/edit/' + item._id }">修改</router-link></a>
+            <a slot="actions"><router-link :to="{ path: '/user/' + item._id }">详情</router-link></a>
           </a-card>
         </template>
       </a-list-item>

@@ -1,37 +1,30 @@
 <template>
   <div>
+    <search-form />
     <a-card :bordered="false">
-      <a-row>
-        <a-col :sm="8" :xs="24">
-          <head-info title="文章总数" :content="total" :bordered="true"/>
-        </a-col>
-        <a-col :sm="8" :xs="24">
-          <head-info title="。。。" content="。。。" :bordered="true"/>
-        </a-col>
-        <a-col :sm="8" :xs="24">
-          <head-info title="。。。" content="。。。"/>
-        </a-col>
-      </a-row>
-    </a-card>
-    <a-card
-      style="margin-top: 24px"
-      :bordered="false"
-      title="文章列表"
-    >
-      <div slot="extra" @click="fetchData">
-        <a-input-search style="margin-left: 16px; width: 272px;" v-model="filter_title" />
-      </div>
-      <a-list size="large" :pagination="{showSizeChanger: true, showQuickJumper: true, page: page, pageSize: size, total: total, onChange: updateSelect}">
-        <a-list-item :key="item.Id" v-for="(item,index) in list">
-          <a-list-item-meta
-            :description="item.description"
-          >
-            <a-avatar slot="avatar" size="large" shape="square" :src="item.author_id.avatar"/>
-            <a slot="title" @click="showDetail(item)">{{item.title}}</a>
+      <a-list itemLayout="vertical" size="large" :pagination="{showSizeChanger: true, showQuickJumper: true, page: page, pageSize: size, total: total, onChange: updateSelect}">
+        <a-list-item :key="item._id" v-for="(item,index) in list">
+          <a-list-item-meta :title="item.title" @click="showDetail(item)">
+            <div slot="description">
+              <a-tag :key="tag._id" v-for="(tag) in item.tags">{{tag.name}}</a-tag>
+            </div>
           </a-list-item-meta>
-          <div slot="actions">
-            <a>编辑</a>
+          <div class="content">
+            <div class="detail">
+              {{item.description}}
+            </div>
+            <div class="author">
+              <a-avatar size="small" :src="item.author_id.avatar" />
+              <a>{{item.author_id.nickname}}</a>
+              发布日期<em>{{moment(item.publish_time).format('YYYY-MM-DD')}}</em>
+              更新日期<em>{{moment(item.updated).format('YYYY-MM-DD')}}</em>
+              <a :href="'https://www.hicool.top/article/'.concat(item._id)" target="_blank">show...</a>
+            </div>
           </div>
+          <span slot="actions"><a-icon style="margin-right: 8px" type="star-o" />{{item.like_count}}</span>
+          <span slot="actions"><a-icon style="margin-right: 8px" type="view-o" />{{item.visit_count}}</span>
+          <span slot="actions"><a-icon style="margin-right: 8px" type="like-o" />1435</span>
+          <span slot="actions"><a-icon style="margin-right: 8px" type="message" />{{item.comment_count}}</span>
           <div slot="actions">
             <a-dropdown>
               <a-menu slot="overlay">
@@ -44,24 +37,6 @@
               </a-menu>
               <a>更多<a-icon type="down"/></a>
             </a-dropdown>
-          </div>
-          <div class="list-content">
-            <div class="list-content-item">
-              <span>浏览</span>
-              <p>{{item.visit_count}}</p>
-            </div>
-            <div class="list-content-item">
-              <span>收藏</span>
-              <p>{{item.like_count}}</p>
-            </div>
-            <div class="list-content-item">
-              <span>发布日期</span>
-              <p>{{item.publish_time | dateFormat}}</p>
-            </div>
-            <div class="list-content-item">
-              <span>更新日期</span>
-              <p>{{item.updated | dateFormat}}</p>
-            </div>
           </div>
         </a-list-item>
       </a-list>
@@ -111,11 +86,12 @@
 
 <script>
 import { mapState } from 'vuex'
-import HeadInfo from '../../components/tool/HeadInfo'
+import moment from 'moment'
+import SearchForm from './SearchForm'
 export default {
-  name: 'StandardList',
-  components: { HeadInfo },
-  data: function () {
+  name: 'ArticleList',
+  components: {SearchForm},
+  data () { 
     return {
       page: 1,
       size: 10,
@@ -128,37 +104,15 @@ export default {
   computed: {
     ...mapState({
       total: state => state.articles.total,
-      list: state => {
-        const dataSource = []
-        if (state.articles.list) {
-          for (let i = 0; i < state.articles.list.length; i++) {
-            dataSource.push({
-              key: i,
-              _id: state.articles.list[i]._id,
-              title: state.articles.list[i].title,
-              description: state.articles.list[i].description,
-              like_count: state.articles.list[i].like_count,
-              updated: state.articles.list[i].updated,
-              publish_time: state.articles.list[i].publish_time,
-              visit_count: state.articles.list[i].visit_count,
-              type: state.articles.list[i].type,
-              editor: state.articles.list[i].editor,
-              status: state.articles.list[i].status,
-              pubtype: state.articles.list[i].pubtype,
-              author_id: state.articles.list[i].author_id
-            })
-          }
-        }
-        return dataSource
-      }
+      list: state => state.articles.list
     })
   },
   mounted () {
     // 1，我一直以为在created里定义方法然后使用，其实这里的getCustomerInfo只是调用
     // 2，所有的方法都应该在methods里定义，然后在created或者mounted里 使用this调用方法，用这种方式实现初始化
-    this.fetchData()
+    this.fetchData()                                                                                                  
   },
-  methods: {
+  methods: {                                                                                                          
     fetchData: function () {
       this.$store.dispatch('articles/getArticles', {
         page: this.page,
@@ -167,6 +121,7 @@ export default {
         filterTitle: this.filter_title
       })
     },
+    moment,
     updateSelect: function (value) {
       this.page = value
       this.fetchData() // 刷新数据
@@ -189,29 +144,42 @@ export default {
           this.$message.error(err)
         })
     }
+  },
+  filters: {
+    FmtDate: function (el) { // 自定义过滤器，时间处理函数。
+      return moment(el).format('YYYY-MM-DD')
+    }
   }
 }
 </script>
 
 <style lang="less" scoped>
-  .ant-avatar-lg{
-    width: 48px;
-    height: 48px;
-    line-height: 48px;
+  .extra{
+    width: 272px;
+    height: 1px;
   }
-  .list-content-item{
-    color: rgba(0,0,0,.45);
-    display: inline-block;
-    vertical-align: middle;
-    font-size: 14px;
-    margin-left: 40px;
-    span{
-      line-height: 20px;
-    }
-    p{
-      margin-top: 4px;
-      margin-bottom: 0;
+  .content {
+    .detail {
       line-height: 22px;
+      max-width: 720px;
+    }
+    .author {
+      color: rgba(0,0,0,.45);
+      margin-top: 16px;
+      line-height: 22px;
+      & > :global(.ant-avatar) {
+          vertical-align: top;
+          margin-right: 8px;
+          width: 20px;
+          height: 20px;
+          position: relative;
+          top: 1px;
+        }
+      & > em {
+          color: rgba(0,0,0,.25);
+          font-style: normal;
+          margin-left: 16px;
+        }
     }
   }
 </style>

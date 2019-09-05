@@ -53,7 +53,13 @@ export default new Router({
             {
               path: '/article/list',
               name: '文章列表',
-              component: Articles,
+              component: () => import('@/pages/article/Articles'),
+              icon: 'none'
+            },
+            {
+              path: '/tips/list',
+              name: 'Tips列表',
+              component: () => import('@/pages/article/Tips'),
               icon: 'none'
             },
             {
@@ -105,6 +111,32 @@ export default new Router({
           ]
         },
         {
+          path: '/user',
+          name: 'user',
+          component: RouteView,
+          icon: 'table',
+          children: [
+            {
+              path: '/user/list',
+              name: '用户列表',
+              component: () => import('@/pages/list/Users'),
+              icon: 'none'
+            },
+            {
+              path: '/user/:id',
+              name: '用户详情',
+              component: () => import('@/pages/detail/User'),
+              icon: 'none'
+            },
+            {
+              path: '/user/edit/:id',
+              name: '用户修改',
+              component: () => import('@/pages/form/EditUser'),
+              icon: 'none'
+            },
+          ]
+        },
+        {
           path: '/list',
           name: '列表页',
           component: PageView,
@@ -114,12 +146,6 @@ export default new Router({
               path: '/list/tags',
               name: '标签列表',
               component: Tags,
-              icon: 'none'
-            },
-            {
-              path: '/list/users',
-              name: '用户列表',
-              component: Users,
               icon: 'none'
             },
             {
@@ -175,12 +201,6 @@ export default new Router({
           icon: 'form',
           children: [
             {
-              path: '/form/edituser/:id',
-              name: '用户修改',
-              component: EditUser,
-              icon: 'none'
-            },
-            {
               path: '/form/basic',
               name: '基础表单',
               component: BasicForm,
@@ -206,12 +226,6 @@ export default new Router({
           icon: 'profile',
           component: RouteView,
           children: [
-            {
-              path: '/detail/user/:id',
-              name: '用户详情页',
-              icon: 'none',
-              component: User
-            },
             {
               path: '/detail/basic',
               name: '基础详情页',

@@ -137,7 +137,13 @@ export default {
   },
   getAlbum (id) {
     return GET(`/album/${id}`)
-  }
+  },
+  getTips (page, size) {
+    return GET(`/tips?page=${page}&size=${size}`)
+  },
+  getTip (id) {
+    return GET(`/tip/${id}`)
+  },
 }
 
 // body 是必须json格式的字符串
