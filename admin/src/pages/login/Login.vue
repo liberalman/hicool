@@ -73,6 +73,7 @@
 
 <script>
 import GlobalFooter from '../../layouts/GlobalFooter'
+import VueCookies from 'vue-cookies'
 
 export default {
   name: 'Login',
@@ -81,6 +82,12 @@ export default {
     return {
       logging: false,
       error: ''
+    }
+  },
+  mounted() {
+    let user = VueCookies.get('user')
+    if (user) {
+      window.location.href="/#/dashboard/workplace"
     }
   },
   computed: {
@@ -117,12 +124,12 @@ export default {
                welcome: "要不要打一把DOTA"}}}
               */
               const user = {
-                token: res.token,
+                token: res.accessToken,
                 address: '帝都',
-                avatar: res.avatar,
-                name: res.username,
+                avatar: res.user.avatar,
+                name: res.user.name,
                 notifyCount: res.notifyCount,
-                position: res.email,
+                position: res.user.email,
                 timefix: '下午好',
                 welcom: 'welcom to Hicool.'
               }

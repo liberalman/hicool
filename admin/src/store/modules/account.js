@@ -1,4 +1,5 @@
 import PouchDB from 'pouchdb'
+import VueCookies from 'vue-cookies'
 
 var db = new PouchDB('admindb')
 
@@ -10,6 +11,7 @@ export default {
   mutations: {
     setuser (state, user) {
       state.user = user
+      VueCookies.set('user', user)
       db.get('currUser').then(doc => {
         db.put({
           _id: 'currUser',

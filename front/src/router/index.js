@@ -173,6 +173,12 @@ export default new VueRouter({
       component: function (resolve) {
         require(['@/views/pages/Index'], resolve)
       }
+    }, {
+      path: '/test',
+      name: 'test',
+      component: function (resolve) {
+        require(['@/views/Test'], resolve)
+      }
     }],
 
     scrollBehavior(to, from, savedPosition) {

@@ -97,9 +97,6 @@
 
 <style lang="scss">
   @import '../assets/scss/index.scss';
-</style>
-
-<style>
   .item {
     margin: 4px;
   }

@@ -45,6 +45,26 @@ export default new Router({
       invisible: true,
       children: [
         {
+          path: '/dashboard',
+          name: 'dashboard',
+          component: RouteView,
+          icon: 'dashboard',
+          children: [
+            {
+              path: '/dashboard/workplace',
+              name: '工作台',
+              component: WorkPlace,
+              icon: 'none'
+            },
+            {
+              path: '/dashboard/analysis',
+              name: '分析页',
+              component: Dashboard,
+              icon: 'none'
+            }
+          ]
+        },
+        {
           path: '/article',
           name: 'article',
           component: RouteView,
@@ -86,26 +106,6 @@ export default new Router({
               path: '/album/:id',
               name: '相册详情',
               component: Album,
-              icon: 'none'
-            }
-          ]
-        },
-        {
-          path: '/dashboard',
-          name: 'dashboard',
-          component: RouteView,
-          icon: 'dashboard',
-          children: [
-            {
-              path: '/dashboard/workplace',
-              name: '工作台',
-              component: WorkPlace,
-              icon: 'none'
-            },
-            {
-              path: '/dashboard/analysis',
-              name: '分析页',
-              component: Dashboard,
               icon: 'none'
             }
           ]

@@ -1,8 +1,10 @@
 import axios from 'axios'
 import CryptoJS from 'crypto-js'
 
-// let baseUrl = 'http://localhost:8700/api/v1/admin'
+// let baseUrl = 'http://localhost:7001/api/v1/admin'
 let baseUrl = 'https://www.hicool.top/api/v1/admin'
+const SECRET = ''
+const TOKEN = ''
 
 // 增
 /*
@@ -32,7 +34,7 @@ function GET (url, params) {
 }
 
 function revoke (method, baseUrl, url, params) {
-  const token = 'Bearer '
+  const token = `Bearer ${TOKEN}`
   const headers = {
     headers: {
       'Content-Type': 'application/json;charset=UTF-8',
@@ -106,15 +108,13 @@ export default {
     return GET(`/users?page=${page}&size=${size}&sort_name=created&sort_order=false`)
   },
   login (email, password, captcha) {
-    let secret = ''
-    // return POST_AUTH(`/local/login`, `{"email":"${email}","password":"${password}","captcha":"${captcha}"}`)
     var params = new URLSearchParams()
     params.append('username', email)
     params.append('password', password)
     params.append('captcha', captcha)
     params.append('grant_type', 'password')
     params.append('client_id', 'web')
-    params.append('client_secret', secret)
+    params.append('client_secret', SECRET)
     return POST_LOGIN('/user/login', params)
   },
   getMe () {

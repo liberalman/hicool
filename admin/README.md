@@ -10,26 +10,17 @@ git clone --depth=1 https://github.com/iczer/vue-antd-admin.git
 [预览地址](https://iczer.gitee.io/vue-antd-pro)
 
 ![](https://github.com/iczer/vue-antd-admin/blob/master/static/img/preview.jpg)
+
+
+https://vue.ant.design/components/popconfirm-cn/
+
 ## 环境
 * node -- 运行/编译
 * yarn -- 依赖管理
 * webpack -- 打包
 * eslint -- 代码规约
 * vue-cli -- 构建
-## 依赖
-* @antv/data-set: ^0.8.9
-* ant-design-vue: ^1.0.3
-* axios: ^0.18.0
-* clipboard: ^2.0.1
-* date-fns: ^1.29.0
-* enquire.js: ^2.1.6
-* mockjs: ^1.0.1-beta3
-* pouchdb: ^7.0.0
-* viser-vue: ^2.2.5
-* vue: ^2.5.17
-* vue-router: ^3.0.1
-* vuedraggable: ^2.16.0
-* vuex: ^3.0.1
+
 ## 安装
 克隆项目到本地:
 ```
@@ -43,6 +34,16 @@ $ yarn install
 ```
 $ yarn start
 ```
+注意，以上启动只是启动dev测试版本。如果要在生产环境运行，需要将utils/api.js、config/index.js等文件配置为远程服务器地址，然后编译
+```
+$ yarn build
+```
+将编译的dist目录打包上传到远程服务器，和 prod.server.js 放在同一目录，执行启动
+```
+$ node prod.server.js
+```
+这样才是在生产环境成功启动。
+
 ## 文档
 编写中...
 ## 说明
