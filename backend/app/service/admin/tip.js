@@ -15,8 +15,6 @@ class TipService extends Service {
   // }
   constructor(ctx) {
     super(ctx);
-    this.root = 'http://www.hicool.top/libertyblog-search/api.php';
-    this.search = 'http://www.hicool.top:8900';
   }
 
   async create(uid) {
@@ -55,7 +53,7 @@ class TipService extends Service {
         'content': content,
         'description': description
       })
-      axios.post(this.root, params)
+      axios.post(this.config.xunsearch.host, params)
       /*.then(function (response) {
         console.log(response)
       })*/
@@ -107,11 +105,11 @@ class TipService extends Service {
         ctx.status = 200
   
         // 删除XunSearch索引
-        axios.delete(`${this.root}/${id}`)
+        axios.delete(`${this.config.xunsearch.host}/${id}`)
         /*.then(function (response) {
           console.log(response)
         })*/
-        axios.get(`${this.search}/index/remove?id=${id}`)
+        // axios.get(`${this.search}/index/remove?id=${id}`)
       } catch(err) {
         // ctx.throw(err)
         ctx.status = 500

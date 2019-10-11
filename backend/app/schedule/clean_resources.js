@@ -4,7 +4,7 @@ module.exports = {
     cron: '0 0 0 */1 * *',
   },
   async task(ctx) {
-    const res = await ctx.curl('http://www.hicool.top', {
+    const res = await ctx.curl('https://www.hicool.top', {
       dataType: 'json',
     });
     console.log('aa');

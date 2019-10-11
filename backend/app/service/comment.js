@@ -13,7 +13,6 @@ class CommentService extends Service {
   // }
   constructor(ctx) {
     super(ctx);
-    this.root = 'http://www.hicool.top/libertyblog-search/api.php';
   }
 
   async create(uid, articleId) {
@@ -168,7 +167,7 @@ class CommentService extends Service {
           'content': article.content,
           'description': article.description
         })
-        axios.post(this.root, params)
+        axios.post(this.config.xunsearch.host, params)
         /*.then(function (response) {
           console.log(response)
         })*/

@@ -60,6 +60,9 @@ module.exports = appInfo => {
     cors: {
       //origin: ['http://www.hicool.top'],
       domainWhiteList: ['www.hicool.top','admin.hicool.top'],
+    },
+    xunsearch: {
+      host: '',
     }
   };
 
