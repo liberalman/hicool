@@ -48,6 +48,9 @@
               <router-link class="item" :to="{name: 'PrivateArticle'}">私文</router-link>
             </el-dropdown-item>
             <el-dropdown-item>
+              <router-link class="item" :to="{name: 'Checklist'}">Checklist</router-link>
+            </el-dropdown-item>
+            <el-dropdown-item>
               <router-link class="item" :to="{path:'/like'}">我的收藏</router-link>
             </el-dropdown-item>
             <el-dropdown-item disabled>设置</el-dropdown-item>

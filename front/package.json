@@ -89,6 +89,7 @@
     "vue-moment": "^4.0.0",
     "vue-template-compiler": "^2.5.17",
     "vue-waterfall-easy": "^2.4.4",
+    "vuedraggable": "^2.23.1",
     "vuex-persistedstate": "^2.5.4",
     "webpack": "^4.16.5",
     "webpack-bundle-analyzer": "^3.4.0",

@@ -179,6 +179,12 @@ export default new VueRouter({
       component: function (resolve) {
         require(['@/views/Test'], resolve)
       }
+    }, {
+      path: '/checklist',
+      name: 'Checklist',
+      component: function (resolve) {
+        require(['@/views/Checklist'], resolve)
+      }
     }],
 
     scrollBehavior(to, from, savedPosition) {
