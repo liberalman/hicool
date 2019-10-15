@@ -22,6 +22,9 @@ export default {
     }
   },
   actions: { // 存放异步读取、修改state的的方法。解释一下 action ，所谓异步，就是在 action 文件中写方法，调 axios，然后再 调 mutations 同步修改state。很多人不理解，其实，这就是一个概念性的问题。action并没有从根本上解决异步修改state的竞争问题，但是我们需要理解、并将 异步这个操作 摘出来放在一起。
+    create ({ commit }, { content, cover }) {
+      return api.createTip(content, cover)
+    },
     delete ({ commit }, id) {
       return api.deleteTip(id)
     },

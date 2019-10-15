@@ -53,4 +53,6 @@ module.exports = app => {
   // tip
   newsRouter.get(`/tips`, app.oAuth2Server.authenticate(), jsonp, controller.tip.list);
   newsRouter.get(`/tip`, app.oAuth2Server.authenticate(), jsonp, controller.tip.show);
+  newsRouter.post(`/tip`, app.oAuth2Server.authenticate(), jsonp, controller.admin.tip.create);
+  newsRouter.delete('/tip/:id', app.oAuth2Server.authenticate(), jsonp, controller.admin.tip.destroy);
 };

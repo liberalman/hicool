@@ -260,7 +260,7 @@ class TipService extends Service {
     let page = (parseInt(ctx.query.page) > 0) ? parseInt(ctx.query.page) : 1
     let size = (parseInt(ctx.query.size) > 0) ? parseInt(ctx.query.size) : 10
     let offset = (page - 1) * size
-    let sortName = String(ctx.query.sort_name) || 'publish_time'
+    let sortName = String(ctx.query.sort_name) || 'publish_time'                                                           
     sortName = '-' + sortName
     let condition = {
     }

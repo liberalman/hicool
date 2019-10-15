@@ -30,9 +30,6 @@
             <a slot="title" @click="showDetail(item)">{{item._id}}</a>
           </a-list-item-meta>
           <div slot="actions">
-            <a>编辑</a>
-          </div>
-          <div slot="actions">
             <a-dropdown>
               <a-menu slot="overlay">
                 <a-menu-item>
@@ -47,6 +44,35 @@
           </div>
         </a-list-item>
       </a-list>
+    </a-card>
+    <a-card title="add" :bordered="false">
+      <a-table
+        :columns="columns"
+        :dataSource="dataSource"
+        :pagination="false"
+      >
+        <template slot="content" slot-scope="text, record, index">
+            <a-input
+              :key="content"
+              style="margin: -5px 0"
+              :placeholder="columns[0].title"
+              v-model="dataSource[0].content"
+            />
+        </template>
+        <template slot="cover" slot-scope="text, record, index">
+            <a-input
+              :key="cover"
+              style="margin: -5px 0"
+              :placeholder="columns[1].title"
+              v-model="dataSource[0].cover"
+            />
+        </template>
+        <template slot="operation" slot-scope="text, record, index">
+            <span>
+              <a @click="saveRow()">添加</a>
+            </span>
+        </template>
+      </a-table>
     </a-card>
     <a-modal
       width="60%"
@@ -78,6 +104,37 @@
 <script>
 import { mapState } from 'vuex'
 import HeadInfo from '../../components/tool/HeadInfo'
+
+let dataSource = [
+  {
+    key: '1',
+    cover: '',
+    content: ''
+  }
+]
+
+const columns = [
+  {
+    title: '背景图像',
+    dataIndex: 'cover',
+    key: 'cover',
+    width: '20%',
+    scopedSlots: { customRender: 'cover' }
+  },
+  {
+    title: '内容',
+    dataIndex: 'content',
+    key: 'content',
+    width: '40%',
+    scopedSlots: { customRender: 'content' }
+  },
+  {
+    title: '操作',
+    key: 'action',
+    scopedSlots: { customRender: 'operation' }
+  }
+]
+
 export default {
   name: 'StandardList',
   components: { HeadInfo },
@@ -88,7 +145,15 @@ export default {
       sortOrder: 'false', // true 按updated字段顺序排序，false 则是倒序
       filter_title: '',
       visible: false,
-      detail: {}
+      detail: {},
+      columns,
+      dataSource: [
+        {
+          key: '1',
+          cover: '',
+          content: ''
+        }
+      ],
     }
   },
   computed: {
@@ -136,7 +201,7 @@ export default {
       this.detail = {}
     },
     _confirmDel: function (index, id) {
-      this.$store.dispatch('article/delete', id)
+      this.$store.dispatch('tip/delete', id)
         .then(res => {
           this.list.splice(index, 1) // 删除list中对应的行
           this.$store.commit('tips/setTotal', this.total - 1) // 更改total值。
@@ -144,7 +209,23 @@ export default {
         .catch(err => {
           this.$message.error(err)
         })
-    }
+    },
+    saveRow () {
+      let _this = this
+      this.$store.dispatch('tip/create', { content: this.dataSource[0].content, cover: this.dataSource[0].cover})
+        .then(res => {
+          this.list.push({
+              key: 99,
+              _id: res._id,
+              content: _this.dataSource[0].content,
+              cover: _this.dataSource[0].cover,
+            }) // list中对应的行
+          this.$store.commit('tips/setTotal', this.total + 1) // 更改total值。
+        })
+        .catch(err => {
+          this.$message.error(err)
+        })
+    },
   }
 }
 </script>

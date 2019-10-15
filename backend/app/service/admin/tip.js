@@ -17,14 +17,12 @@ class TipService extends Service {
     super(ctx);
   }
 
-  async create(uid) {
+  async create() {
     let { ctx } = this
     const content = ctx.request.body.content
-    const title = ctx.request.body.title
+    const cover = ctx.request.body.cover
     let message
-    if(!title) {
-      message = '标题不能为空.'
-    } else if(!content) {
+    if(!content) {
       message = '内容不能为空.'
     }
     if(message) {
@@ -35,41 +33,12 @@ class TipService extends Service {
       return
     }
     //将图片提取存入images,缩略图调用
-    ctx.request.body.images = tools.extractImage(content)
-    ctx.request.body["author_id"] = uid
     try {
-      const article = await ctx.model.Article.create(ctx.request.body)
+      const ret = await ctx.model.Tip.create({ content: content, cover: cover})
       ctx.status = 201
       ctx.body = {
-        article_id: article._id
+        _id: ret._id
       }
-      // 添加XunSearch索引
-      let id = article._id
-      const description = ctx.request.body.description
-      var params = querystring.stringify({
-        cmd: 'add',
-        '_id': util.format('%s', id),
-        'title': title,
-        'content': content,
-        'description': description
-      })
-      axios.post(this.config.xunsearch.host, params)
-      /*.then(function (response) {
-        console.log(response)
-      })*/
-      
-      // add search
-      /*var params1 = querystring.stringify({
-        "id": util.format('%s', id),
-        "timestamp": 1375667058,
-        "user_name": util.format('%s', uid),
-        "labels": ["golang", "c++"],
-        "reposts_count": 2400,
-        "title": title,
-        "text": content,
-        "description": description
-      })
-      axios({url: `${this.search}/index/add`, method:'post', data:JSON.stringify(params1)})*/
     } catch(err) {
       // ctx.throw(err)
       ctx.status = 500
@@ -81,35 +50,25 @@ class TipService extends Service {
   
   async delete(uid, id) {
     let { ctx } = this
-    const article = await ctx.model.Article.findOne({
+    const tip = await ctx.model.Tip.findOne({
       _id: id
     })
-    if (!article) {
+    if (!tip) {
       ctx.status = 500
       ctx.body = {
-        message: 'no article ' + id
+        message: 'no tip ' + id
       }
       return
     }
-    if(article.author_id.toString() != uid) {
+    /*if(article.author_id.toString() != uid) {
       ctx.status = 401
       ctx.body = {
         message: "您没有权限删除该文章"
       }
-    } else {
+    } else {*/
       try {
-        await ctx.model.Article.findByIdAndRemove(id)
-        await ctx.model.Comment.remove({
-          aid: id
-        })
+        await ctx.model.Tip.findByIdAndRemove(id)
         ctx.status = 200
-  
-        // 删除XunSearch索引
-        axios.delete(`${this.config.xunsearch.host}/${id}`)
-        /*.then(function (response) {
-          console.log(response)
-        })*/
-        // axios.get(`${this.search}/index/remove?id=${id}`)
       } catch(err) {
         // ctx.throw(err)
         ctx.status = 500
@@ -117,7 +76,7 @@ class TipService extends Service {
           message: err.message
         }
       }
-    }
+    //}
   }
   
   async update(uid, id, data) {

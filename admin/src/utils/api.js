@@ -7,11 +7,9 @@ const SECRET = ''
 const TOKEN = ''
 
 // 增
-/*
 function POST (url, params) {
   return revoke('POST', baseUrl, url, params)
 }
-*/
 
 // 增
 function POST_LOGIN (url, params) {
@@ -20,7 +18,7 @@ function POST_LOGIN (url, params) {
 
 // 删
 function DELETE (url, params) {
-  return revoke('GET', baseUrl, url, null)
+  return revoke('DELETE', baseUrl, url, null)
 }
 
 // 改
@@ -143,6 +141,12 @@ export default {
   },
   getTip (id) {
     return GET(`/tip/${id}`)
+  },
+  createTip (content, cover) {
+    return POST(`/tip`, { content: content, cover: cover})
+  },
+  deleteTip (id) {
+    return DELETE(`/tip/${id}`)
   },
 }
 

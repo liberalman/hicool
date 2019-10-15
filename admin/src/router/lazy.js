@@ -116,8 +116,8 @@ export default new Router({
           ]
         },
         {
-          path: '/list',
-          name: '列表页',
+          path: '/tag',
+          name: '标签页',
           component: PageView,
           icon: 'table',
           children: [
@@ -126,7 +126,15 @@ export default new Router({
               name: '标签列表',
               component: () => import('@/pages/list/Tags'),
               icon: 'none'
-            },
+            }
+          ]
+        },
+        {
+          path: '/list',
+          name: '列表页',
+          component: PageView,
+          icon: 'table',
+          children: [
             {
               path: '/list/query',
               name: '查询表格',
