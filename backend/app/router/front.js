@@ -60,4 +60,9 @@ module.exports = app => {
   newsRouter.get(`/tips`, jsonp, controller.tip.list);
   newsRouter.get(`/tip`, jsonp, controller.tip.show);
   //newsRouter.resources('tip', `/tip`, app.oAuth2Server.authenticate(), jsonp, controller.tip);
+
+  // fitness
+  newsRouter.get(`/fitnesses`, jsonp, controller.fitness.list);
+  newsRouter.get(`/fitness/:id`, jsonp, controller.fitness.show);
+  newsRouter.resources('fitness', `/fitness`, app.oAuth2Server.authenticate(), jsonp, controller.fitness);
 };

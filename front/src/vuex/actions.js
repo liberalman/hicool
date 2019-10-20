@@ -206,6 +206,16 @@ export default {
   getTipIndex () {
     return GET(`/tip`)
   },
+  getFitnesses (page, size) {
+    return GET(`/fitnesses?page=${page}&size=${size}&sort_name=examination_time`)
+  },
+  getFitness (id, isAuthed) {
+    if (isAuthed) {
+      return GET(`/fitness/${id}`)
+    } else {
+      return GET(`/fitness/${id}`)
+    }
+  },
 }
 
 // body 是必须json格式的字符串

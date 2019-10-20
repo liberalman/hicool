@@ -52,3 +52,6 @@ export const GET_QINIU_TOKEN_FAILURE = 'GET_QINIU_TOKEN_FAILURE'
 
 export const GET_TIPS = 'GET_TIPS'
 export const GET_TIP = 'GET_TIP'
+
+export const GET_FITNESSES = 'GET_FITNESSES'
+export const GET_FITNESS = 'GET_FITNESS'

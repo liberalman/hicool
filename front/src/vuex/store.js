@@ -17,6 +17,8 @@ import tips from './modules/tips'
 import tip from './modules/tip'
 import privateArticles from './modules/privateArticles'
 import likeArticles from './modules/likeArticles'
+import fitnesses from './modules/fitnesses'
+import fitness from './modules/fitness'
 
 Vue.use(Vuex)
 Vue.config.debug = true
@@ -41,6 +43,8 @@ export default new Vuex.Store({
     likeArticles,
     tips,
     tip,
+    fitnesses,
+    fitness,
   },
   plugins: process.env.NODE_ENV !== 'production' ? [
     createPersistedState(),

@@ -185,6 +185,12 @@ export default new VueRouter({
       component: function (resolve) {
         require(['@/views/Checklist'], resolve)
       }
+    }, {
+        path: '/fitness',
+        name: 'Fitness',
+        component: function(resolve) {
+            require(['@/views/Fitness'], resolve)
+        }
     }],
 
     scrollBehavior(to, from, savedPosition) {
