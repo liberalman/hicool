@@ -289,6 +289,70 @@ class ArticleService extends Service {
     }
   }
   
+  async search() {
+    let { ctx } = this
+    //前台获取博客列表
+    let page = (parseInt(ctx.query.page) > 0) ? parseInt(ctx.query.page) : 1
+    let size = (parseInt(ctx.query.size) > 0) ? parseInt(ctx.query.size) : 10
+    let offset = (page - 1) * size
+    let sortName = String(ctx.query.sort_name) || 'publish_time'
+    sortName = '-' + sortName
+    let key = String(ctx.query.key)
+    let condition = {
+      type: {
+        $eq: 1 // type为1所有可见文章，type为2时候是仅仅私有文章
+      },
+      status: {
+        $gt: 0
+      },
+      $or: [
+        { title: { $regex: key, $options: 'i' } },
+        { content: { $regex: key, $options: 'i' } },
+        { description: { $regex: key, $options: 'i' } }
+      ]
+    }
+    if(ctx.query.tag_id) {
+      //tagId = new mongoose.Types.ObjectId(tagId)
+      const tagId = String(ctx.query.tag_id)
+      condition = _.defaults(condition, {
+        tags: {
+          $elemMatch: {
+            $eq: tagId
+          }
+        }
+      })
+    }
+    try {
+      const list = await ctx.model.Article.find(condition)
+        .select('title images visit_count comment_count like_count publish_time updated author_id description tags reprint_url')
+        .populate({
+          path: 'author_id',
+          select: ['nickname', 'avatar']
+        })
+        .populate({
+          path: 'tags',
+          select: ['_id', 'name']
+        })
+        .skip(offset)
+        .limit(size)
+        .sort(sortName)
+        .exec()
+      const total = await ctx.model.Article.countDocuments(condition)
+      return {
+        list: list,
+        'total': total,
+        'page': page,
+        'size': size
+      }
+    } catch(err) {
+      // ctx.throw(err)
+      ctx.status = 500
+      ctx.body = {
+        message: err.message
+      }
+    }
+  }
+
   async likes(uid) {
     //获取like博客列表
     let { ctx } = this

@@ -61,5 +61,10 @@ class ArticleController extends Controller {
   async toggleLike() {
     await this.ctx.service.article.toggleLike(this.ctx.state.oauth.token.user.id)
   }
+
+  async search() {
+    const list = await this.ctx.service.article.search()
+    this.ctx.body = list;
+  }
 }
 module.exports = ArticleController;

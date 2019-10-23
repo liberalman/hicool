@@ -216,6 +216,9 @@ export default {
       return GET(`/fitness/${id}`)
     }
   },
+  search (page, size, key) {
+    return GET(`/search?page=${page}&size=${size}&sort_name=updated&key=${key}`)
+  },
 }
 
 // body 是必须json格式的字符串

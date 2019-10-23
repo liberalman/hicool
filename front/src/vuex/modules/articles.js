@@ -26,8 +26,14 @@ export default {
     mine ({ commit }, { page, size, tagId, type }) {
       api.getMyArticles(page, size, tagId, type)
         .then(res => {
-          commit(types.GET_ARTICLE, res)
+          commit(types.GET_ARTICLES, res)
         })
-    }
+    },
+    search ({ commit }, { page, size, key }) {
+      api.search(page, size, key)
+        .then(res => {
+          commit(types.GET_ARTICLES, res)
+        })
+    },
   }
 }

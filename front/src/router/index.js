@@ -99,6 +99,12 @@ export default new VueRouter({
             require(['@/views/Search2'], resolve)
         }
     }, {
+        path: '/search3',
+        name: 'Search3',
+        component: function(resolve) {
+            require(['@/views/Search3'], resolve)
+        }
+    }, {
         path: '/post_timeline/add',
         name: 'addtimeline',
         component: function(resolve) {

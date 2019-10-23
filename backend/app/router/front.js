@@ -20,6 +20,7 @@ module.exports = app => {
   newsRouter.get(`/captcha`, 'user.captcha');
   
   // articles
+  newsRouter.get(`/search`, jsonp, controller.article.search);
   newsRouter.get(`/articles`, jsonp, controller.article.list);
   newsRouter.get(`/myarticles`, app.oAuth2Server.authenticate(), jsonp, controller.article.mylist);
   newsRouter.get(`/likes`, app.oAuth2Server.authenticate(), jsonp, controller.article.likes);
