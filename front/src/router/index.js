@@ -192,6 +192,12 @@ export default new VueRouter({
         require(['@/views/Checklist'], resolve)
       }
     }, {
+      path: '/convolution',
+      name: 'Convolution',
+      component: function (resolve) {
+        require(['@/views/Convolution'], resolve)
+      }
+    }, {
         path: '/fitness',
         name: 'Fitness',
         component: function(resolve) {

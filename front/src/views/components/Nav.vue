@@ -55,6 +55,9 @@
             </el-dropdown-item>
             <el-dropdown-item disabled>设置</el-dropdown-item>
             <el-dropdown-item>
+              <router-link class="item" :to="{name: 'Convolution'}">Convolution</router-link>
+            </el-dropdown-item>
+            <el-dropdown-item>
               <router-link class="item" :to="{name: 'Timelines'}">时间轴</router-link>
             </el-dropdown-item>
             <el-dropdown-item>

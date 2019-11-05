@@ -39,6 +39,7 @@
     "express": "^4.17.1",
     "fastclick": "^1.0.6",
     "file-loader": "^4.1.0",
+    "file-saver": "^2.0.2",
     "file-stream-rotator": "^0.4.1",
     "flowchart.js": "^1.12.2",
     "github-markdown-css": "^3.0.1",
