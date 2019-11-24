@@ -61,6 +61,9 @@
               <router-link class="item" :to="{name: 'Timelines'}">时间轴</router-link>
             </el-dropdown-item>
             <el-dropdown-item>
+              <router-link class="item" :to="{name: 'CodeDiff'}">CodeDiff</router-link>
+            </el-dropdown-item>
+            <el-dropdown-item>
               <router-link class="item" :to="{name: 'Fitness'}">Fitness</router-link>
             </el-dropdown-item>
             <el-dropdown-item>

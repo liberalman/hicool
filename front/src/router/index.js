@@ -203,6 +203,12 @@ export default new VueRouter({
         component: function(resolve) {
             require(['@/views/Fitness'], resolve)
         }
+    }, {
+        path: '/codediff',
+        name: 'CodeDiff',
+        component: function(resolve) {
+            require(['@/views/CodeDiff'], resolve)
+        }
     }],
 
     scrollBehavior(to, from, savedPosition) {
