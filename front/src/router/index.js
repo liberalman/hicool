@@ -204,6 +204,12 @@ export default new VueRouter({
             require(['@/views/Fitness'], resolve)
         }
     }, {
+        path: '/ocr',
+        name: 'Ocr',
+        component: function(resolve) {
+            require(['@/views/Ocr'], resolve)
+        }
+    }, {
         path: '/codediff',
         name: 'CodeDiff',
         component: function(resolve) {

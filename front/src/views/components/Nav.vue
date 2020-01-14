@@ -58,6 +58,9 @@
               <router-link class="item" :to="{name: 'Convolution'}">Convolution</router-link>
             </el-dropdown-item>
             <el-dropdown-item>
+              <router-link class="item" :to="{name: 'Ocr'}">OCR</router-link>
+            </el-dropdown-item>
+            <el-dropdown-item>
               <router-link class="item" :to="{name: 'Timelines'}">时间轴</router-link>
             </el-dropdown-item>
             <el-dropdown-item>
