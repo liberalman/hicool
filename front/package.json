@@ -88,6 +88,7 @@
     "vue-baidu-map": "^0.21.20",
     "vue-cropper": "^0.4.9",
     "vue-instant": "^1.0.2",
+    "vue-json-editor": "^1.4.0",
     "vue-loader": "^15.3.0",
     "vue-moment": "^4.0.0",
     "vue-template-compiler": "^2.5.17",

@@ -1,14 +1,26 @@
 <template lang="html">
   <div>
-    <header class="a-header" :style="{background: 'url(http://image.hicool.top/static/album/5ac0a43f7c0636267ed49b91/1503658700339782278.jpg)' + 'center center / cover', backgroundSize: 'cover'}">
+    <header :style="{'min-height': '5em',background: 'url(http://image.hicool.top/static/album/5ac0a43f7c0636267ed49b91/1503658700339782278.jpg) center / cover', backgroundSize: 'cover'}">
       <vNav></vNav>
-      <div class="text-wrap">
-        <h3 class="shadow">Code Diff</h3>
-        <p class="shadow-light">yeah!</p>
-      </div>
     </header>
     <div style="margin: 2em auto;">
       <div id="view"></div>
+      </br>
+      <el-input
+        type="textarea"
+        :rows="5"
+        placeholder="请输入Left内容"
+        v-model="left">
+      </el-input>
+      </br>
+      <el-input
+        type="textarea"
+        :rows="5"
+        placeholder="请输入Right内容"
+        v-model="right">
+      </el-input>
+      </br>
+      <el-button plain @click="diff">Go</el-button>
     </div>
     <CopyRight />
   </div>
@@ -36,8 +48,8 @@
     },
     data(){
       return {
-        left: '1',
-        right: '1',
+        left: '',
+        right: '',
       }
     },
     mounted() {
@@ -45,6 +57,9 @@
     },
     // 定义对比方法
     methods: {
+      diff() {
+        this.initUI(this.left, this.right)
+      },
       initUI(value, orig2) {
         if (value == null) return;
         let target = document.getElementById("view");
@@ -57,7 +72,7 @@
           mode: "text/html",
           highlightDifferences: true,
           connect: 'align',
-          readOnly: false, //只读 不可修改
+          readOnly: true,
         });
       }
     }
@@ -65,6 +80,5 @@
 </script>
 
 <style lang="scss">
-  @import '../assets/scss/article.scss';
   @import '../assets/scss/components/header.scss';
 </style>

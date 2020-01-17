@@ -210,6 +210,12 @@ export default new VueRouter({
             require(['@/views/Ocr'], resolve)
         }
     }, {
+        path: '/tools',
+        name: 'Tools',
+        component: function(resolve) {
+            require(['@/views/Tools'], resolve)
+        }
+    }, {
         path: '/codediff',
         name: 'CodeDiff',
         component: function(resolve) {
