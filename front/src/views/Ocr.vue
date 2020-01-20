@@ -47,7 +47,8 @@ export default {
       baidu_access_token: '',
       form: {
         resultText: ''
-      }
+      },
+      file : {}
     };
   },
   components: {
@@ -76,10 +77,8 @@ export default {
     ocr() {
       // 第二步 将图片进行base64 编码，截取，不需要头信息，并且不需要进行lurlencode
       let _this = this
-      //var fileObj = e.target.files[0];
-      var fileObj = this.file;
       var reader = new FileReader()
-      reader.readAsDataURL(fileObj)
+      reader.readAsDataURL(this.file)
 
       reader.addEventListener("load", () => {
         let img = new Image();
@@ -124,10 +123,9 @@ export default {
     },
     getCustomImage(e) {
       let _this = this;
-      let file = e.target.files[0];
       this.file = e.target.files[0];
       let reader = new FileReader();
-      reader.readAsDataURL(file);
+      reader.readAsDataURL(this.file);
       reader.addEventListener("load", () => {
         let img = new Image();
         img.src = reader.result;
