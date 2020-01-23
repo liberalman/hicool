@@ -216,6 +216,12 @@ export default new VueRouter({
             require(['@/views/Tools'], resolve)
         }
     }, {
+        path: '/tools1',
+        name: 'Tools1',
+        component: function(resolve) {
+            require(['@/views/Tools1'], resolve)
+        }
+    }, {
         path: '/codediff',
         name: 'CodeDiff',
         component: function(resolve) {

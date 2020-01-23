@@ -53,6 +53,10 @@
             <el-dropdown-item>
               <router-link class="item" :to="{path:'/like'}">我的收藏</router-link>
             </el-dropdown-item>
+            <el-dropdown-item disabled>tools</el-dropdown-item>
+            <el-dropdown-item>
+              <router-link class="item" :to="{path: '/tools1'}">Tools1</router-link>
+            </el-dropdown-item>
             <el-dropdown-item disabled>设置</el-dropdown-item>
             <el-dropdown-item>
               <router-link class="item" :to="{name: 'Convolution'}">Convolution</router-link>
