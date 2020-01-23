@@ -57,6 +57,11 @@ class ThirdService extends Service {
     //config.useHttpsDomain = true;
     config.zone = qiniu.zone.Zone_z0;
     var bucketManager = new qiniu.rs.BucketManager(mac, config);
+
+
+    let setting = await this.ctx.model.Setting.findOne()
+    //tools.DEBUG(setting)
+    _marker = setting.clean_resource.marker
     // @param options 列举操作的可选参数
     //                prefix    列举的文件前缀
     //                marker    上一次列举返回的位置标记，作为本次列举的起点信息
@@ -64,48 +69,63 @@ class ThirdService extends Service {
     //                delimiter 指定目录分隔符
     var options = {
         prefix: prefix,
-        limit: 100, // max is 1000
+        limit: 1000, // max is 1000
         marker: _marker,
     };
 
     //bucketManager.listPrefix(this.config.qiniu.bucket, options, function(err, respBody, respInfo) {
     let res = await new Promise(function (resolve, reject) {
-    bucketManager.listPrefix(_this.config.qiniu.bucket, options, function(err, respBody, respInfo) {
-      if (err) {
-        tools.DEBUG(err);
-        throw err;
-      }
-      if (respInfo.statusCode == 200) {
-        //如果这个nextMarker不为空，那么还有未列举完毕的文件列表，下次调用listPrefix的时候，
-        //指定options里面的marker为这个值
-        /*var nextMarker = respBody.marker;
-        var commonPrefixes = respBody.commonPrefixes;
-        tools.DEBUG(nextMarker);
-        tools.DEBUG(commonPrefixes);*/
-        _marker = respBody.marker
-        resolve(respBody)
-      } else {
-        //tools.DEBUG(respInfo.statusCode);
-        //tools.DEBUG(respBody);
-        reject(respBody);
-      }
-    });
+      bucketManager.listPrefix(_this.config.qiniu.bucket, options, function(err, respBody, respInfo) {
+        if (err) {
+          tools.DEBUG(err);
+          throw err;
+        }
+        if (respInfo.statusCode == 200) {
+          //如果这个nextMarker不为空，那么还有未列举完毕的文件列表，下次调用listPrefix的时候，
+          //指定options里面的marker为这个值
+          /*var nextMarker = respBody.marker;
+          var commonPrefixes = respBody.commonPrefixes;
+          tools.DEBUG(nextMarker);
+          tools.DEBUG(commonPrefixes);*/
+          _marker = respBody.marker
+          resolve(respBody)
+        } else {
+          //tools.DEBUG(respInfo.statusCode);
+          //tools.DEBUG(respBody);
+          reject(respBody);
+        }
+      })
     })
     //tools.DEBUG(res)
     let deleteOperations = []
     for (let i = 0; i < res.items.length; i++) {
       try {
-          let result = await this.ctx.model.Article.findOne({ $or: [
+          let article = await this.ctx.model.Article.findOne({ $or: [
             { 'content': { $regex: res.items[i].key, $options:'i' } },
             { 'cover': res.items[i].key }
           ]})
-          if(!result)
+          /*let album = await this.ctx.model.Album.findOne({ $or: [
+            { 'images': { $regex: res.items[i].key, $options:'i' } },
+            { 'cover': res.items[i].key }
+          ]})
+          let timeline = await this.ctx.model.Timeline.findOne({ $or: [
+            { 'points': { $regex: res.items[i].key, $options:'i' } },
+            { 'cover': res.items[i].key }
+          ]})
+          let tip = await this.ctx.model.Tip.findOne({ $or: [
+            { 'cover': res.items[i].key }
+          ]})
+          let user = await this.ctx.model.User.findOne({ $or: [
+            { 'avatar': { $regex: res.items[i].key, $options:'i' } },
+          ]})
+          if(article || album || timeline || tip || user)*/
+          if(article)
           {
-            tools.DEBUG(res.items[i].key)
-            deleteOperations.push(qiniu.rs.deleteOp(this.config.qiniu.bucket,res.items[i].key))
-          } else {
-            //tools.DEBUG('exist ' + item.key)
+            tools.DEBUG('exist ' + res.items[i].key)
             //tools.DEBUG(result)
+          } else {
+            tools.DEBUG('delete ' + res.items[i].key)
+            deleteOperations.push(qiniu.rs.deleteOp(this.config.qiniu.bucket,res.items[i].key))
           }
         } catch(err) {
           tools.DEBUG(err.message)
@@ -136,6 +156,7 @@ class ThirdService extends Service {
         }
       });
     }
+    await this.ctx.model.Setting.findByIdAndUpdate(setting._id, {'clean_resource':{'marker': _marker}})
     this.ctx.body = { options: deleteOperations, _marker: _marker }
   }
 }
