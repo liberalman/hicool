@@ -5,7 +5,7 @@ module.exports = {
     cron: '0 0 */1 * * *',
   },
   async task(ctx) {
-    ctx.service.third.deleteImage(1)
+    //ctx.service.third.deleteImage(1)
     /*const res = await ctx.curl('https://www.hicool.top', {
       dataType: 'json',
     });
