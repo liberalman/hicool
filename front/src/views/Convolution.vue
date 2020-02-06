@@ -274,7 +274,7 @@ export default {
   mounted() {
     let vm = this;
     let img = new Image();
-    img.src = require("../assets/img/convolution.jpg");
+    img.src = require("../assets/images/convolution.jpg");
     img.onload = function() {
       vm.draw(this, this.width, this.height);
     };

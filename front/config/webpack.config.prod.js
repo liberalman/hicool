@@ -26,25 +26,13 @@ var webpackConfig = merge(baseWebpackConfig, {
       // 为false的时候，用vue-style-loader
       // 这里不能用true，参考下面正确的rules，要是用true，打包之后运行起来发现有部分样式丢失。
     })
-    /*rules: [{
-        test: /\.css$/,
-        use: ['vue-style-loader', MiniCssExtractPlugin.loader, 'css-loader'],
-      },
-      {
-        test: /\.less$/,
-        use: ['vue-style-loader', MiniCssExtractPlugin.loader, 'css-loader', 'less-loader'],
-      },
-      {
-        test: /\.scss$/,
-        use: ['vue-style-loader', MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader'],
-      },
-    ]*/
   },
   devtool: config.build.productionSourceMap ? '#source-map' : false,
   output: {
     path: config.build.assetsRoot,
-    filename: utils.assetsPath('js/[name].[chunkhash].js'),
-    chunkFilename: utils.assetsPath('js/[id].[chunkhash].js')
+    filename: 'static/js/[name].[contenthash:8].js',
+    //filename: utils.assetsPath('js/[name].[chunkhash].js'), //文件格式，文件名.文件哈希
+    //chunkFilename: utils.assetsPath('js/[id].[chunkhash].js') //文件切割后的文件名称。这里的name对应的就是路由中引入文件时候的webpackChunkName
   },
   externals: {
     // 左边是给 require用的, 右边是给全局调用的
@@ -71,7 +59,8 @@ var webpackConfig = merge(baseWebpackConfig, {
      */
     // contenthash 代表的是文本文件内容的 hash 值
     new MiniCssExtractPlugin({
-      filename: utils.assetsPath('css/[name].[contenthash].css')
+      //filename: utils.assetsPath('static/css/[name].[contenthash:8].css')
+      filename: 'static/css/[name].[contenthash:8].css'
     }),
     // generate dist index.html with correct asset hash for caching.
     // you can customize output by editing /index.html
@@ -137,6 +126,62 @@ var webpackConfig = merge(baseWebpackConfig, {
           var: 'axios',
           path: 'dist/axios.min.js'
         },
+        {
+          name: 'katex', // @iktakahiro/markdown-it-katex依赖于此
+          var: 'katex',
+          path: 'dist/katex.min.js',
+        },
+        {
+          name: 'markdown-it-emoji',
+          var: 'markdownitEmoji',
+          path: 'dist/markdown-it-emoji-light.min.js',
+        },
+        {
+          name: 'gojs',
+          var: 'Go',
+          path: 'release/go.js'
+        },
+        {
+          name: 'echarts',
+          var: 'echarts',
+          path: 'dist/echarts.min.js'
+        },
+        {
+          name: 'mermaid',
+          var: 'mermaid',
+          path: 'dist/mermaid.min.js'
+        },
+        {
+          name: 'mavon-editor',
+          var: 'MavonEditor',
+          path: 'dist/mavon-editor.js',
+        },
+        {
+          name: 'unorm',
+          var: 'unorm',
+          path: 'lib/unorm.js',
+        },
+        {
+          name: 'raphael',
+          var: 'Raphael',
+          path: 'raphael.min.js',
+        },
+        {
+          name: 'crypto-js',
+          var: 'CryptoJS',
+          path: 'crypto-js.js',
+        },
+        {
+          name: 'vue-waterfall-easy',
+          var: 'vueWaterfallEasy',
+          path: 'src/vue-waterfall-easy/script/vueWaterfallEasy.js',
+        },
+        {
+          name: 'vue-social-captcha',
+          var: 'Captcha',
+          path: 'dist/vue-social-captcha.umd.min.js',
+        },
+        /******************** has version **************************************/
         { // markdown-it-highlight依赖highlight.js，两个都要安装
           name: 'highlight.js',
           var: 'hljs',
@@ -163,11 +208,6 @@ var webpackConfig = merge(baseWebpackConfig, {
           path: 'index.js',
         },*/
         {
-          name: 'katex', // @iktakahiro/markdown-it-katex依赖于此
-          var: 'katex',
-          path: 'dist/katex.min.js',
-        },
-        {
           name: 'github-markdown-css',
           cssOnly: true,
           prodUrl: '//cdn.bootcss.com/github-markdown-css/3.0.1/github-markdown.css'
@@ -176,11 +216,6 @@ var webpackConfig = merge(baseWebpackConfig, {
           name: 'markdown-it',
           var: 'markdownit',
           prodUrl: '//cdn.bootcss.com/markdown-it/9.0.1/markdown-it.min.js'
-        },
-        {
-          name: 'markdown-it-emoji',
-          var: 'markdownitEmoji',
-          path: 'dist/markdown-it-emoji-light.min.js',
         },
         {
           name: 'tinymce',
@@ -233,14 +268,9 @@ var webpackConfig = merge(baseWebpackConfig, {
           prodUrl: '//cdn.bootcss.com/popmotion/4.3.4/popmotion.global.min.js'
         },
         {
-          name: 'gojs',
-          var: 'Go',
-          path: 'release/go.js'
-        },
-        {
-          name: 'echarts',
-          var: 'echarts',
-          path: 'dist/echarts.min.js'
+          name: 'flowchart.js',
+          var: 'flowchart',
+          prodUrl: '//cdn.bootcss.com/flowchart/1.12.2/flowchart.min.js'
         },
         /*{
           name: 'emojione',
@@ -253,51 +283,11 @@ var webpackConfig = merge(baseWebpackConfig, {
           path: 'dist/index.js',
           style: 'dist/index.css' //插入样式文件
         },*/
-        {
-          name: 'mermaid',
-          var: 'mermaid',
-          path: 'dist/mermaid.min.js'
-        },
-        {
-          name: 'mavon-editor',
-          var: 'MavonEditor',
-          path: 'dist/mavon-editor.js',
-        },
-        {
-          name: 'unorm',
-          var: 'unorm',
-          path: 'lib/unorm.js',
-        },
         /*{
           name: 'uslug',
           var: 'uslug',
           paths: ['lib/L.js', 'lib/M.js', 'lib/N.js'],
         },*/
-        {
-          name: 'raphael',
-          var: 'Raphael',
-          path: 'raphael.min.js',
-        },
-        {
-          name: 'crypto-js',
-          var: 'CryptoJS',
-          path: 'crypto-js.js',
-        },
-        {
-          name: 'flowchart.js',
-          var: 'flowchart',
-          prodUrl: '//cdn.bootcss.com/flowchart/1.12.2/flowchart.min.js'
-        },
-        {
-          name: 'vue-waterfall-easy',
-          var: 'vueWaterfallEasy',
-          path: 'src/vue-waterfall-easy/script/vueWaterfallEasy.js',
-        },
-        {
-          name: 'vue-social-captcha',
-          var: 'Captcha',
-          path: 'dist/vue-social-captcha.umd.min.js',
-        },
       ],
       publicPath: '/node_modules'
     }),
@@ -318,9 +308,6 @@ var webpackConfig = merge(baseWebpackConfig, {
     minimizer: [
       new TerserPlugin({
         test: /\.js(\?.*)?$/i,
-        cache: true,
-        parallel: true,
-        sourceMap: true,
       }),
       new OptimizeCSSAssetsPlugin() // Compress extracted CSS. We are using this plugin so that possible
       // duplicated CSS from different components can be deduped.
@@ -371,12 +358,13 @@ if(config.build.productionGzip) {
   webpackConfig.plugins.push(
     new CompressionWebpackPlugin({
       filename: '[path].gz[query]', //目标资源名称。[file] 会被替换成原资源。[path] 会被替换成原资源路径，[query] 替换 成原查询字符
-      algorithm: 'gzip',
-      test: new RegExp( //压缩 js 与 css
+      /*test: new RegExp( //压缩 js 与 css
         '\\.(' +
         config.build.productionGzipExtensions.join('|') +
         ')$'
-      ),
+      ),*/
+      test: new RegExp('\\.(js|css)$'),
+      algorithm: 'gzip',
       threshold: 10240, //只处理比这个值大的资源。按字节计
       minRatio: 0.8, //只有压缩率比这个值小的资源才会被处
       deleteOriginalAssets: true // 是否删除原始资产

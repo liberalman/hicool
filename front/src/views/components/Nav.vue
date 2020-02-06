@@ -101,7 +101,7 @@ export default {
   data() {
     return {
       username: this.utils.getCookie('username'),
-      avatar: this.utils.getCookie('avatar') ? this.utils.getCookie('avatar') : '../../static/img/avatar@3x.png',
+      avatar: this.utils.getCookie('avatar') ? this.utils.getCookie('avatar') : '../../static/images/avatar@3x.png',
       nav: 'nav',
       isTop: true,
       isVisible: true

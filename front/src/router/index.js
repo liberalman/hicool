@@ -1,4 +1,3 @@
-import Hello from '@/views/Hello'
 
 if (!window.VueRouter) Vue.use(VueRouter)
 
@@ -7,226 +6,156 @@ export default new VueRouter({
     routes: [{
         path: '/',
         name: 'Index',
-        component: function(resolve) {
-            require(['@/views/Index'], resolve)
-        }
+        component: () => import('@/views/Index')
     }, {
         path: '/index',
         name: 'Index1',
-        component: function(resolve) {
-            require(['@/views/Index1'], resolve)
-        }
+        component: () => import('@/views/Index1')
     }, {
         path: '/timelines',
         name: 'Timelines',
-        component: function(resolve) {
-            require(['@/views/Timelines'], resolve)
-        }
+        component: () => import('@/views/Timelines')
     }, {
         path: '/timeline/:id',
         name: 'timeline',
-        component: function(resolve) {
-            require(['@/views/Timeline'], resolve)
-        }
+        component: () => import('@/views/Timeline')
     }, {
         path: '/private',
         name: 'PrivateArticle',
-        component: function(resolve) {
-            require(['@/views/PrivateArticle'], resolve)
-        }
+        component: () => import('@/views/PrivateArticle')
     },  {
         path: '/like',
         name: 'LikeArticles',
-        component: function(resolve) {
-            require(['@/views/LikeArticles'], resolve)
-        }
+        component: () => import('@/views/LikeArticles')
     }, {
         path: '/article/:id',
         name: 'article',
-        component: function(resolve) {
-            require(['@/views/Article'], resolve)
-        }
+        component: () => import('@/views/Article')
     }, {
         path: '/user/:id',
         name: 'user',
-        component: function(resolve) {
-            require(['@/views/User'], resolve)
-        }
+        component: () => import('@/views/User')
     },  {
         path: '/tags',
         name: 'tags',
-        component: function(resolve) {
-            require(['@/views/Tags'], resolve)
-        }
+        component: () => import('@/views/Tags')
     }, {
         path: '/about',
         name: 'about',
-        component: function(resolve) {
-            require(['@/views/About'], resolve)
-        }
+        component: () => import('@/views/About')
     }, {
         path: '/albums',
         name: 'Albums',
-        component: function(resolve) {
-            require(['@/views/Albums'], resolve)
-        }
+        component: () => import('@/views/Albums')
     }, {
         path: '/album/:id',
         name: 'Album',
-        component: function(resolve) {
-            require(['@/views/Album'], resolve)
-        }
+        component: () => import('@/views/Album')
     }, {
         path: '/hello',
         name: 'Hello',
-        component: Hello
+        component: () => import('@/views/Hello')
     }, {
         path: '/search',
         name: 'Search',
-        component: function(resolve) {
-            require(['@/views/Search'], resolve)
-        }
+        component: () => import('@/views/Search')
     }, {
         path: '/search1',
         name: 'Search1',
-        component: function(resolve) {
-            require(['@/views/Search1'], resolve)
-        }
+        component: () => import('@/views/Search1')
     }, {
         path: '/search2',
         name: 'Search2',
-        component: function(resolve) {
-            require(['@/views/Search2'], resolve)
-        }
+        component: () => import('@/views/Search2')
     }, {
         path: '/search3',
         name: 'Search3',
-        component: function(resolve) {
-            require(['@/views/Search3'], resolve)
-        }
+        component: () => import('@/views/Search3')
     }, {
         path: '/post_timeline/add',
         name: 'addtimeline',
-        component: function(resolve) {
-            require(['@/views/AddTimeline'], resolve)
-        }
+        component: () => import('@/views/AddTimeline')
     }, {
         path: '/post_timeline/edit/:id?',
         name: 'updatetimeline',
-        component: function(resolve) {
-            require(['@/views/UpdateTimeline'], resolve)
-        }
+        component: () => import('@/views/UpdateTimeline')
     }, {
         path: '/post/add',
         name: 'addarticle',
-        component: function(resolve) {
-            require(['@/views/AddArticle'], resolve)
-        },
+        component: () => import('@/views/AddArticle')
         // meta: {
         //   requiresAuth: true
         // }
     }, {
         path: '/post/add1',
         name: 'addarticle1',
-        component: function(resolve) {
-            require(['@/views/AddArticle1'], resolve)
-        }
+        component: () => import('@/views/AddArticle1')
     }, {
         path: '/post/edit/:id?',
         name: 'editarticle',
-        component: function(resolve) {
-            require(['@/views/EditArticle'], resolve)
-        },
+        component: () => import('@/views/EditArticle')
         // meta: {
         //   requiresAuth: true
         // }
     }, {
         path: '/post/edit1/:id?',
         name: 'editarticle1',
-        component: function(resolve) {
-            require(['@/views/EditArticle1'], resolve)
-        },
+        component: () => import('@/views/EditArticle1')
         // meta: {
         //   requiresAuth: true
         // }
     }, {
         path: '/login',
         name: 'login',
-        component: function(resolve) {
-            require(['@/views/Login'], resolve)
-        }
+        component: () => import('@/views/Login')
     }, {
         path: '/register',
         name: 'register',
-        component: function(resolve) {
-            require(['@/views/Register'], resolve)
-        }
+        component: () => import('@/views/Register')
     }, {
         path: '/map',
         name: 'map',
-        component: function(resolve) {
-            require(['@/views/Map'], resolve)
-        }
+        component: () => import('@/views/Map')
     },  {
         path: '/gojs',
         name: 'gojs',
-        component: function(resolve) {
-          require(['@/views/Gojs'], resolve)
-       }
+        component: () => import('@/views/Gojs')
     }, {
       path: '/home',
       name: 'home',
-      component: function (resolve) {
-        require(['@/views/pages/Index'], resolve)
-      }
+      component: () => import('@/views/pages/Index')
     }, {
       path: '/test',
       name: 'test',
-      component: function (resolve) {
-        require(['@/views/Test'], resolve)
-      }
+      component: () => import('@/views/Test')
     }, {
       path: '/checklist',
       name: 'Checklist',
-      component: function (resolve) {
-        require(['@/views/Checklist'], resolve)
-      }
+      component: () => import('@/views/Checklist')
     }, {
       path: '/convolution',
       name: 'Convolution',
-      component: function (resolve) {
-        require(['@/views/Convolution'], resolve)
-      }
+      component: () => import('@/views/Convolution')
     }, {
-        path: '/fitness',
-        name: 'Fitness',
-        component: function(resolve) {
-            require(['@/views/Fitness'], resolve)
-        }
+      path: '/fitness',
+      name: 'Fitness',
+      component: () => import('@/views/Fitness')
     }, {
         path: '/ocr',
         name: 'Ocr',
-        component: function(resolve) {
-            require(['@/views/Ocr'], resolve)
-        }
+        component: () => import('@/views/Ocr')
     }, {
         path: '/tools',
         name: 'Tools',
-        component: function(resolve) {
-            require(['@/views/Tools'], resolve)
-        }
+        component: () => import('@/views/Tools')
     }, {
         path: '/tools1',
         name: 'Tools1',
-        component: function(resolve) {
-            require(['@/views/Tools1'], resolve)
-        }
+        component: () => import('@/views/Tools1')
     }, {
         path: '/codediff',
         name: 'CodeDiff',
-        component: function(resolve) {
-            require(['@/views/CodeDiff'], resolve)
-        }
+        component: () => import('@/views/CodeDiff')
     }],
 
     scrollBehavior(to, from, savedPosition) {

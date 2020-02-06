@@ -1,5 +1,5 @@
 <template>
-  <div class="main-container" style="background: url(static/img/background-1.png);">
+  <div class="main-container" style="background: url(static/images/background-1.png);">
     <div class="formWrap">
       <h1>HICOOL</h1>
       <el-form :model="ruleForm" :rules="rules" class="ruleForm" label-width="100px" ref="ruleForm">
