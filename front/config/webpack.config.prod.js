@@ -358,12 +358,7 @@ if(config.build.productionGzip) {
   webpackConfig.plugins.push(
     new CompressionWebpackPlugin({
       filename: '[path].gz[query]', //目标资源名称。[file] 会被替换成原资源。[path] 会被替换成原资源路径，[query] 替换 成原查询字符
-      /*test: new RegExp( //压缩 js 与 css
-        '\\.(' +
-        config.build.productionGzipExtensions.join('|') +
-        ')$'
-      ),*/
-      test: new RegExp('\\.(js|css)$'),
+      test: new RegExp('\\.(' + config.build.productionGzipExtensions.join('|') + ')$'), //压缩 js 与 css
       algorithm: 'gzip',
       threshold: 10240, //只处理比这个值大的资源。按字节计
       minRatio: 0.8, //只有压缩率比这个值小的资源才会被处
