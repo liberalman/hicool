@@ -153,6 +153,10 @@ export default new VueRouter({
         name: 'Tools1',
         component: () => import('@/views/Tools1')
     }, {
+        path: '/ascii',
+        name: 'Ascii',
+        component: () => import('@/views/Ascii')
+    }, {
         path: '/codediff',
         name: 'CodeDiff',
         component: () => import('@/views/CodeDiff')
