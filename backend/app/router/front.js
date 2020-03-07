@@ -18,7 +18,9 @@ module.exports = app => {
   newsRouter.resources('me', `/me`, app.oAuth2Server.authenticate(), jsonp, controller.me);
   newsRouter.put('/user/change_password', app.oAuth2Server.authenticate(), jsonp, 'me.changePassword');
   newsRouter.get(`/captcha`, 'user.captcha');
-  
+  newsRouter.get(`/friends`, app.oAuth2Server.authenticate(), jsonp, controller.friend.list);
+ 
+
   // articles
   newsRouter.get(`/search`, jsonp, controller.article.search);
   newsRouter.get(`/articles`, jsonp, controller.article.list);
