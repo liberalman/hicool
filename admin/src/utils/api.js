@@ -1,7 +1,7 @@
 import axios from 'axios'
 import CryptoJS from 'crypto-js'
 
-// let baseUrl = 'http://localhost:7001/api/v1/admin'
+//let baseUrl = 'http://localhost:7001/api/v1/admin'
 let baseUrl = 'https://www.hicool.top/api/v1/admin'
 const SECRET = ''
 const TOKEN = ''
@@ -147,6 +147,16 @@ export default {
   },
   deleteTip (id) {
     return DELETE(`/tip/${id}`)
+  },
+  getFitnesses (page, size) {
+    return GET(`/fitnesses?page=${page}&size=${size}&sort_name=examination_time`)
+  },
+  getFitness (id, isAuthed) {
+    if (isAuthed) {
+      return GET(`/fitness/${id}`)
+    } else {
+      return GET(`/fitness/${id}`)
+    }
   },
 }
 
