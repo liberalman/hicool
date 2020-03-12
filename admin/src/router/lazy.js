@@ -40,6 +40,12 @@ export default new Router({
               name: '分析页',
               component: () => import('@/pages/dashboard/Analysis'),
               icon: 'none'
+            },
+            {
+              path: '/dashboard/convolution',
+              name: 'Convolution',
+              component: () => import('@/pages/other/Convolution'),
+              icon: 'none'
             }
           ]
         },
