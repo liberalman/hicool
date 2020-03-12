@@ -1,10 +1,12 @@
 import axios from 'axios'
 import CryptoJS from 'crypto-js'
 
-//let baseUrl = 'http://localhost:7001/api/v1/admin'
+//let baseUrl = 'http://localhost:8700/api/v1/admin' // 注意，这里用了admin自己的地址，而不是api的地址，因为在config/index.js中有代理转发到api地址的。
 let baseUrl = 'https://www.hicool.top/api/v1/admin'
 const SECRET = ''
 const TOKEN = ''
+const APP_ID = ''
+const APP_SECRET = ''
 
 // 增
 function POST (url, params) {
@@ -151,20 +153,16 @@ export default {
   getFitnesses (page, size) {
     return GET(`/fitnesses?page=${page}&size=${size}&sort_name=examination_time`)
   },
-  getFitness (id, isAuthed) {
-    if (isAuthed) {
-      return GET(`/fitness/${id}`)
-    } else {
-      return GET(`/fitness/${id}`)
-    }
+  getFitness (id) {
+    return GET(`/fitness/${id}`)
   },
 }
 
 // body 是必须json格式的字符串
 function sign (method, url, body) {
-  var appId = '100078'
+  var appId = `${APP_ID}`
   var nowTime = Date.parse(new Date()) / 1000
-  var appSecret = '2d25961ddbe5433379d96deee3a5a619'
+  var appSecret = `${APP_SECRET}`
 
   if (url.indexOf('?') >= 0) {
     url = url + '&'

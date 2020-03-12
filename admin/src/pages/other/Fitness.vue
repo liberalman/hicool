@@ -1,8 +1,9 @@
 <template>
   <div>
     <div class="fitness-wrapper" style="margin: 2em auto;">
-      <div id="chartLineBox" style="height: 70vh;"> </div>
-      <div id="chartLineBox1" style="width: 90%;height: 70vh;"> </div>
+      <div id="chartLineBox" style="height: 70vh;"></div>
+      <div id="chartLineBox1" style="width: 90%;height: 70vh;"></div>
+      <a-button @click="draw">Draw</a-button>
     </div>
   </div>
 </template>
@@ -13,22 +14,22 @@
 
   export default {
     name: "Fitness",
-    components: {
-    },
-    data(){
+    components: {},
+    data() {
       return {
         page: 1,
         size: 10
       }
     },
-    computed: mapState({
-      fitness: state => state.fitness,
-      list: state => state.fitnesses.list,
-      total: state => state.fitnesses.total
-    }),
-    mounted () {
+    computed: {
+      ...mapState({
+        list: state => state.fitnesses.list,
+        total: state => state.fitnesses.total
+      })
+    },
+    mounted() {
       this.fetchData()
-      this.draw()
+      //this.draw() // 直接放在这里不行，数据还没加载完
     },
     methods: {
       draw() {
@@ -48,7 +49,7 @@
           },
 
           legend: {               //设置区分（哪条线属于什么）
-            data:['上限','下限','Weight']
+            data: ['上限', '下限', 'Weight']
           },
           color: ['#8AE09F', '#FA6F53'],       //设置区分（每条线是什么颜色，和 legend 一一对应）
           xAxis: {                //设置x轴
@@ -85,32 +86,32 @@
           series: [
             {
               name: '上限',
-              data:  [71.4, 71.4, 71.4, 71.4, 71.4, 71.4, 71.4],
+              data: [71.4, 71.4, 71.4, 71.4, 71.4, 71.4, 71.4],
               type: 'line',               // 类型为折线图
-              smooth:false,   //关键点，为true是不支持虚线，实线就用true
+              smooth: false,   //关键点，为true是不支持虚线，实线就用true
               lineStyle: {                // 线条样式 => 必须使用normal属性
                 normal: {
                   color: '#0AE99F',
-                  type:'dotted'  //'dotted'虚线 'solid'实线
+                  type: 'dotted'  //'dotted'虚线 'solid'实线
                 }
               },
             },
             {
               name: '下限',
-              data:  [52.8, 52.8, 52.8, 52.8, 52.8, 52.8, 52.8],
+              data: [52.8, 52.8, 52.8, 52.8, 52.8, 52.8, 52.8],
               type: 'line',               // 类型为折线图
-              smooth:false,   //关键点，为true是不支持虚线，实线就用true
+              smooth: false,   //关键点，为true是不支持虚线，实线就用true
               lineStyle: {                // 线条样式 => 必须使用normal属性
                 normal: {
                   color: '#8AE090',
-                  type:'dotted'  //'dotted'虚线 'solid'实线
+                  type: 'dotted'  //'dotted'虚线 'solid'实线
                 }
               },
             },
             {
               name: 'Weight',
               //data: [120, 200, 150, 80, 70, 110, 130],
-              data:  ydata,
+              data: ydata,
               type: 'line',
               lineStyle: {
                 normal: {
@@ -125,7 +126,7 @@
         this.chartLine.setOption(option);
       },
       fetchData() {
-        this.$store.dispatch('fitnesses/getFitnesses', { page: this.page, size: this.size })
+        this.$store.dispatch('fitnesses/getFitnesses', {page: this.page, size: this.size})
       },
     },
   }
