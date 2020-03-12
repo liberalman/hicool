@@ -1,6 +1,6 @@
 // app/service/user.js
 const Service = require('egg').Service;
-const tools = require('../extend/tools')
+const tools = require('../../extend/tools')
 const _ = require('lodash')
 const querystring = require('querystring')
 const axios = require('axios')
