@@ -1,15 +1,11 @@
 <template>
   <div>
-    <header :style="{'min-height': '5em',background: 'url(http://image.hicool.top/static/album/5ac0a43f7c0636267ed49b91/1503658700339782278.jpg) center / cover', backgroundSize: 'cover'}">
-      <vNav></vNav>
-    </header>
-
     <div style="width:50%; margin: auto 25%;">
     <H2>ASCII码表在线查询(1.0 beta 1)</H2>
     <P>
       输入一个待查字符:
-      <el-input v-model="character" maxlength="1" size="mini" />
-      <el-button @click="showKeyCode">Go</el-button>
+      <a-input v-model="character" maxlength="1"  />
+      <a-button @click="showKeyCode">Go</a-button>
     </P>
 
     <H3>ASCII码对照表</H3>
@@ -621,8 +617,6 @@
     </P>
     </div>
 
-
-    <CopyRight />
   </div>
 </template>
 
@@ -635,10 +629,6 @@ export default {
     };
   },
   components: {
-    'vNav': () =>
-    import('./components/Nav'),
-    'CopyRight': () =>
-      import('./components/CopyRight.vue'),
   },
   methods: {
     showKeyCode()
@@ -652,9 +642,5 @@ export default {
   mounted() {
   }
 }
-
 </script>
 
-<style lang="scss">
-  @import '../assets/scss/components/header.scss';
-</style>

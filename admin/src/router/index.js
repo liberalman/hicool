@@ -60,18 +60,6 @@ export default new Router({
               name: '分析页',
               component: Dashboard,
               icon: 'none'
-            },
-            {
-              path: '/dashboard/convolution',
-              name: 'Convolution',
-              component: () => import('@/pages/other/Convolution'),
-              icon: 'none'
-            },
-            {
-              path: '/dashboard/fitness',
-              name: 'Fitness',
-              component: () => import('@/pages/other/Fitness'),
-              icon: 'none'
             }
           ]
         },
@@ -323,6 +311,54 @@ export default new Router({
               name: '颜色复选框',
               icon: 'none',
               component: ColorBox
+            },
+            {
+              path: '/pages/convolution',
+              name: 'Convolution',
+              component: () => import('@/pages/other/Convolution'),
+              icon: 'none'
+            },
+            {
+              path: '/pages/fitness',
+              name: 'Fitness',
+              component: () => import('@/pages/other/Fitness'),
+              icon: 'none'
+            },
+            {
+              path: '/pages/json',
+              name: 'Json',
+              component: () => import('@/pages/other/Json'),
+              icon: 'none'
+            },
+            {
+              path: '/pages/tools',
+              name: 'Tools',
+              component: () => import('@/pages/other/Tools'),
+              icon: 'none'
+            },
+            {
+              path: '/pages/ocr',
+              name: 'Ocr',
+              component: () => import('@/pages/other/Ocr'),
+              icon: 'none'
+            },
+            {
+              path: '/pages/code_diff',
+              name: 'CodeDiff',
+              component: () => import('@/pages/other/CodeDiff'),
+              icon: 'none'
+            },
+            {
+              path: '/pages/gojs',
+              name: 'Gojs',
+              component: () => import('@/pages/other/Gojs'),
+              icon: 'none'
+            },
+            {
+              path: '/pages/ascii',
+              name: 'Ascii',
+              component: () => import('@/pages/other/Ascii'),
+              icon: 'none'
             }
           ]
         }

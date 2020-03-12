@@ -6,46 +6,46 @@
     <div class="article-wrapper" style="margin: 2em auto;">
       <div class="content">
         <el-radio-group v-model="labelPosition" size="small">
-          <el-radio-button label="left">左对齐</el-radio-button>
-          <el-radio-button label="right">右对齐</el-radio-button>
-          <el-radio-button label="top">顶部对齐</el-radio-button>
+          <el-radio-button label="left"> 左对齐 </el-radio-button>
+          <el-radio-button label="right"> 右对齐 </el-radio-button>
+          <el-radio-button label="top"> 顶部对齐 </el-radio-button>
         </el-radio-group>
         <div style="margin: 20px;"></div>
           <el-form :label-position="labelPosition" :model="dynamicValidateForm" ref="dynamicValidateForm" label-width="100px" class="demo-dynamic">
             <el-form-item label="checking"
                 v-for="(checkbox, index) in dynamicValidateForm.checklists"
-                :label="'名' + index"
+                :label="' 名' + index"
                 :key="checkbox.key"
                 :prop="'checklists.' + index + '.value'"
                 :rules="{
-                  required: true, message: '名不能为空', trigger: 'blur'
+                  required: true, message: ' 名不能为空', trigger: 'blur'
                 }"
               >
-                <el-input placeholder="请输入内容" v-model="checkbox.value" class="input-with-select"
+                <el-input placeholder=" 请输入内容 " v-model="checkbox.value" class="input-with-select"
                   style="margin-top: 1em;"
                 >
-                  <el-button slot="append" @click.prevent="removeCheckbox(index, checkbox.value)">删除</el-button>
+                  <el-button slot="append" @click.prevent="removeCheckbox(index, checkbox.value)"> 删除 </el-button>
                 </el-input>
             </el-form-item>
             <el-form-item label="checked"
               v-for="(domain, index) in dynamicValidateForm.domains"
-              :label="'选项' + index"
+              :label="' 选项' + index"
               :key="domain.key"
               :prop="'domains.' + index + '.value'"
               :rules="{
-                required: true, message: '名称不能为空', trigger: 'blur'
+                required: true, message: ' 名称不能为空', trigger: 'blur'
               }"
             >
-              <el-input placeholder="请输入内容" v-model="domain.value" class="input-with-select"
+              <el-input placeholder=" 请输入内容 " v-model="domain.value" class="input-with-select"
                 style="margin-top: 1em;" disabled="true"
               >
-                <el-button slot="append" @click.prevent="removeDomain(index, domain.value)">删除</el-button>
+                <el-button slot="append" @click.prevent="removeDomain(index, domain.value)"> 删除 </el-button>
               </el-input>
             </el-form-item>
             <el-form-item>
-              <el-button type="primary" @click="submitForm('dynamicValidateForm')">提交</el-button>
+              <el-button type="primary" @click="submitForm('dynamicValidateForm')"> 提交 </el-button>
               <el-button @click="addCheckbox">Add Checkbox</el-button>
-              <el-button @click="resetForm('dynamicValidateForm')">重置</el-button>
+              <el-button @click="resetForm('dynamicValidateForm')"> 重置 </el-button>
             </el-form-item>
           </el-form>
       </div>
@@ -55,7 +55,6 @@
 </template>
 
 <script>
-
 export default {
   components: {
     'CopyRight': () =>
@@ -70,17 +69,17 @@ export default {
         domains: [],
         email: '',
         checklists: [
-          { value: '钥匙|'},
-          { value: '充电宝|手机壳充电宝、外接充电宝'},
-          { value: 'gopro|Type-C接口线、2个TF卡、读卡器、防水套装'},
-          { value: '证件|身份证、护照、港澳通行证、台湾通行证'},
-          { value: '各种卡|储蓄卡、信用卡、公交卡、饭卡' },
-          { value: '需打印|国外酒店住宿单、国外登机牌、国外火车票' },
-          { value: '币钞|提前几周预约兑换外币' },
-          { value: '相机|充电器、电池、快门线、闪光灯、离线闪引、滤镜、反光板、三脚架' },
-          { value: '手持稳定器|充电线、三脚架' },
-          { value: '衣服|' },
-          { value: '鞋子|' },
+          { value: ' 钥匙 |'},
+          { value: ' 充电宝 | 手机壳充电宝、外接充电宝'},
+          { value: 'gopro|Type-C 接口线、2 个 TF 卡、读卡器、防水套装'},
+          { value: ' 证件 | 身份证、护照、港澳通行证、台湾通行证'},
+          { value: ' 各种卡 | 储蓄卡、信用卡、公交卡、饭卡' },
+          { value: ' 需打印 | 国外酒店住宿单、国外登机牌、国外火车票' },
+          { value: ' 币钞 | 提前几周预约兑换外币' },
+          { value: ' 相机 | 充电器、电池、快门线、闪光灯、离线闪引、滤镜、反光板、三脚架' },
+          { value: ' 手持稳定器 | 充电线、三脚架' },
+          { value: ' 衣服 |' },
+          { value: ' 鞋子 |' },
           { value: '' },
           { value: '' },
           { value: '' },

@@ -183,7 +183,7 @@
           name1: "董事长",
           name2: "秘书1",
           name3: "秘书2",
-          img: require("../assets/images/01.png"),
+          img: require("../../../../front/src/assets/images/01.png"),
         },
         {
           key: "2",
@@ -192,7 +192,7 @@
           name2: "秘书1",
           name3: "秘书2",
           linktext: "link",
-          img: require("../assets/images/background-1.png")
+          img: require("../../../../front/src/assets/images/background-1.png")
         },
         {
           key: "3",
@@ -201,7 +201,7 @@
           name2: "秘书1",
           name3: "秘书2",
           linktext: "link",
-          img: require("../assets/images/01.png")
+          img: require("../../../../front/src/assets/images/01.png")
         },
         {
           key: "4",
@@ -210,7 +210,7 @@
           name2: "秘书1",
           name3: "秘书2",
           linktext: "link",
-          img: require("../assets/images/02.png")
+          img: require("../../../../front/src/assets/images/02.png")
         },
         {
           key: "5",
@@ -219,7 +219,7 @@
           name2: "秘书1",
           name3: "秘书2",
           linktext: "link",
-          img: require("../assets/images/01.png")
+          img: require("../../../../front/src/assets/images/01.png")
         },
       ];
       // myModel.linkDataArray = [
@@ -239,6 +239,11 @@
       // );
       mySelf.myDiagram.model = myModel;
 
+    },
+    methods: {
+      toBig() {console.log('toBig')},
+      toSmall() {console.log('toSmall')},
+      toFilt() {console.log('toFilt')},
     }
   }
 </script>

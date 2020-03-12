@@ -1,9 +1,9 @@
 <template>
   <div>
+    <a-button @click="draw">Draw</a-button>
     <div class="fitness-wrapper" style="margin: 2em auto;">
       <div id="chartLineBox" style="height: 70vh;"></div>
       <div id="chartLineBox1" style="width: 90%;height: 70vh;"></div>
-      <a-button @click="draw">Draw</a-button>
     </div>
   </div>
 </template>
@@ -33,7 +33,6 @@
     },
     methods: {
       draw() {
-        console.log(this.list)
         let xdata = []
         let ydata = []
         for (let i = 0; i < this.list.length; i++) {

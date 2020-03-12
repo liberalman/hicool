@@ -40,18 +40,6 @@ export default new Router({
               name: '分析页',
               component: () => import('@/pages/dashboard/Analysis'),
               icon: 'none'
-            },
-            {
-              path: '/dashboard/convolution',
-              name: 'Convolution',
-              component: () => import('@/pages/other/Convolution'),
-              icon: 'none'
-            },
-            {
-              path: '/dashboard/fitness',
-              name: 'Fitness',
-              component: () => import('@/pages/other/Fitness'),
-              icon: 'none'
             }
           ]
         },
@@ -309,6 +297,54 @@ export default new Router({
               name: '颜色复选框',
               icon: 'none',
               component: () => import('@/pages/components/Palette')
+            },
+            {
+              path: '/components/convolution',
+              name: 'Convolution',
+              component: () => import('@/pages/other/Convolution'),
+              icon: 'none'
+            },
+            {
+              path: '/components/fitness',
+              name: 'Fitness',
+              component: () => import('@/pages/other/Fitness'),
+              icon: 'none'
+            },
+            {
+              path: '/components/json',
+              name: 'Json',
+              component: () => import('@/pages/other/Json'),
+              icon: 'none'
+            },
+            {
+              path: '/components/tools',
+              name: 'Tools',
+              component: () => import('@/pages/other/Tools'),
+              icon: 'none'
+            },
+            {
+              path: '/components/ocr',
+              name: 'Ocr',
+              component: () => import('@/pages/other/Ocr'),
+              icon: 'none'
+            },
+            {
+              path: '/components/code_diff',
+              name: 'CodeDiff',
+              component: () => import('@/pages/other/CodeDiff'),
+              icon: 'none'
+            },
+            {
+              path: '/components/gojs',
+              name: 'Gojs',
+              component: () => import('@/pages/other/Gojs'),
+              icon: 'none'
+            },
+            {
+              path: '/components/ascii',
+              name: 'Ascii',
+              component: () => import('@/pages/other/Ascii'),
+              icon: 'none'
             }
           ]
         }

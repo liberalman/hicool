@@ -39,9 +39,6 @@
               <router-link class="item" :to="{path:'/albums'}">相册</router-link>
             </el-dropdown-item>
             <el-dropdown-item>
-              <router-link class="item" :to="{path:'/map'}">map</router-link>
-            </el-dropdown-item>
-            <el-dropdown-item>
               <router-link class="item" :to="{path:'/user/me'}">个人详情</router-link>
             </el-dropdown-item>
             <el-dropdown-item>
@@ -53,19 +50,12 @@
             <el-dropdown-item>
               <router-link class="item" :to="{path:'/like'}">我的收藏</router-link>
             </el-dropdown-item>
-            <el-dropdown-item disabled>tools</el-dropdown-item>
-            <el-dropdown-item>
-              <router-link class="item" :to="{path: '/tools1'}">Tools1</router-link>
-            </el-dropdown-item>
             <el-dropdown-item>
               <router-link class="item" :to="{path: '/ascii'}">Ascii</router-link>
             </el-dropdown-item>
             <el-dropdown-item disabled>设置</el-dropdown-item>
             <el-dropdown-item>
               <router-link class="item" :to="{name: 'Ocr'}">OCR</router-link>
-            </el-dropdown-item>
-            <el-dropdown-item>
-              <router-link class="item" :to="{name: 'Tools'}">Tools</router-link>
             </el-dropdown-item>
             <el-dropdown-item>
               <router-link class="item" :to="{name: 'Timelines'}">时间轴</router-link>
