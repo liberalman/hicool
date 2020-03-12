@@ -113,10 +113,6 @@ export default new VueRouter({
         name: 'register',
         component: () => import('@/views/Register')
     }, {
-        path: '/gojs',
-        name: 'gojs',
-        component: () => import('@/views/Gojs')
-    }, {
       path: '/home',
       name: 'home',
       component: () => import('@/views/pages/Index')
@@ -128,26 +124,6 @@ export default new VueRouter({
       path: '/checklist',
       name: 'Checklist',
       component: () => import('@/views/Checklist')
-    }, {
-        path: '/ocr',
-        name: 'Ocr',
-        component: () => import('@/views/Ocr')
-    }, {
-        path: '/tools',
-        name: 'Tools',
-        component: () => import('@/views/Tools')
-    }, {
-        path: '/tools1',
-        name: 'Tools1',
-        component: () => import('@/views/Tools1')
-    }, {
-        path: '/ascii',
-        name: 'Ascii',
-        component: () => import('@/views/Ascii')
-    }, {
-        path: '/codediff',
-        name: 'CodeDiff',
-        component: () => import('@/views/CodeDiff')
     }],
 
     scrollBehavior(to, from, savedPosition) {

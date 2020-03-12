@@ -39,7 +39,7 @@
 
   export default {
     components: {
-      'Captcha': () => import('vue-social-captcha'),
+      //'Captcha': () => import('vue-social-captcha'),
     },
     data() {
       var checkeUsername = (rule, value, callback) => {
