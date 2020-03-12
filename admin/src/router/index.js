@@ -19,7 +19,6 @@ import SearchLayout from '@/pages/list/search/SearchLayout'
 import ArticleList from '@/pages/list/search/ArticleList'
 import ApplicationList from '@/pages/list/search/ApplicationList'
 import ProjectList from '@/pages/list/search/ProjectList'
-import WorkPlace from '@/pages/dashboard/WorkPlace'
 import Login from '@/pages/login/Login'
 import BasicDetail from '@/pages/detail/BasicDetail'
 import AdvancedDetail from '@/pages/detail/AdvancedDetail'
@@ -53,13 +52,19 @@ export default new Router({
             {
               path: '/dashboard/workplace',
               name: '工作台',
-              component: WorkPlace,
+              component: () => import('@/pages/dashboard/WorkPlace'),
               icon: 'none'
             },
             {
               path: '/dashboard/analysis',
               name: '分析页',
               component: Dashboard,
+              icon: 'none'
+            },
+            {
+              path: '/dashboard/convolution',
+              name: 'Convolution',
+              component: () => import('@/pages/other/Convolution'),
               icon: 'none'
             }
           ]

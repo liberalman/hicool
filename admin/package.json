@@ -57,6 +57,7 @@
     "eslint-plugin-standard": "^4.0.1",
     "eslint-plugin-vue": "^5.2.3",
     "file-loader": "^4.2.0",
+    "file-saver": "^2.0.2",
     "file-stream-rotator": "^0.4.1",
     "friendly-errors-webpack-plugin": "^1.6.1",
     "html-webpack-plugin": "^3.2.0",
