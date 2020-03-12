@@ -11,6 +11,8 @@ import albums from './modules/albums'
 import album from './modules/album'
 import user from './modules/user'
 import users from './modules/users'
+import fitnesses from './modules/fitnesses'
+import fitness from './modules/fitness'
 
 Vue.use(Vuex)
 
@@ -27,5 +29,7 @@ export default new Vuex.Store({
     album,
     tips,
     tip,
+    fitnesses,
+    fitness
   }
 })

@@ -1,5 +1,5 @@
 import * as types from '../mutation-types'
-import api from '../actions'
+import api from '../../utils/api'
 
 export default {
   namespaced: true,

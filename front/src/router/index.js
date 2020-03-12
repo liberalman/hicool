@@ -113,10 +113,6 @@ export default new VueRouter({
         name: 'register',
         component: () => import('@/views/Register')
     }, {
-        path: '/map',
-        name: 'map',
-        component: () => import('@/views/Map')
-    },  {
         path: '/gojs',
         name: 'gojs',
         component: () => import('@/views/Gojs')
@@ -132,14 +128,6 @@ export default new VueRouter({
       path: '/checklist',
       name: 'Checklist',
       component: () => import('@/views/Checklist')
-    }, {
-      path: '/convolution',
-      name: 'Convolution',
-      component: () => import('@/views/Convolution')
-    }, {
-      path: '/fitness',
-      name: 'Fitness',
-      component: () => import('@/views/Fitness')
     }, {
         path: '/ocr',
         name: 'Ocr',

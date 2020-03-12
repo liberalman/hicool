@@ -62,9 +62,6 @@
             </el-dropdown-item>
             <el-dropdown-item disabled>设置</el-dropdown-item>
             <el-dropdown-item>
-              <router-link class="item" :to="{name: 'Convolution'}">Convolution</router-link>
-            </el-dropdown-item>
-            <el-dropdown-item>
               <router-link class="item" :to="{name: 'Ocr'}">OCR</router-link>
             </el-dropdown-item>
             <el-dropdown-item>
@@ -75,9 +72,6 @@
             </el-dropdown-item>
             <el-dropdown-item>
               <router-link class="item" :to="{name: 'CodeDiff'}">CodeDiff</router-link>
-            </el-dropdown-item>
-            <el-dropdown-item>
-              <router-link class="item" :to="{name: 'Fitness'}">Fitness</router-link>
             </el-dropdown-item>
             <el-dropdown-item>
               <router-link class="item" :to="{name: 'about'}">关于</router-link>

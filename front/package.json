@@ -86,7 +86,6 @@
     "url-loader": "^2.1.0",
     "useless-files-webpack-plugin": "^1.0.1",
     "vue-avatar": "^2.1.6",
-    "vue-baidu-map": "^0.21.20",
     "vue-cropper": "^0.4.9",
     "vue-instant": "^1.0.2",
     "vue-json-editor": "^1.4.0",

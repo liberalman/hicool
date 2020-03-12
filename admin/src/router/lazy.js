@@ -46,6 +46,12 @@ export default new Router({
               name: 'Convolution',
               component: () => import('@/pages/other/Convolution'),
               icon: 'none'
+            },
+            {
+              path: '/dashboard/fitness',
+              name: 'Fitness',
+              component: () => import('@/pages/other/Fitness'),
+              icon: 'none'
             }
           ]
         },
