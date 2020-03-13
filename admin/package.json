@@ -44,6 +44,7 @@
     "chromedriver": "^80.0.1",
     "clipboard": "^2.0.1",
     "codemirror": "^5.52.0",
+    "compression-webpack-plugin": "^3.1.0",
     "copy-webpack-plugin": "^5.0.4",
     "cross-spawn": "^7.0.1",
     "crypto-js": "^4.0.0",
