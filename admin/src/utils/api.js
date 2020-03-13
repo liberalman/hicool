@@ -1,12 +1,11 @@
 import axios from 'axios'
 import CryptoJS from 'crypto-js'
 
-//let baseUrl = 'http://localhost:8700/api/v1/admin' // 注意，这里用了admin自己的地址，而不是api的地址，因为在config/index.js中有代理转发到api地址的。
-let baseUrl = 'https://www.hicool.top/api/v1/admin'
-const SECRET = ''
-const TOKEN = ''
-const APP_ID = ''
-const APP_SECRET = ''
+const baseUrl = process.env.baseUrl
+const SECRET = process.env.SECRET
+const TOKEN = process.env.TOKEN
+const APP_ID = process.env.APP_ID
+const APP_SECRET = process.env.APP_SECRET
 
 // 增
 function POST (url, params) {
