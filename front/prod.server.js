@@ -1,4 +1,5 @@
-let express = require('express');
+使用了nginx之后，把生成的静态js文件直接放nginx目录下就可以了，所以这个web服务就用不到了
+/*let express = require('express');
 let config = require('./config/index');
 var morgan = require('morgan');
 var fs = require('fs');
@@ -29,4 +30,4 @@ module.exports = app.listen(port, (err) => {
     return;
   }
   console.log('Listening at: http://localhost:' + port + '\n');
-});
+});*/

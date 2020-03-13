@@ -30,12 +30,6 @@ apache-php:
     - /data/www:/var/www/html
   ports:
     - ${apache_port}:80
-front:
-  image: hicool
-  volumes:
-    - ${ROOT_DIR}/front:/data/hicool
-  ports:
-    - "${hicool_port}:5000"
 #search:
 #  image: liberalman/search
 #  volumes:
