@@ -10,3 +10,4 @@ log/
 .yarnclean
 unused-files.json
 .idea/
+.tern-project

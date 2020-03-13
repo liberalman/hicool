@@ -5,10 +5,15 @@ scripts/backup_mongodb.sh
 scripts/mysql2mongo/yarn.lock
 scripts/mysql2mongo/node_modules/
 scripts/fill_secret.sh
+scripts/mysql2mongo/reindex_search.js
+
 search/go.sum
 search/search
 search/store/
+
 admin/yarn.lock
 admin/log
+
 backend/stderr.log
 backend/stdout.log
+backend/config/config.prod.js
