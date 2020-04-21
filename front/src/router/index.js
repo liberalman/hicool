@@ -124,6 +124,10 @@ export default new VueRouter({
       path: '/checklist',
       name: 'Checklist',
       component: () => import('@/views/Checklist')
+    }, {
+      path: '/mind/:id',
+      name: 'mind',
+      component: () => import('@/views/Mind')
     }],
 
     scrollBehavior(to, from, savedPosition) {

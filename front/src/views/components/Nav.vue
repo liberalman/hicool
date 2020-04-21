@@ -50,6 +50,9 @@
             <el-dropdown-item>
               <router-link class="item" :to="{path:'/like'}">我的收藏</router-link>
             </el-dropdown-item>
+            <el-dropdown-item>
+              <router-link class="item" :to="{path:'/mind/5e9ec647d74e37c7419656b1'}">mind</router-link>
+            </el-dropdown-item>
             <el-dropdown-item disabled>设置</el-dropdown-item>
             <el-dropdown-item>
               <router-link class="item" :to="{name: 'Timelines'}">时间轴</router-link>
