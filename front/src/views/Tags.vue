@@ -45,6 +45,9 @@
       }
     },
     created() {
+      this.page = (undefined === this.$route.params.page) ? 1 : this.$route.params.page
+      this.size = (undefined === this.$route.params.size) ? 10 : this.$route.params.size
+      this.tagId = (undefined === this.$route.params.tag_id) ? '' : this.$route.params.tag_id
       this.$store.dispatch('tags/getTags')
     },
     computed: Vuex.mapState({
@@ -54,7 +57,19 @@
     watch: {
       'tags': function(val) {
         if(val) {
+          // 设置默认选中的标签
+
+          // 默认选择0号位置的标签
           this.headerName = val[0].name
+          this.selected = val[0]._id
+          // 查找是否已经传入了所选择的tagId
+          for(let i = 0 ; i < val.length; i++){
+            if (this.tagId === val[i]._id) {
+              this.headerName = val[i].name
+              this.selected = val[i]._id
+              this.fetchData()
+            }
+          };
         }
       }
     },
@@ -75,12 +90,15 @@
         this.page = val
         this.onSubmit()
       },
-      onSubmit() {
+      fetchData() {
         this.$store.dispatch('articles/getArticles', {
           tagId: this.tagId,
           page: this.page,
           size: this.size
         })
+      },
+      onSubmit() {
+        this.fetchData()
       },
     }
   }

@@ -67,6 +67,10 @@
       },
       total: state => state.articles.total
     }),
+   created() {
+      this.page = this.$route.params.page
+      this.size = this.$route.params.size
+    },
     mounted() {
       this.fetchData()
     },

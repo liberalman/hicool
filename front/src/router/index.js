@@ -8,7 +8,7 @@ export default new VueRouter({
         name: 'Index',
         component: () => import('@/views/Index')
     }, {
-        path: '/index',
+        path: '/index/:page/:size',
         name: 'Index1',
         component: () => import('@/views/Index1')
     }, {
@@ -37,6 +37,10 @@ export default new VueRouter({
         component: () => import('@/views/User')
     },  {
         path: '/tags',
+        name: 'tags',
+        component: () => import('@/views/Tags')
+    }, {
+        path: '/tags/:tag_id/:page/:size',
         name: 'tags',
         component: () => import('@/views/Tags')
     }, {
