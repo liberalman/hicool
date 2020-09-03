@@ -1,10 +1,6 @@
 <template lang="html">
   <div>
-    <div style="height:200em;">
-      <mindmap
-        v-model="article.mind"
-      ></mindmap>
-    </div>
+    <js-mind :values="article.mind" :options="options" ref="jsMind" height="200em"></js-mind>
     <span>
       <el-button type="primary" @click="submitForm">Save</el-button>
     </span>
@@ -13,17 +9,20 @@
 
 <script>
   import router from '../router'
-  // https://github.com/hellowuxin/mindmap
-  import mindmap from '@hellowuxin/mindmap'
+  // https://github.com/hizzgdev/jsmind
+  import jm from 'vue-jsmind'
 
   export default {
     components: {
-      mindmap,
+      'js-mind': jm,
     },
     data() {
       return {
-        /*content:
-[{"name":"Apollo","children":[{"name":"Basic","children":[{"name":"Toolbox","children":[{"name":"Bazel"},{"name":"Protobuf"},{"name":"Docker"},{"name":"ROS(before Apollo3.1)/Cyber RT"},{"name":"OpenCV"}]},{"name":"Language","children":[{"name":"C++"},{"name":"Bash"},{"name":"Python"},{"name":"JavaScript","children":[{"name":"Node.js"},{"name":"React"}]}]},{"name":"Machine Learnning Frameworks","children":[{"name":"Caffe"},{"name":"Keras"},{"name":"TensorFlow"}]}]},{"name":"V2X","children":[{"name":"RSU/OBU Device"},{"name":"V2X Data interaction protocol"},{"name":"V2X Data Fusion"}]},{"name":"Hardware","children":[{"name":"Computing Unit"},{"name":"Sensor","children":[{"name":"Camera(single eyes/multi eyes)"},{"name":"LiDAR"},{"name":"Radar"},{"name":"GPS/IMU"},{"name":"Other Sensors"}]},{"name":"CAN Card"},{"name":"HMI Device"},{"name":"Black Box"},{"name":"ASU"},{"name":"AXU"}]},{"name":"Cyber RT","children":[{"name":"High Performance Parallel Computing","children":[{"name":"Coroutine"},{"name":"Scheduling"}]},{"name":"Adaptive Communication System","children":[{"name":"Service Discovery"},{"name":"Data Abstraction"}]},{"name":"Atomic Programing"},{"name":"Runtime System"}]},{"name":"Open Modules(Apollo)","children":[{"name":"RSU/OBU Device"},{"name":"V2X Data interaction protocol"},{"name":"V2X Data Fusion"}]},{"name":"Vehicle(Apollo)","children":[{"name":"Drive-by-wire Vehicle"},{"name":"Vehicle electronic control system","children":[{"name":"RSU/OBU Device"},{"name":"V2X Data interaction protocol"},{"name":"V2X Data Fusion"}]},{"name":"Vehicle voice interaction system"},{"name":"AUTOSAR"}]}]}] */
+        options: {
+            container:'jsmind_container', // [必选] 容器的ID
+            editable:true,                // [可选] 是否启用编辑
+            theme:'orange'                // [可选] 主题
+        }
       }
     },
     computed: Vuex.mapState({
