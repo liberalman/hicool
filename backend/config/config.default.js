@@ -70,7 +70,7 @@ module.exports = appInfo => {
   config.keys = appInfo.name + 'xxxxxxxxxxxxxxxxxxx'; // 此处改为你自己的 Cookie 安全字符串
 
   // add your middleware config here
-  config.middleware = ['robot', 'gzip', 'errorHandler', 'graphql'];
+  config.middleware = ['robot', 'decryptBody', 'gzip', 'errorHandler', 'graphql'];
   // config.middleware = ['robot', 'gzip', 'errorHandler'];
   config.robot = {
     ua: [

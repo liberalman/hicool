@@ -6,6 +6,9 @@ const querystring = require('querystring')
 const axios = require('axios')
 const util = require('util')
 
+const AES = require('../extend/aes')
+const KEY = 'YZh8yKD8Rv0CI1Dm'
+
 class ArticleService extends Service {
   // 默认不需要提供构造函数。
   // constructor(ctx) {
@@ -19,7 +22,7 @@ class ArticleService extends Service {
 
   async create(uid) {
     let { ctx } = this
-    const content = ctx.request.body.content
+    let content = ctx.request.body.content
     const title = ctx.request.body.title
     let message
     if(!title) {
@@ -34,8 +37,9 @@ class ArticleService extends Service {
       }
       return
     }
+    ctx.request.body.content = AES.decrypt(content, KEY)
     //将图片提取存入images,缩略图调用
-    ctx.request.body.images = tools.extractImage(content)
+    ctx.request.body.images = tools.extractImage(ctx.request.body.content)
     ctx.request.body["author_id"] = uid
     try {
       const article = await ctx.model.Article.create(ctx.request.body)
@@ -50,7 +54,7 @@ class ArticleService extends Service {
         cmd: 'add',
         '_id': util.format('%s', id),
         'title': title,
-        'content': content,
+        'content': ctx.request.body.content,
         'description': description
       })
       axios.post(this.config.xunsearch.host, params)
@@ -117,7 +121,7 @@ class ArticleService extends Service {
       if(data._id) {
         delete data._id
       }
-      const content = data.content
+      let content = data.content // 先要解密
       const title = data.title
       let message
       if(title && '' == title) {
@@ -131,8 +135,9 @@ class ArticleService extends Service {
           message: message
         }
       }
+      data.content = AES.decrypt(content, KEY)
       //将图片提取存入images,缩略图调用
-      data.images = tools.extractImage(content)
+      data.images = tools.extractImage(data.content)
       data.updated = new Date()
       if(data.isRePub) {
         data.publish_time = new Date()

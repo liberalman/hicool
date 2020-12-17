@@ -3,6 +3,7 @@ import * as types from './mutation-types'
 import axios from 'axios'
 import CryptoJS from 'crypto-js'
 import utils from '../utils/utils'
+import AES from '../utils/aes'
 
 //axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded'
 axios.defaults.headers.post['Content-Type'] = 'application/json'
@@ -50,6 +51,15 @@ function revoke (method, API_ROOT, url, params) {
 
 function doit (method, API_ROOT, url, headers, params) {
   return new Promise((resolve, reject) => {
+    console.log(params)
+    if (params && params.content) {
+      //var keys = AES.generatekey(16);
+      //如果是对象/数组的话，需要先JSON.stringify转换成字符串
+      //var encrypts = AES.encrypt(JSON.stringify(cars), keys);
+      var key = 'YZh8yKD8Rv0CI1Dm'
+      params.content = AES.encrypt(params.content, key)
+    }
+    console.log(params)
     url = sign(method, API_ROOT + url, params)
     let ret = {}
     if (method === 'POST') {
