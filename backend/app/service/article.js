@@ -25,19 +25,27 @@ class ArticleService extends Service {
     let content = ctx.request.body.content
     const title = ctx.request.body.title
     let message
-    if(!title) {
+    if(title) {
+      ctx.request.body.title = AES.decrypt(title, KEY) // 解密
+    }
+    if(content) {
+      ctx.request.body.content = AES.decrypt(content, KEY)
+    }
+    if('' == ctx.request.body.title) {
       message = '标题不能为空.'
-    } else if(!content) {
+    } else if('' == ctx.request.body.content) {
       message = '内容不能为空.'
     }
     if(message) {
-      ctx.status = 422
-      ctx.body = {
+      ctx.status = 422 // 422 Unprocessable Entity 请求格式正确，但是由于含有语义错误，无法响应。（RFC 4918 WebDAV）
+      return ctx.body = {
         message: message
       }
-      return
     }
-    ctx.request.body.content = AES.decrypt(content, KEY)
+
+    // 解密
+    ctx.request.body.description = AES.decrypt(ctx.request.body.description, KEY)
+
     //将图片提取存入images,缩略图调用
     ctx.request.body.images = tools.extractImage(ctx.request.body.content)
     ctx.request.body["author_id"] = uid
@@ -121,12 +129,18 @@ class ArticleService extends Service {
       if(data._id) {
         delete data._id
       }
-      let content = data.content // 先要解密
+      const content = data.content // 先要解密
       const title = data.title
       let message
-      if(title && '' == title) {
+      if(title) {
+        data.title = AES.decrypt(title, KEY) // 解密
+      }
+      if(content) {
+        data.content = AES.decrypt(content, KEY)
+      }
+      if('' == data.title) {
         message = '标题不能为空.'
-      } else if(content && '' == content) {
+      } else if('' == data.content) {
         message = '内容不能为空.'
       }
       if(message) {
@@ -135,7 +149,10 @@ class ArticleService extends Service {
           message: message
         }
       }
-      data.content = AES.decrypt(content, KEY)
+
+      // 解密
+      data.description = AES.decrypt(data.description, KEY)
+
       //将图片提取存入images,缩略图调用
       data.images = tools.extractImage(data.content)
       data.updated = new Date()

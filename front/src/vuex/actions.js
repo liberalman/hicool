@@ -5,6 +5,10 @@ import CryptoJS from 'crypto-js'
 import utils from '../utils/utils'
 import AES from '../utils/aes'
 
+var appId = '100078'
+var appSecret = '2d25961ddbe5433379d96deee3a5a619' // 请求签名验证使用的秘钥
+var key = 'YZh8yKD8Rv0CI1Dm' // 加密body体内的json字符串内容使用的秘钥
+
 //axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded'
 axios.defaults.headers.post['Content-Type'] = 'application/json'
 
@@ -51,15 +55,20 @@ function revoke (method, API_ROOT, url, params) {
 
 function doit (method, API_ROOT, url, headers, params) {
   return new Promise((resolve, reject) => {
-    console.log(params)
-    if (params && params.content) {
-      //var keys = AES.generatekey(16);
-      //如果是对象/数组的话，需要先JSON.stringify转换成字符串
-      //var encrypts = AES.encrypt(JSON.stringify(cars), keys);
-      var key = 'YZh8yKD8Rv0CI1Dm'
-      params.content = AES.encrypt(params.content, key)
+    if (params) {
+      if (params.title) {
+        //var keys = AES.generatekey(16);
+        //如果是对象/数组的话，需要先JSON.stringify转换成字符串
+        //var encrypts = AES.encrypt(JSON.stringify(cars), key);
+        params.title = AES.encrypt(params.title, key)
+      }
+      if (params.content) {
+        params.content = AES.encrypt(params.content, key)
+      }
+      if (params.description) {
+        params.description = AES.encrypt(params.description, key)
+      }
     }
-    console.log(params)
     url = sign(method, API_ROOT + url, params)
     let ret = {}
     if (method === 'POST') {
@@ -223,9 +232,7 @@ export default {
 
 // body 是必须json格式的字符串
 function sign (method, url, body) {
-  var appId = '100078'
   var nowTime = Date.parse(new Date()) / 1000
-  var appSecret = '2d25961ddbe5433379d96deee3a5a619'
 
   if (url.indexOf('?') >= 0) {
     url = url + '&'
