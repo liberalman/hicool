@@ -57,13 +57,12 @@ class ArticleService extends Service {
       }
       // 添加XunSearch索引
       let id = article._id
-      const description = ctx.request.body.description
       var params = querystring.stringify({
         cmd: 'add',
         '_id': util.format('%s', id),
-        'title': title,
+        'title': ctx.request.body.title,
         'content': ctx.request.body.content,
-        'description': description
+        'description': ctx.request.body.description
       })
       axios.post(this.config.xunsearch.host, params)
     } catch(err) {
@@ -172,9 +171,9 @@ class ArticleService extends Service {
         var params = querystring.stringify({
           cmd: 'update',
           '_id': id,
-          'title': article.title,
-          'content': article.content,
-          'description': article.description
+          'title': data.title,
+          'content': data.content,
+          'description': data.description
         })
         axios.post(this.config.xunsearch.host, params)
         /*.then(function (response) {
