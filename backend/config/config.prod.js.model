@@ -41,7 +41,7 @@ module.exports = appInfo => {
       domain: process.env.QINIU_APP_DOMAIN || '${qiniu_domain}', //七牛配置域名
       bucket: process.env.QINIU_APP_BUCKET || '${qiniu_bucket}' //七牛空间名称
     },
-    xunearch: {
+    xunsearch: {
       host: '${xun_search_host}/api.php'
     }
   };
