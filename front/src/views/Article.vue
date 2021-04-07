@@ -4,6 +4,7 @@
       <vNav></vNav>
       <div class="text-wrap">
         <h3 class="shadow">{{article.title}}</h3>
+        </br>
         <p class="shadow-light">{{article.description}}</p>
       </div>
     </header>
