@@ -12,6 +12,9 @@ const TerserPlugin = require('terser-webpack-plugin')
 const CompressionPlugin = require("compression-webpack-plugin")
 const UselessFile = require('useless-files-webpack-plugin')
 const WebpackCdnPlugin = require('webpack-cdn-plugin')
+const PrerenderSPAPlugin = require('prerender-spa-plugin')
+
+const Renderer = PrerenderSPAPlugin.PuppeteerRenderer
 
 var env = process.env.NODE_ENV === 'testing' ?
   require('../config/test.env') :
@@ -47,6 +50,21 @@ var webpackConfig = merge(baseWebpackConfig, {
     'element-ui': 'ELEMENT',
   },
   plugins: [
+    new PrerenderSPAPlugin({
+        // 生成文件的路径，也可以与webpakc打包的一致。
+        // 下面这句话非常重要！！！
+        // 这个目录只能有一级，如果目录层次大于一级，在生成的时候不会有任何错误提示，在预渲染的时候只会卡着不动。
+        staticDir: path.join(__dirname, '../dist'),
+        // 对应自己的路由文件，比如a有参数，就需要写成 /a/param1。
+        routes: ['/', '/about', '/article'],
+        // 这个很重要，如果没有配置这段，也不会进行预编译
+        renderer: new Renderer({
+            inject: {
+                foo: 'bar'
+            },
+            headless: true, // Linux是没有图形界面的所有没有办法运行，所以此处不能设置为true，否则会报chrome无法启动
+        })
+    }),
     // http://vuejs.github.io/vue-loader/en/workflow/production.html
     new webpack.DefinePlugin({
       'process.env': env

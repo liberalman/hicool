@@ -56,7 +56,23 @@
       'markdown-it-vue': () =>
         import('./components/Markdown'),
     },
-    data(){
+    metaInfo() {
+      return {
+          //改变当前路由的title
+          title: this.article.title,
+          meta: [
+            {
+              name: 'keywords',
+              content: this.serializeTags()
+            },
+            {
+              name: 'description',
+              content: this.article.description
+            }
+          ],
+      }
+    },
+    data() {
       return {
         isMounted: false,
         options: {
@@ -81,7 +97,7 @@
             anchorClassName: 'anchor',
             anchorLinkSymbolClassName: 'octicon octicon-link'
           }
-        }
+        },
       }
     },
     computed: Vuex.mapState({
@@ -133,6 +149,13 @@
           router.push({ params: { id: this.$route.params.id}, name: 'editarticle1'})
         }
       },
+      serializeTags() {
+        let str = ''
+        for (let i = 0; i < this.article.tags.length; i++) {
+          str += this.article.tags[i].name + ','
+        }
+        return str
+      },
       likeArticle() {
         let _this = this
         this.$store.dispatch(`article/toggleLikeArticle`, this.$route.params.id)
@@ -154,8 +177,8 @@
     watch: {
       '$route'(to, from) {
         this.fetchData()
-    }
-}
+      },
+    },
   }
 </script>
 
