@@ -22,6 +22,7 @@ var env = process.env.NODE_ENV === 'testing' ?
 
 var webpackConfig = merge(baseWebpackConfig, {
   mode: 'production',
+  stats: { children: false },
   module: {
     rules: utils.styleLoaders({
       sourceMap: config.build.productionSourceMap,
