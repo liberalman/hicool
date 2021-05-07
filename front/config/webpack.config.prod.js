@@ -1,20 +1,20 @@
-var path = require('path')
-var utils = require('./utils')
-var webpack = require('webpack')
-var config = require('../config')
-var merge = require('webpack-merge')
-var baseWebpackConfig = require('./webpack.base.conf')
-var CopyWebpackPlugin = require('copy-webpack-plugin')
-var HtmlWebpackPlugin = require('html-webpack-plugin')
-var MiniCssExtractPlugin = require('mini-css-extract-plugin')
-var OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
+const path = require('path')
+const webpack = require('webpack')
+const { merge } = require('webpack-merge')
+const CopyWebpackPlugin = require('copy-webpack-plugin')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 const TerserPlugin = require('terser-webpack-plugin')
 const CompressionPlugin = require("compression-webpack-plugin")
 const UselessFile = require('useless-files-webpack-plugin')
 const WebpackCdnPlugin = require('webpack-cdn-plugin')
 const PrerenderSPAPlugin = require('prerender-spa-plugin')
-
 const Renderer = PrerenderSPAPlugin.PuppeteerRenderer
+var baseWebpackConfig = require('./webpack.base.conf')
+var utils = require('./utils')
+var config = require('../config')
+
 
 var env = process.env.NODE_ENV === 'testing' ?
   require('../config/test.env') :
