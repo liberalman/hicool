@@ -59,7 +59,7 @@
     metaInfo() {
       return {
           //改变当前路由的title
-          title: this.article.title,
+          title: this.article.title + ' -【Hicool】',
           meta: [
             {
               name: 'keywords',

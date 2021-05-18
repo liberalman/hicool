@@ -83,7 +83,7 @@
   import router from '../../router'
   import { mavonEditor } from 'mavon-editor'
   import 'mavon-editor/dist/css/index.css'
-  import echarts from 'echarts'
+  import * as echarts from 'echarts'
   import MarkdownItEcharts from './markdown-it-plugin-echarts'
   import flowchart from 'flowchart.js'
   import MarkdownItFlowchart from './markdown-it-plugin-flowchart'

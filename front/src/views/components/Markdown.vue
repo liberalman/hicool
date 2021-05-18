@@ -31,7 +31,7 @@ import 'markdown-it-latex/dist/index.css'
 
 import MarkdownItHighlight from './markdown-it-highlight.js'
 
-import echarts from 'echarts'
+import * as echarts from 'echarts'
 import mermaid from 'mermaid'
 import flowchart from 'flowchart.js'
 
